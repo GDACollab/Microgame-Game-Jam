@@ -45,11 +45,17 @@ public class AddScenesToBuild
     private static void ImportUnityPackage() {
         // Borrowed from https://docs.unity3d.com/ScriptReference/EditorUtility.OpenFolderPanel.html
         var path = EditorUtility.OpenFolderPanel("Select Folder With .unitypackage Files", "", "");
-        var files = Directory.GetFiles(path);
 
-        foreach (string file in files) {
-            if (file.EndsWith(".unitypackage")) {
-                AssetDatabase.ImportPackage(file, false);
+        if (path.Length > 0)
+        {
+            var files = Directory.GetFiles(path);
+
+            foreach (string file in files)
+            {
+                if (file.EndsWith(".unitypackage"))
+                {
+                    AssetDatabase.ImportPackage(file, false);
+                }
             }
         }
     }
