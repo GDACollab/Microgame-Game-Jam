@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 public class AddScenesToBuild
 {
     // Hotkey is CTRL+ALT+R
-    [MenuItem("Tools/Add microgames to build %&r")]
+    [MenuItem("GDA Magic/Add microgames to build %&r")]
     private static void AddMicrogamesToBuild() {
         List<EditorBuildSettingsScene> newSceneList = new List<EditorBuildSettingsScene>();
 
@@ -37,5 +38,19 @@ public class AddScenesToBuild
 
         EditorBuildSettings.scenes = newSceneList.ToArray();
         Debug.Log("Scenes added.");
+    }
+
+    //Hotkey is CTRL+ALT+I
+    [MenuItem("GDA Magic/Import microgame.unitypackage files %&i")]
+    private static void ImportUnityPackage() {
+        // Borrowed from https://docs.unity3d.com/ScriptReference/EditorUtility.OpenFolderPanel.html
+        var path = EditorUtility.OpenFolderPanel("Select Folder With .unitypackage Files", "", "");
+        var files = Directory.GetFiles(path);
+
+        foreach (string file in files) {
+            if (file.EndsWith(".unitypackage")) {
+                AssetDatabase.ImportPackage(file, false);
+            }
+        }
     }
 }
