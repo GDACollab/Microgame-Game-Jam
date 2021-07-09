@@ -10,8 +10,7 @@ public abstract class GameController : Singleton<GameController>
     protected int maxFails { get; private set; } = 3;
 
     //The previous game that was played to make sure it doesn't get picked again
-    //Might need to be an int but we'll get there when we get there
-    protected string previousGame { get; set; } = "";
+    protected int previousGame { get; set; } = 0;
 
     //The amount of microgames the player has failed
     public int gameFails { get; private set; } = 0;
@@ -25,16 +24,13 @@ public abstract class GameController : Singleton<GameController>
     //How many seconds have passed since the game began
     public float gameTime { get; private set; } = 0f;
 
+    //How many games have been completed since the game began
+    public int gameWins { get; private set; } = 0;
+
     //whether or not the game timer should be runnings
     private bool timerOn = false;
 
     ///Methods-------------------------------------------------------------------------------------
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -42,7 +38,7 @@ public abstract class GameController : Singleton<GameController>
     }
 
     //Called whenever a microgame is started
-    public void SceneInit()
+    protected void SceneInit()
     {
         //turn on the game timer
         timerOn = true;
@@ -69,6 +65,10 @@ public abstract class GameController : Singleton<GameController>
         if(!win)
         {
             ++gameFails;
+        }
+        else
+        {
+            ++gameWins;
         }
     }
 
