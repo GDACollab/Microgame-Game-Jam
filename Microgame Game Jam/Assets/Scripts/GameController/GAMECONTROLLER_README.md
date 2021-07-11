@@ -29,7 +29,11 @@ Inherits from GameController. Implements LevelTransition to print a debug messag
 
 ###GameControllerRelease
 
-Inherits from GameController. Implements LevelTransition to pick a number from minSceneIndex to SceneManager.sceneCount-1 (inclusive) and then start a transition coroutine; TransitionTiming.
+Inherits from GameController. Implements LevelTransition to pick a number from minSceneIndex to SceneManager.sceneCountInBuild-1 (inclusive) and then transitions to the scene at transitionSceneIndex and then to the selected scene. The transitionSceneIndex stop is for anything we want to put between microgames
+
+///The below is for the async version, which doesnt work yet
+
+start a transition coroutine; TransitionTiming.
 
 TransitionTiming first transitions to the Transition Scene at transitionSceneIndex (which is assumed to always be loaded). It then asynchronously unloads the previous microgame and loads the next one. Once the new microgame is loaded, its build index is saved as the previous microgame and it is immediately transitioned to. However, if too many games have been failed, the scene at gameoverSceneIndex will be loaded and transitioned to instead.
 
