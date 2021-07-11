@@ -42,13 +42,16 @@ public class GameControllerRelease : GameController
 
         //Step 1: Go to the transition
         SceneManager.LoadScene(transitionSceneIndex);
-        Debug.Log($"Current Stats: {this.gameFails}/{this.maxFails} fails, {this.gameWins} wins.");
+        Debug.Log($"Current Stats: {this.gameFails}/{this.maxFails} fails, {this.gameWins} wins. Time: {this.gameTime}");
 
         //Step 2: Wait a bit
         yield return new WaitForSeconds(0.5f);
 
         //Step 3: Go to destination
         SceneManager.LoadScene(destinationScene);
+
+        //Step 4: Initialize the game controller for the next scene.
+        this.SceneInit();
     }
 
     //The timing of the actual scene transition
