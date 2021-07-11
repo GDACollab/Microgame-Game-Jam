@@ -31,6 +31,12 @@ public abstract class GameController : Singleton<GameController>
     private bool timerOn = false;
 
     ///Methods-------------------------------------------------------------------------------------
+    // Start is called the frame before the scene begins
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     // Update is called once per frame
     void Update()
     {
