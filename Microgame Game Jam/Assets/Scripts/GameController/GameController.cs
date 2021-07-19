@@ -41,6 +41,10 @@ public abstract class GameController : Singleton<GameController>
     void Update()
     {
         if(timerOn) gameTime += Time.deltaTime;
+        if(gameTime >= 20.0f){
+            Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
+            LoseGame();
+        }
     }
 
     //Called whenever a microgame is started
@@ -48,6 +52,7 @@ public abstract class GameController : Singleton<GameController>
     {
         //turn on the game timer
         timerOn = true;
+        gameTime = 0.0f;
     }
 
     //Starts the Game Conclusion after the game is won
