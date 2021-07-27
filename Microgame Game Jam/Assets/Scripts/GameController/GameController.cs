@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameController : Singleton<GameControllerRelease>
+public abstract class GameController : Singleton<GameController>
 {
     ///Fields--------------------------------------------------------------------------------------
     //The amount of games that can be failed until the game is over

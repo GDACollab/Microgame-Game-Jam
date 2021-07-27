@@ -32,19 +32,20 @@ public class MainMenuNavigation : MonoBehaviour
         
     }
 
-    // NOTE: This will NOT work unless you change line 5 of GameController.cs to:
-    // public abstract class GameController : Singleton<GameControllerRelease>
-    // Which is a weird chain of dependencies, I know.
     public void StartGame() {
         var randomScene = Random.Range(minSceneIndex, SceneManager.sceneCountInBuildSettings - 1);
+
+        var gameControllerCreator = new GameObject();
+        gameControllerCreator.AddComponent<GameControllerRelease>();
+        var controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
         // We make sure to set the minSceneIndex so that GameController knows which scenes to look at for games.
-        GameController.Instance.minSceneIndex = minSceneIndex;
+        controllerComponent.minSceneIndex = minSceneIndex;
 
         // We also have to set the scene for game over:
-        GameController.Instance.gameoverSceneIndex = gameOverSceneIndex;
+        controllerComponent.minSceneIndex = gameOverSceneIndex;
 
         // And the scene for transitions:
-        GameController.Instance.transitionSceneIndex = transitionSceneIndex;
+        controllerComponent.minSceneIndex = transitionSceneIndex;
         // As soon as we load the next scene, GameController should reset.
         SceneManager.LoadScene(randomScene);
     }
