@@ -8,6 +8,7 @@ public class GameControllerDevelop : GameController
     //Called on first frame automatically
     void Start()
     {
+        DontDestroyOnLoad(this.gameObject);
         this.SceneInit();
     }
 

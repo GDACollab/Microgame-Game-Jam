@@ -383,6 +383,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1001 &305973611
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 281.57425
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 87.243935
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -116.83927
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2868859165198684001, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_Name
+      value: GameControllerDevelop
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
 --- !u!1 &1135577415
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +828,6 @@ GameObject:
   - component: {fileID: 2001099075}
   - component: {fileID: 2001099078}
   - component: {fileID: 2001099077}
-  - component: {fileID: 2001099076}
   m_Layer: 5
   m_Name: RandomSubtitle
   m_TagString: Untagged
@@ -798,26 +854,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -20.849}
   m_SizeDelta: {x: 1213.5059, y: 164.0349}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2001099076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001099074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b13aec2564b99b54eadc3100d8ff69d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  randomStuff:
-  - I'd recommend playing with a Rockband controller.
-  - I wouldn't worry about it.
-  - Slip $20 in the DVD slot and I'll let you play again.
-  - Have you tried turning it off and on?
-  - WAH
-  - Why hasn't anyone tried to make medieval weaponry in space?
-  - My dream is to live on the moon and eat all the cheese that's up there.
 --- !u!114 &2001099077
 MonoBehaviour:
   m_ObjectHideFlags: 0
