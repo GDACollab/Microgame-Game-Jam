@@ -42,10 +42,10 @@ public class MainMenuNavigation : MonoBehaviour
         controllerComponent.minSceneIndex = minSceneIndex;
 
         // We also have to set the scene for game over:
-        controllerComponent.minSceneIndex = gameOverSceneIndex;
+        controllerComponent.gameoverSceneIndex = gameOverSceneIndex;
 
         // And the scene for transitions:
-        controllerComponent.minSceneIndex = transitionSceneIndex;
+        controllerComponent.transitionSceneIndex = transitionSceneIndex;
         // As soon as we load the next scene, GameController should reset.
         SceneManager.LoadScene(randomScene);
     }
