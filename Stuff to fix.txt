@@ -1,0 +1,2 @@
+Asynchronous Loading would be a nice bonus
+Other singleton instances don't self-destruct when they see there's another version of them out there.
