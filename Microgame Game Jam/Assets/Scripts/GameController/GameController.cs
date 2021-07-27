@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameController : Singleton<GameController>
+public abstract class GameController : Singleton<GameControllerRelease>
 {
     ///Fields--------------------------------------------------------------------------------------
     //The amount of games that can be failed until the game is over
     //We might want to put this elsewhere but we can figure that out later
-    protected int maxFails { get; private set; } = 3;
+    public int maxFails { get; private set; } = 3;
 
     //The previous game that was played to make sure it doesn't get picked again
     protected int previousGame { get; set; } = 0;
@@ -27,7 +27,7 @@ public abstract class GameController : Singleton<GameController>
     //How many games have been completed since the game began
     public int gameWins { get; private set; } = 0;
 
-    //whether or not the game timer should be runnings
+    //whether or not the game timer should be running
     private bool timerOn = false;
 
     ///Methods-------------------------------------------------------------------------------------

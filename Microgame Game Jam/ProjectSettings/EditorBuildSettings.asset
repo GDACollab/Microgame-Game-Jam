@@ -6,24 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/MasterScenes/AlreadyLoaded.unity
+    path: Assets/MasterScenes/TitleScreen.unity
     guid: 516a45be5f4f73d4b81282bd15d8b8ad
   - enabled: 1
-    path: Assets/Scripts/GameController/GameControllerTesting/TestScenes/TestStart.unity
-    guid: ffef0db4470a4b145a934d06625a360c
+    path: Assets/MasterScenes/GameOver.unity
+    guid: 0a0f12d0be7ae7249add295927109dc3
   - enabled: 1
-    path: Assets/Scripts/GameController/GameControllerTesting/TestScenes/TestTransition.unity
-    guid: 4c19338a51f671949978cf65fb3b078d
+    path: Assets/MasterScenes/TransitionScene.unity
+    guid: 236bed68f1520b5459ffd555bcfef781
   - enabled: 1
-    path: Assets/Scripts/GameController/GameControllerTesting/TestScenes/TestEnd.unity
-    guid: 6d0b179f582994846831c001ef3e882a
-  - enabled: 1
-    path: Assets/Scripts/GameController/GameControllerTesting/TestScenes/Test_A.unity
-    guid: 4d1bba7bfa225214a99fbbd24bbc9f6d
-  - enabled: 1
-    path: Assets/Scripts/GameController/GameControllerTesting/TestScenes/Test_B.unity
-    guid: 571fa370d09b9384ca664ab7890400d4
-  - enabled: 1
-    path: Assets/Scripts/GameController/GameControllerTesting/TestScenes/Test_C.unity
-    guid: 6a83670cddc611d43a517993805378e3
+    path: Assets/MasterScenes/Credits.unity
+    guid: 4710b5f8c5caaaf4ebef6a8a0c16d114
   m_configObjects: {}

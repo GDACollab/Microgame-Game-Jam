@@ -12,7 +12,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     private static T m_Instance;
  
     /// <summary>
-    /// Access singleton instance through this propriety.
+    /// Access singleton instance through this property.
     /// </summary>
     public static T Instance
     {
