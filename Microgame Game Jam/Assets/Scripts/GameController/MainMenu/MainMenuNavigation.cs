@@ -33,7 +33,6 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void StartGame() {
-        var randomScene = Random.Range(minSceneIndex, SceneManager.sceneCountInBuildSettings - 1);
 
         var gameControllerCreator = new GameObject();
         gameControllerCreator.AddComponent<GameControllerRelease>();
@@ -47,7 +46,8 @@ public class MainMenuNavigation : MonoBehaviour
         // And the scene for transitions:
         controllerComponent.transitionSceneIndex = transitionSceneIndex;
         // As soon as we load the next scene, GameController should reset.
-        SceneManager.LoadScene(randomScene);
+
+        controllerComponent.WinGame();
     }
 
     public void LoadCredits()
