@@ -129,6 +129,9 @@ public class GameControllerRelease : GameController
         ActivateAllObjectsInScene(nextScene, true);
         SceneManager.SetActiveScene(nextScene);
 
+        // If we want a grace period for jammers to show instructions or something, we add a delay here:
+        yield return null;
+
         //Transition done!
         Debug.Log("Scene Activated.");
         this.SceneInit();
