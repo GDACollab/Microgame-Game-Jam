@@ -108,6 +108,10 @@ public class GameControllerRelease : GameController
         //this picks between game over and the next game depending on the comparison
         this.previousGame = destinationScene;
 
+        // Because we're about to start loading the next scene, we need to make sure everything in the level
+        // will be paused:
+        Time.timeScale = 0;
+
         var nextSceneLoad = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
 
         //Step 3: Delays
@@ -123,10 +127,6 @@ public class GameControllerRelease : GameController
 
         //If we want to manufacture any delays, the yields for them should go here
         yield return new WaitForSeconds(0.5f);
-        
-        // Because we're about to start loading the levels, we need to make sure everything in the level
-        // will be paused:
-        Time.timeScale = 0;
 
         //Step 4: Transition:
         ActivateAllObjectsInScene(transitionScene, false);
