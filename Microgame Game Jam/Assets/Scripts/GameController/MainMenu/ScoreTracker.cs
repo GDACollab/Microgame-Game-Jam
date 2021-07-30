@@ -10,7 +10,7 @@ public class ScoreTracker : MonoBehaviour
     void Start()
     {
         GetComponent<Text>().text = "You have\n"
-            + GameController.Instance.gameWins + " wins\n" + 
+            + (GameController.Instance.gameWins - 1) + " wins\n" + //Because we have to call .WinGame() to start transitions.
             (showLives? GameController.Instance.gameFails + " losses\n" : "") + 
             "and " + GameController.Instance.gamePoints + " points";
     }
