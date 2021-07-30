@@ -109,10 +109,12 @@ public class GameControllerRelease : GameController
         this.previousGame = destinationScene;
 
         // Because we're about to start loading the next scene, we need to make sure everything in the level
-        // will be paused:
+        // will be paused.
+        // NOTE: BECAUSE OF THIS, WHENEVER INTRODUCING DELAYS, YOU MUST USE WaitForSecondsRealtime.
         Time.timeScale = 0;
 
         var nextSceneLoad = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
+        var startTime = Time.time;
 
         //Step 3: Delays
         // First, we wait for the scene to load.
@@ -125,8 +127,14 @@ public class GameControllerRelease : GameController
         Scene nextScene = SceneManager.GetSceneByBuildIndex(destinationScene);
         ActivateAllObjectsInScene(nextScene, false);
 
-        //If we want to manufacture any delays, the yields for them should go here
-        yield return new WaitForSeconds(0.5f);
+        var totalTimeLoading = Time.time - startTime;
+        // If the loading time takes less time than we want the transition scene to show for,
+        // we compensate for that here.
+        if (totalTimeLoading <= 2.0f) {
+            //If we want to manufacture any delays, the yields for them should go here
+            yield return new WaitForSecondsRealtime(2.0f - totalTimeLoading);
+        }
+        Debug.Log("?");
 
         //Step 4: Transition:
         ActivateAllObjectsInScene(transitionScene, false);
