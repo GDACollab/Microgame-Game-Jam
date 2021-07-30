@@ -123,6 +123,10 @@ public class GameControllerRelease : GameController
 
         //If we want to manufacture any delays, the yields for them should go here
         yield return new WaitForSeconds(0.5f);
+        
+        // Because we're about to start loading the levels, we need to make sure everything in the level
+        // will be paused:
+        Time.timeScale = 0;
 
         //Step 4: Transition:
         ActivateAllObjectsInScene(transitionScene, false);
@@ -131,6 +135,9 @@ public class GameControllerRelease : GameController
 
         // If we want a grace period for jammers to show instructions or something, we add a delay here:
         yield return null;
+
+        // And now the scene is loaded in, so we can resume time:
+        Time.timeScale = 1;
 
         //Transition done!
         Debug.Log("Scene Activated.");
