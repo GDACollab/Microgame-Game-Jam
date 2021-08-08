@@ -1,0 +1,29 @@
+You can call these functions in any script at any time:
+
+Functions you can call:
+
+GameController.Instance.WinGame() will tell the GameController that the player has won the game.
+
+GameController.Instance.LoseGame() will tell the GameController that the player has lost the game.
+
+
+Properties you can access (these are read-only, you cannot modify them):
+
+GameController.Instance.gameDifficulty can either be 1, 2, or 3, and is meant to signify the current level of difficulty.
+
+GameController.Instance.gameTime tells you the amount of seconds that have passed since the game has started. If gameTime reaches
+20 seconds, player will automatically lose the game.
+
+
+Properties you can access (these can be written AND read):
+
+GameController.Instance.gamePoints is the current number of points the player has.
+
+
+Fairly useless properties that you can still read anyways:
+
+GameController.Instance.maxFails is the number of times that a player can lose before it's game over.
+
+GameController.Instance.gameFails is the number of times the player has lost games.
+
+GameController.Instance.gameWins is the number of times the player has won games.
