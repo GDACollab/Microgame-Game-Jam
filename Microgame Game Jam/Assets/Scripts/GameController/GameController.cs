@@ -86,6 +86,7 @@ public abstract class GameController : Singleton<GameController>
     void ConcludeGame(bool win)
     {
         TearDownController(win);
+        gameDifficulty = Mathf.Clamp(gameWins % 5, 1, 3);
         LevelTransition();
     }
 

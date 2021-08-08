@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameControllerDevelop : GameController
 {
+    [Range(1, 3)]
+    [Tooltip("The current difficulty to test your game at.")]
+    public int gameDifficultySlider = 1;
+
     ///Methods-------------------------------------------------------------------------------------
     //Called on first frame automatically
     void Start()
@@ -12,6 +16,7 @@ public class GameControllerDevelop : GameController
         // We also don't want anything to be set up if there's already a GameController out there.  
         if ((GameController)FindObjectOfType(typeof(GameController)) == null)
         {
+            gameDifficulty = gameDifficultySlider;
             this.SceneInit();
         }
     }
