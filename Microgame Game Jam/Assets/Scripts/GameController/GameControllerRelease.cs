@@ -26,7 +26,7 @@ public class GameControllerRelease : GameController
         StartCoroutine(AsyncTransitionTiming());
     }
 
-    IEnumerator SyncTransitionTiming()
+    /*IEnumerator SyncTransitionTiming()
     {
         int destinationScene = this.previousGame;
 
@@ -55,6 +55,7 @@ public class GameControllerRelease : GameController
         //Step 4: Initialize the game controller for the next scene.
         this.SceneInit();
     }
+    */
 
     public void ActivateAllObjectsInScene(Scene scene, bool activate) {
         foreach (GameObject obj in scene.GetRootGameObjects()) {
@@ -69,6 +70,15 @@ public class GameControllerRelease : GameController
     //asynchronous scene managment correctly
     IEnumerator AsyncTransitionTiming()
     {
+        // We wait 2 seconds to make the transition to the loading screen smoother. We pause the current time scale to
+        // make sure stuff like animations remain paused:
+        if (this.previousGame >= minSceneIndex)
+        {
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(2);
+            Time.timeScale = 1;
+        }
+
         int destinationScene = this.previousGame;
 
         //Step 0: If this scene is the previous scene... uhhh... pick again?
@@ -142,7 +152,7 @@ public class GameControllerRelease : GameController
         SceneManager.SetActiveScene(nextScene);
 
         // If we want a grace period for jammers to show instructions or something, we add a delay here:
-        yield return null;
+        yield return new WaitForSecondsRealtime(2);
 
         // And now the scene is loaded in, so we can resume time:
         Time.timeScale = 1;
