@@ -6,6 +6,10 @@ GameController.Instance.WinGame() will tell the GameController that the player h
 
 GameController.Instance.LoseGame() will tell the GameController that the player has lost the game.
 
+GameController.Instance.SetMaxTimer(float time) can only be called ONCE, BEFORE the game starts (so put this in an active object's Start
+function somewhere). It's used to set the maximum amount of time a player has before losing the game. You can set the maximum amount of time 
+to a minimum of 5 seconds and a maximum of 20 seconds.
+
 
 Properties you can access (these are read-only, you cannot modify them):
 

@@ -75,7 +75,7 @@ public class GameControllerRelease : GameController
         if (this.previousGame >= minSceneIndex)
         {
             Time.timeScale = 0;
-            yield return new WaitForSecondsRealtime(2);
+            yield return new WaitForSecondsRealtime(endGameDelay);
             Time.timeScale = 1;
         }
 
@@ -151,7 +151,7 @@ public class GameControllerRelease : GameController
         SceneManager.SetActiveScene(nextScene);
 
         // If we want a grace period for jammers to show instructions or something, we add a delay here:
-        yield return new WaitForSecondsRealtime(2);
+        yield return new WaitForSecondsRealtime(gameStartDelay);
 
         // And now the scene is loaded in, so we can resume time:
         Time.timeScale = 1;

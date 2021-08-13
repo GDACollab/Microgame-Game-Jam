@@ -285,9 +285,7 @@ MonoBehaviour:
 
     X wins
 
-    Y losses
-
-    and Z points'
+    Y losses'
 --- !u!222 &736965922
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -17,9 +17,16 @@ public class GameControllerDevelop : GameController
         // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
         if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
-            gameDifficulty = gameDifficultySlider;
-            this.SceneInit();
+            StartCoroutine("SimulatePause");
         }
+    }
+
+    IEnumerator SimulatePause() {
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(gameStartDelay);
+        Time.timeScale = 1;
+        gameDifficulty = gameDifficultySlider;
+        this.SceneInit();
     }
 
     //Would normally cause a scene transition here, but because this is just for development,
@@ -28,6 +35,8 @@ public class GameControllerDevelop : GameController
     {
         Debug.Log("Game done! This is where the game would transition to the next microgame.");
         Debug.Log($"The game controller has recorded {this.gameWins} and {this.gameFails} loses");
+        Debug.Log("Pausing the game now to simulate what the transition would look like on your game's end...");
+        Time.timeScale = 0;
     }
     private void OnDestroy()
     {
