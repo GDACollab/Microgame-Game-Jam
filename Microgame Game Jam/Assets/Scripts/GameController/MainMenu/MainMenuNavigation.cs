@@ -47,7 +47,8 @@ public class MainMenuNavigation : MonoBehaviour
         controllerComponent.transitionSceneIndex = transitionSceneIndex;
         // As soon as we load the next scene, GameController should reset.
 
-        controllerComponent.WinGame();
+        // We do this by .Instance so that we ensure the instance that's created is derived from GameControllerRelease.
+        GameControllerRelease.Instance.WinGame();
     }
 
     public void LoadCredits()

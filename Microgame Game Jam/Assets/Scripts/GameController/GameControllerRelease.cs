@@ -144,7 +144,6 @@ public class GameControllerRelease : GameController
             //If we want to manufacture any delays, the yields for them should go here
             yield return new WaitForSecondsRealtime(2.0f - totalTimeLoading);
         }
-        Debug.Log("?");
 
         //Step 4: Transition:
         ActivateAllObjectsInScene(transitionScene, false);

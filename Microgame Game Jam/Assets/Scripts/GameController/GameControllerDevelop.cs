@@ -13,8 +13,9 @@ public class GameControllerDevelop : GameController
     void Start()
     {
         // This will be localized to one scene, so we don't want any DontDestroyOnLoads.
-        // We also don't want anything to be set up if there's already a GameController out there.  
-        if ((GameController)FindObjectOfType(typeof(GameController)) == null)
+        // We also don't want anything to be set up if there's already a GameController out there.
+        // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
+        if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
             gameDifficulty = gameDifficultySlider;
             this.SceneInit();
