@@ -151,7 +151,9 @@ public class GameControllerRelease : GameController
         SceneManager.SetActiveScene(nextScene);
 
         // If we want a grace period for jammers to show instructions or something, we add a delay here:
+        DisplayHelpText(true);
         yield return new WaitForSecondsRealtime(gameStartDelay);
+        DisplayHelpText(false);
 
         // And now the scene is loaded in, so we can resume time:
         Time.timeScale = 1;

@@ -29,7 +29,7 @@ public class MainMenuNavigation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     public void StartGame() {
@@ -53,6 +53,7 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void LoadCredits()
     {
+        print("test");
         SceneManager.LoadScene("Credits");
     }
 

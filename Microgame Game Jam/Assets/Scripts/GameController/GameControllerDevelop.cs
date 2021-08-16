@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameControllerDevelop : GameController
 {
@@ -17,13 +18,22 @@ public class GameControllerDevelop : GameController
         // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
         if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
+            canvasObject = new GameObject();
+            canvasObject.AddComponent<Canvas>();
+            var tmp = canvasObject.AddComponent<TextMeshProUGUI>();
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.fontSize = 1;
+            tmp.enabled = false;
             StartCoroutine("SimulatePause");
         }
     }
 
-    IEnumerator SimulatePause() {
+    IEnumerator SimulatePause()
+    {
         Time.timeScale = 0;
+        DisplayHelpText(true);
         yield return new WaitForSecondsRealtime(gameStartDelay);
+        DisplayHelpText(false);
         Time.timeScale = 1;
         gameDifficulty = gameDifficultySlider;
         this.SceneInit();
@@ -40,6 +50,6 @@ public class GameControllerDevelop : GameController
     }
     private void OnDestroy()
     {
-        
+
     }
 }

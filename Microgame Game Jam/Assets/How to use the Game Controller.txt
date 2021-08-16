@@ -10,6 +10,9 @@ GameController.Instance.SetMaxTimer(float time) can only be called ONCE, BEFORE 
 function somewhere). It's used to set the maximum amount of time a player has before losing the game. You can set the maximum amount of time 
 to a minimum of 5 seconds and a maximum of 20 seconds.
 
+GameController.Instance.SetHelpText(string text) will set the instruction text to be displayed during the pause time before a microgame begins.
+This needs to be called BEFORE the game starts and should be placed into the Start function of an active script.
+
 
 Properties you can access (these are read-only, you cannot modify them):
 

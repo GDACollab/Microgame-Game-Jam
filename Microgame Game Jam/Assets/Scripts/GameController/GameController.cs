@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public abstract class GameController : Singleton<GameController>
 {
@@ -39,19 +40,31 @@ public abstract class GameController : Singleton<GameController>
     // How long to wait on a paused game before loading the next game.
     protected float endGameDelay = 2.0f;
 
+    protected GameObject canvasObject;
+
 
     ///Methods-------------------------------------------------------------------------------------
     // Start is called the frame before the scene begins
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+
+        canvasObject = new GameObject();
+        canvasObject.AddComponent<Canvas>();
+        var tmp = canvasObject.AddComponent<TextMeshProUGUI>();
+        tmp.alignment = TextAlignmentOptions.Center;
+        tmp.fontSize = 1;
+        tmp.enabled = false;
+
+        DontDestroyOnLoad(canvasObject);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(timerOn) gameTime += Time.deltaTime;
-        if(gameTime >= maxTime){
+        if (timerOn) gameTime += Time.deltaTime;
+        if (gameTime >= maxTime)
+        {
             Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
             LoseGame();
         }
@@ -82,18 +95,21 @@ public abstract class GameController : Singleton<GameController>
     /// a Start function somewhere), and can only be called ONCE.
     /// </summary>
     /// <param name="time">The time to set. The minimum amount of time you can set is 5 seconds, the maximum is 20 seconds.</param>
-    public void SetMaxTimer(float time) {
+    public void SetMaxTimer(float time)
+    {
         if (timerOn == false && timerSet == false)
         {
             timerSet = true;
             maxTime = Mathf.Clamp(time, 5.0f, 20.0f);
             Debug.Log("Maximum amount of time set to: " + time);
         }
-        if (timerOn) {
+        if (timerOn)
+        {
             Debug.LogError("You called SetTimer(" + time + ") after the game started. Try calling SetTimer() during an active object's Start function.");
         }
 
-        if (timerSet) {
+        if (timerSet)
+        {
             Debug.LogError("You called SetTimer(" + time + ") twice, after you already called it. Try calling SetTimer() only once.");
         }
     }
@@ -104,7 +120,7 @@ public abstract class GameController : Singleton<GameController>
         timerOn = false;
 
         //calculate losses
-        if(!win)
+        if (!win)
         {
             ++gameFails;
         }
@@ -120,6 +136,20 @@ public abstract class GameController : Singleton<GameController>
         TearDownController(win);
         gameDifficulty = Mathf.Clamp(gameWins % 5, 1, 3);
         LevelTransition();
+    }
+
+    /// <summary>
+    /// Sets the help/instruction text that is displayed during the pause time before a micro game starts
+    /// </summary>
+    /// <param name="text">The string that is to be displayed</param>
+    public void SetHelpText(string text)
+    {
+        canvasObject.GetComponent<TextMeshProUGUI>().text = text;
+    }
+
+    protected void DisplayHelpText(bool display)
+    {
+        canvasObject.GetComponent<TextMeshProUGUI>().enabled = display;
     }
 
     protected abstract void LevelTransition();
