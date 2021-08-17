@@ -1,3 +1,6 @@
+When developing your game, make sure to add the GameControllerDevelop prefab to any scenes where you'll use the following
+methods and/or properties.
+
 You can call these functions in any script at any time:
 
 Functions you can call:
