@@ -50,10 +50,14 @@ public abstract class GameController : Singleton<GameController>
     // Update is called once per frame
     void Update()
     {
-        if(timerOn) gameTime += Time.deltaTime;
-        if(gameTime >= maxTime){
-            Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
-            LoseGame();
+        if (timerOn)
+        {
+            gameTime += Time.deltaTime;
+            if (gameTime >= maxTime)
+            {
+                Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
+                LoseGame();
+            }
         }
     }
 
@@ -82,18 +86,21 @@ public abstract class GameController : Singleton<GameController>
     /// a Start function somewhere), and can only be called ONCE.
     /// </summary>
     /// <param name="time">The time to set. The minimum amount of time you can set is 5 seconds, the maximum is 20 seconds.</param>
-    public void SetMaxTimer(float time) {
+    public void SetMaxTimer(float time)
+    {
         if (timerOn == false && timerSet == false)
         {
             timerSet = true;
             maxTime = Mathf.Clamp(time, 5.0f, 20.0f);
             Debug.Log("Maximum amount of time set to: " + time);
         }
-        if (timerOn) {
+        if (timerOn)
+        {
             Debug.LogError("You called SetTimer(" + time + ") after the game started. Try calling SetTimer() during an active object's Start function.");
         }
 
-        if (timerSet) {
+        if (timerSet)
+        {
             Debug.LogError("You called SetTimer(" + time + ") twice, after you already called it. Try calling SetTimer() only once.");
         }
     }
@@ -104,7 +111,7 @@ public abstract class GameController : Singleton<GameController>
         timerOn = false;
 
         //calculate losses
-        if(!win)
+        if (!win)
         {
             ++gameFails;
         }

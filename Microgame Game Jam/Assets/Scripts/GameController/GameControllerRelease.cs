@@ -18,7 +18,11 @@ public class GameControllerRelease : GameController
     //the load of the transition scene
     private bool transitionLoaded;
 
+    private bool showGameObjects = true;
+
     private Scene transitionScene;
+
+    private Scene gameScene;
 
     //Picks a random level in the build order then transitions to it
     protected override void LevelTransition()
@@ -60,6 +64,14 @@ public class GameControllerRelease : GameController
     public void ActivateAllObjectsInScene(Scene scene, bool activate) {
         foreach (GameObject obj in scene.GetRootGameObjects()) {
             obj.SetActive(activate);
+        }
+    }
+
+    private void Update()
+    {
+        // Prevent any game objects from showing up if we don't want them to:
+        if (!showGameObjects) {
+            ActivateAllObjectsInScene(gameScene, showGameObjects);
         }
     }
 
@@ -126,6 +138,10 @@ public class GameControllerRelease : GameController
         var nextSceneLoad = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
         var startTime = Time.time;
 
+        // Make sure any new objects are not going to show up while we do loading:
+        gameScene = SceneManager.GetSceneByBuildIndex(destinationScene);
+        showGameObjects = false;
+
         //Step 3: Delays
         // First, we wait for the scene to load.
         while (!nextSceneLoad.isDone)
@@ -133,9 +149,8 @@ public class GameControllerRelease : GameController
             yield return null;
         }
 
-        // Step 4: Hide everything in the loaded scene so we don't get two scenes on top of one another:
-        Scene nextScene = SceneManager.GetSceneByBuildIndex(destinationScene);
-        ActivateAllObjectsInScene(nextScene, false);
+        // Step 4: Hide everything in the loaded scene so we don't get two scenes on top of one another
+        ActivateAllObjectsInScene(gameScene, false);
 
         var totalTimeLoading = Time.time - startTime;
         // If the loading time takes less time than we want the transition scene to show for,
@@ -146,9 +161,10 @@ public class GameControllerRelease : GameController
         }
 
         //Step 4: Transition:
+        showGameObjects = true;
         ActivateAllObjectsInScene(transitionScene, false);
-        ActivateAllObjectsInScene(nextScene, true);
-        SceneManager.SetActiveScene(nextScene);
+        ActivateAllObjectsInScene(gameScene, true);
+        SceneManager.SetActiveScene(gameScene);
 
         // If we want a grace period for jammers to show instructions or something, we add a delay here:
         yield return new WaitForSecondsRealtime(gameStartDelay);
