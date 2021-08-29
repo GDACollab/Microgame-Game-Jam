@@ -21,6 +21,8 @@ GameController.Instance.gameDifficulty can either be 1, 2, or 3, and is meant to
 GameController.Instance.gameTime tells you the amount of seconds that have passed since the game has started. If gameTime reaches
 20 seconds, player will automatically lose the game.
 
+GameController.Instance.timerOn will tell you if the timer is currently on.
+
 
 Properties you can access (these can be written AND read):
 

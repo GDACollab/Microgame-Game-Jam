@@ -28,7 +28,7 @@ public abstract class GameController : Singleton<GameController>
     public int gameWins { get; private set; } = 0;
 
     //whether or not the game timer should be running
-    private bool timerOn = false;
+    public bool timerOn { get; private set; } = false;
 
     // Whether or not the SetTimer function has been called for this game.
     private bool timerSet = false;
