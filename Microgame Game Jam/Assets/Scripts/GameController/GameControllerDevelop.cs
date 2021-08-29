@@ -8,24 +8,23 @@ public class GameControllerDevelop : GameController
     [Tooltip("The current difficulty to test your game at.")]
     public int gameDifficultySlider = 1;
 
-    ///Methods-------------------------------------------------------------------------------------
-    //Called on first frame automatically
-    void Start()
+    private void Awake()
     {
         // This will be localized to one scene, so we don't want any DontDestroyOnLoads.
         // We also don't want anything to be set up if there's already a GameController out there.
         // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
         if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
+            gameDifficulty = gameDifficultySlider;
             StartCoroutine("SimulatePause");
         }
     }
 
-    IEnumerator SimulatePause() {
+    IEnumerator SimulatePause()
+    {
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(gameStartDelay);
         Time.timeScale = 1;
-        gameDifficulty = gameDifficultySlider;
         this.SceneInit();
     }
 
@@ -40,6 +39,6 @@ public class GameControllerDevelop : GameController
     }
     private void OnDestroy()
     {
-        
+
     }
 }
