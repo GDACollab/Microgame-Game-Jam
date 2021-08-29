@@ -88,20 +88,19 @@ public abstract class GameController : Singleton<GameController>
     /// <param name="time">The time to set. The minimum amount of time you can set is 5 seconds, the maximum is 20 seconds.</param>
     public void SetMaxTimer(float time)
     {
+        if (timerOn)
+        {
+            Debug.LogError("You called SetTimer(" + time + ") after the game started. Try calling SetTimer() during an active object's Start function.");
+        }
+        if (timerSet)
+        {
+            Debug.LogError("You called SetTimer(" + time + ") twice, after you already called it. Try calling SetTimer() only once.");
+        }
         if (timerOn == false && timerSet == false)
         {
             timerSet = true;
             maxTime = Mathf.Clamp(time, 5.0f, 20.0f);
             Debug.Log("Maximum amount of time set to: " + time);
-        }
-        if (timerOn)
-        {
-            Debug.LogError("You called SetTimer(" + time + ") after the game started. Try calling SetTimer() during an active object's Start function.");
-        }
-
-        if (timerSet)
-        {
-            Debug.LogError("You called SetTimer(" + time + ") twice, after you already called it. Try calling SetTimer() only once.");
         }
     }
 
