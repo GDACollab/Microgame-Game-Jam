@@ -39,6 +39,9 @@ public abstract class GameController : Singleton<GameController>
     // How long to wait on a paused game before loading the next game.
     protected float endGameDelay = 2.0f;
 
+    // Keeps track if WinGame or LoseGame has been called for this game.
+    protected bool gameCanEnd = true;
+
 
     ///Methods-------------------------------------------------------------------------------------
     // Start is called the frame before the scene begins
@@ -64,6 +67,8 @@ public abstract class GameController : Singleton<GameController>
     //Called whenever a microgame is started
     protected void SceneInit()
     {
+        // Make sure our next game can call WinGame or LoseGame:
+        gameCanEnd = true;
         //turn on the game timer
         timerOn = true;
         gameTime = 0.0f;
@@ -109,14 +114,21 @@ public abstract class GameController : Singleton<GameController>
         //stop the game timer
         timerOn = false;
 
-        //calculate losses
-        if (!win)
+        if (gameCanEnd)
         {
-            ++gameFails;
+            gameCanEnd = false;
+            //calculate losses
+            if (!win)
+            {
+                ++gameFails;
+            }
+            else
+            {
+                ++gameWins;
+            }
         }
-        else
-        {
-            ++gameWins;
+        else {
+            Debug.LogError("You called " + ((win) ? "WinGame()" : "LoseGame()") + " multiple times. Try using GameController.Instance.timerOn to detect if the game is still running (if(timerOn){GameController.Instance.WinGame()}).");
         }
     }
 
