@@ -18,11 +18,7 @@ public class GameControllerRelease : GameController
     //the load of the transition scene
     private bool transitionLoaded;
 
-    private bool showGameObjects = true;
-
     private Scene transitionScene;
-
-    private Scene gameScene;
 
     //Picks a random level in the build order then transitions to it
     protected override void LevelTransition()
@@ -60,20 +56,6 @@ public class GameControllerRelease : GameController
         this.SceneInit();
     }
     */
-
-    public void ActivateAllObjectsInScene(Scene scene, bool activate) {
-        foreach (GameObject obj in scene.GetRootGameObjects()) {
-            obj.SetActive(activate);
-        }
-    }
-
-    private void Update()
-    {
-        // Prevent any game objects from showing up if we don't want them to:
-        if (!showGameObjects) {
-            ActivateAllObjectsInScene(gameScene, showGameObjects);
-        }
-    }
 
     //The timing of the actual scene transition
     //It's a coroutine to handle timing of effects because I doubt this transition 

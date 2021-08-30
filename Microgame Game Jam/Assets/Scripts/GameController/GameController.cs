@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class GameController : Singleton<GameController>
 {
@@ -42,6 +43,10 @@ public abstract class GameController : Singleton<GameController>
     // Keeps track if WinGame or LoseGame has been called for this game.
     protected bool gameCanEnd = true;
 
+    protected bool showGameObjects = true;
+
+    protected Scene gameScene;
+
 
     ///Methods-------------------------------------------------------------------------------------
     // Start is called the frame before the scene begins
@@ -56,11 +61,25 @@ public abstract class GameController : Singleton<GameController>
         if (timerOn)
         {
             gameTime += Time.deltaTime;
+            Debug.Log(gameTime);
             if (gameTime >= maxTime)
             {
                 Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
                 LoseGame();
             }
+        }
+
+        // Prevent any game objects from showing up if we don't want them to:
+        if (!showGameObjects)
+        {
+            ActivateAllObjectsInScene(gameScene, showGameObjects);
+        }
+    }
+    public void ActivateAllObjectsInScene(Scene scene, bool activate)
+    {
+        foreach (GameObject obj in scene.GetRootGameObjects())
+        {
+            obj.SetActive(activate);
         }
     }
 
