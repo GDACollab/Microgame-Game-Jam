@@ -20,6 +20,7 @@ public class GameControllerRelease : GameController
 
     private Scene transitionScene;
 
+
     //Picks a random level in the build order then transitions to it
     protected override void LevelTransition()
     {
@@ -122,7 +123,6 @@ public class GameControllerRelease : GameController
 
         // Make sure any new objects are not going to show up while we do loading:
         gameScene = SceneManager.GetSceneByBuildIndex(destinationScene);
-        showGameObjects = false;
 
         //Step 3: Delays
         // First, we wait for the scene to load.
@@ -131,8 +131,12 @@ public class GameControllerRelease : GameController
             yield return null;
         }
 
+        List<GameObject> gameObjectsToActivate = new List<GameObject>();
+
         // Step 4: Hide everything in the loaded scene so we don't get two scenes on top of one another
-        ActivateAllObjectsInScene(gameScene, false);
+        ActivateAllObjectsInScene(gameScene, false, gameObjectsToActivate);
+
+        showGameObjects = false;
 
         var totalTimeLoading = Time.time - startTime;
         // If the loading time takes less time than we want the transition scene to show for,
@@ -145,7 +149,7 @@ public class GameControllerRelease : GameController
         //Step 4: Transition:
         showGameObjects = true;
         ActivateAllObjectsInScene(transitionScene, false);
-        ActivateAllObjectsInScene(gameScene, true);
+        ActivateAllObjectsInScene(gameScene, true, gameObjectsToActivate);
         SceneManager.SetActiveScene(gameScene);
 
         // If we want a grace period for jammers to show instructions or something, we add a delay here:

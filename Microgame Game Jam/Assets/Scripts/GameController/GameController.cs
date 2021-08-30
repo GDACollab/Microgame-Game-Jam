@@ -82,6 +82,25 @@ public abstract class GameController : Singleton<GameController>
         }
     }
 
+    // Set all the objects in the scene to be active or not. If activate is false, the filterList will be filled with all the objects that are
+    // currently active in the scene. If activate is true, the filterList will only activate objects in the provided filterList.
+    public void ActivateAllObjectsInScene(Scene scene, bool activate, List<GameObject> filterList)
+    {
+        foreach (GameObject obj in scene.GetRootGameObjects())
+        {
+            if (activate == false && obj.activeSelf) {
+                filterList.Add(obj);
+            }
+            
+            if (activate == true && filterList.Contains(obj))
+            {
+                obj.SetActive(activate);
+            } else if (activate == false) {
+                obj.SetActive(activate);
+            }
+        }
+    }
+
     //Called whenever a microgame is started
     protected void SceneInit()
     {
@@ -154,7 +173,7 @@ public abstract class GameController : Singleton<GameController>
     {
         timerSet = false;
         TearDownController(win);
-        gameDifficulty = Mathf.Clamp(gameWins % 5, 1, 3);
+        gameDifficulty = Mathf.Clamp((gameWins - 1) % 5, 1, 3);
         LevelTransition();
     }
 
