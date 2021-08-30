@@ -95,11 +95,11 @@ public abstract class GameController : Singleton<GameController>
     {
         if (timerOn)
         {
-            Debug.LogError("You called SetTimer(" + time + ") after the game started. Try calling SetTimer() during an active object's Start function.");
+            Debug.LogWarning("You called SetTimer(" + time + ") after the game started. Try calling SetTimer() during an active object's Start function.");
         }
         if (timerSet)
         {
-            Debug.LogError("You called SetTimer(" + time + ") twice, after you already called it. Try calling SetTimer() only once.");
+            Debug.LogWarning("You called SetTimer(" + time + ") twice, after you already called it. Try calling SetTimer() only once.");
         }
         if (timerOn == false && timerSet == false)
         {
@@ -128,7 +128,7 @@ public abstract class GameController : Singleton<GameController>
             }
         }
         else {
-            Debug.LogError("You called " + ((win) ? "WinGame()" : "LoseGame()") + " multiple times. Try using GameController.Instance.timerOn to detect if the game is still running (if(timerOn){GameController.Instance.WinGame()}).");
+            Debug.LogWarning("You called " + ((win) ? "WinGame()" : "LoseGame()") + " multiple times. Try using GameController.Instance.timerOn to detect if the game is still running (if(timerOn){GameController.Instance.WinGame()}).");
         }
     }
 
