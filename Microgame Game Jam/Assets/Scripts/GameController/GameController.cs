@@ -61,7 +61,6 @@ public abstract class GameController : Singleton<GameController>
         if (timerOn)
         {
             gameTime += Time.deltaTime;
-            Debug.Log(gameTime);
             if (gameTime >= maxTime)
             {
                 Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
