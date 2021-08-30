@@ -160,11 +160,7 @@ public class GameControllerRelease : GameController
 
         //Transition done!
 
-        if (destinationScene == gameoverSceneIndex)
-        {
-            Destroy(this.gameObject);
-        }
-        else
+        if (destinationScene != gameoverSceneIndex)
         {
             Debug.Log("Scene Activated.");
             this.SceneInit();
