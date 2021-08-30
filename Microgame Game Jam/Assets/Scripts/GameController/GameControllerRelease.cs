@@ -74,6 +74,10 @@ public class GameControllerRelease : GameController
             Time.timeScale = 1;
         }
 
+        if (this.previousGame == gameoverSceneIndex) {
+            SceneManager.UnloadSceneAsync(gameoverSceneIndex);
+        }
+
         int destinationScene = this.previousGame;
 
         //Step 0: If this scene is the previous scene... uhhh... pick again?
@@ -166,7 +170,6 @@ public class GameControllerRelease : GameController
             gameWins = 0;
             gameDifficulty = 0;
             gameFails = 0;
-            previousGame = 0;
         }
         else
         {
