@@ -159,7 +159,15 @@ public class GameControllerRelease : GameController
         Time.timeScale = 1;
 
         //Transition done!
-        Debug.Log("Scene Activated.");
-        this.SceneInit();
+
+        if (destinationScene == gameoverSceneIndex)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.Log("Scene Activated.");
+            this.SceneInit();
+        }
     }
 }
