@@ -83,7 +83,15 @@ public class PopstarPoser_LimbRotate : MonoBehaviour
                 }
             }
 
-            activeLimb.transform.Rotate(0, 0, -Input.GetAxis("Horizontal") * speed * Time.deltaTime);
+            float limbMovement = -Input.GetAxis("Horizontal");
+
+            //Reverse rotation for limbs
+            if (limbNumber > 3)
+            {
+                limbMovement *= -1;
+            }
+
+            activeLimb.transform.Rotate(0, 0, limbMovement * speed * Time.deltaTime);
 
             if (!sfx_crank.isPlaying && Input.GetAxis("Horizontal") != 0)
             {
