@@ -173,7 +173,8 @@ public abstract class GameController : Singleton<GameController>
     {
         timerSet = false;
         TearDownController(win);
-        gameDifficulty = Mathf.Clamp((gameWins - 1) % 5, 1, 3);
+        gameDifficulty = Mathf.Clamp(1 + ((gameWins - 1) / 5), 1, 3);
+        Debug.Log("New difficulty: " + gameDifficulty);
         LevelTransition();
     }
 
