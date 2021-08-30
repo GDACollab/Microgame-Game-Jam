@@ -33,7 +33,6 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void StartGame() {
-
         if (FindObjectsOfType(typeof(GameController)).Length == 0)
         {
             var gameControllerCreator = new GameObject();
@@ -47,8 +46,8 @@ public class MainMenuNavigation : MonoBehaviour
 
             // And the scene for transitions:
             controllerComponent.transitionSceneIndex = transitionSceneIndex;
-            // As soon as we load the next scene, GameController should reset.
         }
+        // As soon as we load the next scene, GameController should reset.
 
         // We do this by .Instance so that we ensure the instance that's created is derived from GameControllerRelease.
         GameController.Instance.WinGame();

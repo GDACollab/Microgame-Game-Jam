@@ -160,7 +160,15 @@ public class GameControllerRelease : GameController
 
         //Transition done!
 
-        if (destinationScene != gameoverSceneIndex)
+        if (destinationScene == gameoverSceneIndex)
+        {
+            // The game is over, so reset all variables.
+            gameWins = 0;
+            gameDifficulty = 0;
+            gameFails = 0;
+            previousGame = 0;
+        }
+        else
         {
             Debug.Log("Scene Activated.");
             this.SceneInit();

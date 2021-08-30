@@ -14,7 +14,7 @@ public abstract class GameController : Singleton<GameController>
     protected int previousGame { get; set; } = 0;
 
     //The amount of microgames the player has failed
-    public int gameFails { get; private set; } = 0;
+    public int gameFails { get; protected set; } = 0;
 
     //The current Difficulty Rating. How this is calculated and when it updates is undecided
     public int gameDifficulty { get; protected set; } = 1;
@@ -26,7 +26,7 @@ public abstract class GameController : Singleton<GameController>
     public float maxTime { get; private set; } = 20.0f;
 
     //How many games have been completed since the game began
-    public int gameWins { get; private set; } = 0;
+    public int gameWins { get; protected set; } = 0;
 
     //whether or not the game timer should be running
     public bool timerOn { get; private set; } = false;
