@@ -7,7 +7,7 @@ public class ScoreTracker : MonoBehaviour
 {
     public bool showLives;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         GetComponent<Text>().text = "You have\n"
             + (GameController.Instance.gameWins - 1) + " wins\n" + //Because we have to call .WinGame() to start transitions.

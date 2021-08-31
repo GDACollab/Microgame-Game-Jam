@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class GameController : Singleton<GameController>
 {
@@ -13,7 +14,7 @@ public abstract class GameController : Singleton<GameController>
     protected int previousGame { get; set; } = 0;
 
     //The amount of microgames the player has failed
-    public int gameFails { get; private set; } = 0;
+    public int gameFails { get; protected set; } = 0;
 
     //The current Difficulty Rating. How this is calculated and when it updates is undecided
     public int gameDifficulty { get; protected set; } = 1;
@@ -25,7 +26,7 @@ public abstract class GameController : Singleton<GameController>
     public float maxTime { get; private set; } = 20.0f;
 
     //How many games have been completed since the game began
-    public int gameWins { get; private set; } = 0;
+    public int gameWins { get; protected set; } = 0;
 
     //whether or not the game timer should be running
     public bool timerOn { get; private set; } = false;
@@ -41,6 +42,10 @@ public abstract class GameController : Singleton<GameController>
 
     // Keeps track if WinGame or LoseGame has been called for this game.
     protected bool gameCanEnd = true;
+
+    protected bool showGameObjects = true;
+
+    protected Scene gameScene;
 
 
     ///Methods-------------------------------------------------------------------------------------
@@ -60,6 +65,38 @@ public abstract class GameController : Singleton<GameController>
             {
                 Debug.Log("Game time has exceeded 20 seconds! The game has been failed.");
                 LoseGame();
+            }
+        }
+
+        // Prevent any game objects from showing up if we don't want them to:
+        if (!showGameObjects)
+        {
+            ActivateAllObjectsInScene(gameScene, showGameObjects);
+        }
+    }
+    public void ActivateAllObjectsInScene(Scene scene, bool activate)
+    {
+        foreach (GameObject obj in scene.GetRootGameObjects())
+        {
+            obj.SetActive(activate);
+        }
+    }
+
+    // Set all the objects in the scene to be active or not. If activate is false, the filterList will be filled with all the objects that are
+    // currently active in the scene. If activate is true, the filterList will only activate objects in the provided filterList.
+    public void ActivateAllObjectsInScene(Scene scene, bool activate, List<GameObject> filterList)
+    {
+        foreach (GameObject obj in scene.GetRootGameObjects())
+        {
+            if (activate == false && obj.activeSelf) {
+                filterList.Add(obj);
+            }
+            
+            if (activate == true && filterList.Contains(obj))
+            {
+                obj.SetActive(activate);
+            } else if (activate == false) {
+                obj.SetActive(activate);
             }
         }
     }
@@ -136,7 +173,8 @@ public abstract class GameController : Singleton<GameController>
     {
         timerSet = false;
         TearDownController(win);
-        gameDifficulty = Mathf.Clamp(gameWins % 5, 1, 3);
+        gameDifficulty = Mathf.Clamp(1 + ((gameWins - 1) / 5), 1, 3);
+        Debug.Log("New difficulty: " + gameDifficulty);
         LevelTransition();
     }
 

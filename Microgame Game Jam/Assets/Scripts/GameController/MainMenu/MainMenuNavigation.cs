@@ -33,22 +33,24 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void StartGame() {
+        if (FindObjectsOfType(typeof(GameController)).Length == 0)
+        {
+            var gameControllerCreator = new GameObject();
+            gameControllerCreator.AddComponent<GameControllerRelease>();
+            var controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
+            // We make sure to set the minSceneIndex so that GameController knows which scenes to look at for games.
+            controllerComponent.minSceneIndex = minSceneIndex;
 
-        var gameControllerCreator = new GameObject();
-        gameControllerCreator.AddComponent<GameControllerRelease>();
-        var controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
-        // We make sure to set the minSceneIndex so that GameController knows which scenes to look at for games.
-        controllerComponent.minSceneIndex = minSceneIndex;
+            // We also have to set the scene for game over:
+            controllerComponent.gameoverSceneIndex = gameOverSceneIndex;
 
-        // We also have to set the scene for game over:
-        controllerComponent.gameoverSceneIndex = gameOverSceneIndex;
-
-        // And the scene for transitions:
-        controllerComponent.transitionSceneIndex = transitionSceneIndex;
+            // And the scene for transitions:
+            controllerComponent.transitionSceneIndex = transitionSceneIndex;
+        }
         // As soon as we load the next scene, GameController should reset.
 
         // We do this by .Instance so that we ensure the instance that's created is derived from GameControllerRelease.
-        GameControllerRelease.Instance.WinGame();
+        GameController.Instance.WinGame();
     }
 
     public void LoadCredits()
