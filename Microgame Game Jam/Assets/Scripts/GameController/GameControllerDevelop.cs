@@ -11,12 +11,23 @@ public class GameControllerDevelop : GameController
 
     private void Awake()
     {
+        if (Application.isEditor)
+        {
+            Application.targetFrameRate = 60;
+        }
+        if (FindObjectsOfType(typeof(GameController)).Length > 1)
+        {
+            Destroy(this);
+        }
+    }
+
+    private void Start()
+    {
         // This will be localized to one scene, so we don't want any DontDestroyOnLoads.
         // We also don't want anything to be set up if there's already a GameController out there.
         // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
         if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
-            Application.targetFrameRate = 60;
             gameDifficulty = gameDifficultySlider;
             StartCoroutine("SimulatePause");
         }
