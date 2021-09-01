@@ -17,6 +17,7 @@ public class GameControllerDevelop : GameController
         }
         if (FindObjectsOfType(typeof(GameController)).Length > 1)
         {
+            gameDifficulty = gameDifficultySlider;
             Destroy(this);
         }
     }
@@ -28,7 +29,6 @@ public class GameControllerDevelop : GameController
         // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
         if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
-            gameDifficulty = gameDifficultySlider;
             StartCoroutine("SimulatePause");
         }
     }
