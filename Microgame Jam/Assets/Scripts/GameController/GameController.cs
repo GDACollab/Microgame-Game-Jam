@@ -88,14 +88,17 @@ public abstract class GameController : Singleton<GameController>
     {
         foreach (GameObject obj in scene.GetRootGameObjects())
         {
-            if (activate == false && obj.activeSelf) {
+            if (activate == false && obj.activeSelf)
+            {
                 filterList.Add(obj);
             }
-            
+
             if (activate == true && filterList.Contains(obj))
             {
                 obj.SetActive(activate);
-            } else if (activate == false) {
+            }
+            else if (activate == false)
+            {
                 obj.SetActive(activate);
             }
         }
@@ -164,7 +167,8 @@ public abstract class GameController : Singleton<GameController>
                 ++gameWins;
             }
         }
-        else {
+        else
+        {
             Debug.LogWarning("You called " + ((win) ? "WinGame()" : "LoseGame()") + " multiple times. Try using GameController.Instance.timerOn to detect if the game is still running (if(timerOn){GameController.Instance.WinGame()}).");
         }
     }
@@ -172,6 +176,8 @@ public abstract class GameController : Singleton<GameController>
     void ConcludeGame(bool win)
     {
         timerSet = false;
+        //Reset the maxTimer, in case it was set:
+        maxTime = 20.0f;
         TearDownController(win);
         gameDifficulty = Mathf.Clamp(1 + ((gameWins - 1) / 5), 1, 3);
         Debug.Log("New difficulty: " + gameDifficulty);
