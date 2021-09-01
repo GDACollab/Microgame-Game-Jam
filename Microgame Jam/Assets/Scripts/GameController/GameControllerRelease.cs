@@ -150,6 +150,17 @@ public class GameControllerRelease : GameController
             yield return new WaitForSecondsRealtime(2.0f - totalTimeLoading);
         }
 
+
+        // We do this before the scene is loaded, because a player might click the restart button when the scene is loaded, but before
+        // we've reset all variables.
+        if (destinationScene == gameoverSceneIndex)
+        {
+            // The game is over, so reset all variables.
+            this.gameWins = 0;
+            this.gameDifficulty = 0;
+            this.gameFails = 0;
+        }
+
         //Step 4: Transition:
         showGameObjects = true;
         ActivateAllObjectsInScene(transitionScene, false);
@@ -164,14 +175,8 @@ public class GameControllerRelease : GameController
 
         //Transition done!
 
-        if (destinationScene == gameoverSceneIndex)
-        {
-            // The game is over, so reset all variables.
-            gameWins = 0;
-            gameDifficulty = 0;
-            gameFails = 0;
-        }
-        else
+        
+        if (destinationScene != gameoverSceneIndex)
         {
             Debug.Log("Scene Activated.");
             this.SceneInit();
