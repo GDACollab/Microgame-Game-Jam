@@ -65,6 +65,7 @@ public class GameControllerRelease : GameController
     //asynchronous scene managment correctly
     IEnumerator AsyncTransitionTiming()
     {
+
         // We wait 2 seconds to make the transition to the loading screen smoother. We pause the current time scale to
         // make sure stuff like animations remain paused:
         if (this.previousGame >= minSceneIndex)
