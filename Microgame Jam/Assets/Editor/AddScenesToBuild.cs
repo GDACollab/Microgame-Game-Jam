@@ -54,9 +54,20 @@ public class AddScenesToBuild
             {
                 if (file.EndsWith(".unitypackage"))
                 {
+
                     AssetDatabase.ImportPackage(file, false);
                 }
             }
         }
+    }
+}
+
+public class FileModification : UnityEditor.AssetModificationProcessor
+{
+    static string[] OnWillSaveAssets(string[] paths) {
+        foreach (string path in paths) {
+            Debug.Log(path);
+        }
+        return paths;
     }
 }
