@@ -15,6 +15,14 @@ public class GameControllerRelease : GameController
     [Tooltip("The index of the Game Over scene.")]
     public int gameoverSceneIndex;
 
+    [Tooltip("How much of all the games should a player typically see before we start showing repeats?")]
+    public float gameCoveragePercentage = 0.33f;
+
+    [Tooltip("If there are say... 1000 games, how many should we push to the queue of previously played games before we start removing memory of having played those games?")]
+    public int maxQueueLength = 10;
+
+    private Queue<int> previousGames;
+
     //the load of the transition scene
     private bool transitionLoaded;
 
@@ -80,8 +88,8 @@ public class GameControllerRelease : GameController
 
         int destinationScene = this.previousGame;
 
-        //Step 0: If this scene is the previous scene... uhhh... pick again?
-        while (destinationScene == this.previousGame && minSceneIndex != SceneManager.sceneCountInBuildSettings - 1)
+        //Step 0: If this scene is from the queue of games recently played... uhhh... pick again?
+        while (previousGames.Contains(destinationScene) && minSceneIndex != SceneManager.sceneCountInBuildSettings - 1)
         {
             destinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
@@ -116,6 +124,13 @@ public class GameControllerRelease : GameController
         if(this.previousGame >= minSceneIndex) SceneManager.UnloadSceneAsync(this.previousGame);
         //this picks between game over and the next game depending on the comparison
         this.previousGame = destinationScene;
+        previousGames.Enqueue(destinationScene);
+
+        // We make sure the queue remains at a fixed size once it reaches capacity. A game should not be played until a player has already
+        // played gameCoveragePercentage% of all available games.
+        if (previousGames.Count > Mathf.Clamp((SceneManager.sceneCountInBuildSettings - minSceneIndex) * gameCoveragePercentage, 1, maxQueueLength)) {
+            previousGames.Dequeue();
+        }
 
         // Because we're about to start loading the next scene, we need to make sure everything in the level
         // will be paused.
