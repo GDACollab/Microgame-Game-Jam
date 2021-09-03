@@ -26,6 +26,7 @@ public class MainMenuNavigation : MonoBehaviour
     /// </summary>
     [Tooltip("The index of the Game Over scene.")]
     public int gameOverSceneIndex;
+
     // Start is called before the first frame update
     void Start()
     {
