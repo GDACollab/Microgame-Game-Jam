@@ -61,13 +61,3 @@ public class AddScenesToBuild
         }
     }
 }
-
-public class FileModification : UnityEditor.AssetModificationProcessor
-{
-    static string[] OnWillSaveAssets(string[] paths) {
-        foreach (string path in paths) {
-            Debug.Log(path);
-        }
-        return paths;
-    }
-}
