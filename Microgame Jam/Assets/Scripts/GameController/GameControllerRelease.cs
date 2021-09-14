@@ -44,6 +44,9 @@ public class GameControllerRelease : GameController
     // The scene we want to go to next.
     private int destinationScene;
 
+    // The default transition camera, so we can restore its settings after mirroring previous games' cameras.
+    private Camera transitionCameraDefault;
+
 
     //Picks a random level in the build order then transitions to it
     protected override void LevelTransition(bool didWin)
@@ -64,6 +67,17 @@ public class GameControllerRelease : GameController
         {
             previousGames.Dequeue();
         }
+
+        // Now that we're no longer copying from the previous game's camera, we can switch to the default scene settings:
+        var potentialCameras = GameObject.FindGameObjectsWithTag("MainCamera");
+        foreach (GameObject camera in potentialCameras)
+        {
+            if (camera.scene.buildIndex == transitionSceneIndex)
+            {
+                camera.GetComponent<Camera>().CopyFrom(transitionCameraDefault);
+            }
+        }
+
     }
 
     //The timing of the actual scene transition
@@ -126,6 +140,35 @@ public class GameControllerRelease : GameController
         while (!transitionScene.isLoaded) {
             yield return null;
         }
+
+        // Step 3, before we start loading the transition scene.
+        // Mirror the main camera settings from the previous game scene, since we don't want to unload things weirdly.
+        // This is a hacky fix, but unless people start experimenting with their unity camera setups (and changing their camera's tags),
+        // this should hopefully work fine for most games.
+        Camera gameMainCamera = null;
+        GameObject transitionCamera = null;
+        var potentialCameras = GameObject.FindGameObjectsWithTag("MainCamera");
+        foreach (GameObject camera in potentialCameras)
+        {
+            if (camera.scene.buildIndex == previousGame)
+            {
+                gameMainCamera = camera.GetComponent<Camera>();
+            }
+            if (camera.scene.buildIndex == transitionSceneIndex) {
+                transitionCamera = camera;
+                transitionCameraDefault = transitionCamera.GetComponent<Camera>();
+            }
+        }
+
+        // Copy the settings from the game's camera, if we found one:
+        if (gameMainCamera != null && transitionCamera != null)
+        {
+            transitionCamera.GetComponent<Camera>().CopyFrom(gameMainCamera);
+        }
+
+
+        // Now that this scene is loaded, mirror the camera settings from the previous game to match this one.
+
         foreach (GameObject obj in transitionScene.GetRootGameObjects()) {
             if (obj.name == "PointTracker") {
                 // Now select the appropriate animation for whether or not we've won or lost, and we allow it to carry our unity events to later trigger
@@ -152,7 +195,7 @@ public class GameControllerRelease : GameController
 
         gameObjectsToActivate = new List<GameObject>();
 
-        // Step 3: Hide everything in the loaded scene so we don't get two scenes on top of one another
+        // Step 4: Hide everything in the loaded scene so we don't get two scenes on top of one another
         ActivateAllObjectsInScene(gameScene, false, gameObjectsToActivate);
 
         showGameObjects = false;
@@ -170,7 +213,7 @@ public class GameControllerRelease : GameController
 
     // Called when it's safe to start loading everything in the game's scene (dictated by animation events from the TransitionScene by Transition_Scene_Win or Transition_Scene_Lose).
     protected void ShowGame() {
-        //Step 4: Transition:
+        //Step 5: Transition:
         // We're counting on the games being small enough to be quickly loaded by the time this event gets called.
         // If that doesn't happen, well, some changes will have to be made to the game that's being loaded.
         // A good thing TODO would be to make a looping transition screen, and to wait until the game has finished loading before
