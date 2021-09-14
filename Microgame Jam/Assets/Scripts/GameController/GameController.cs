@@ -41,6 +41,8 @@ public abstract class GameController : Singleton<GameController>
 
     protected Scene gameScene;
 
+    protected Scene nextGameScene;
+
 
     ///Methods-------------------------------------------------------------------------------------
     // Start is called the frame before the scene begins
@@ -65,10 +67,10 @@ public abstract class GameController : Singleton<GameController>
         // Prevent any game objects from showing up if we don't want them to:
         if (!showGameObjects)
         {
-            ActivateAllObjectsInScene(gameScene, showGameObjects);
+            ActivateAllObjectsInScene(nextGameScene, showGameObjects);
         }
     }
-    public void ActivateAllObjectsInScene(Scene scene, bool activate)
+    public static void ActivateAllObjectsInScene(Scene scene, bool activate)
     {
         foreach (GameObject obj in scene.GetRootGameObjects())
         {
@@ -78,7 +80,7 @@ public abstract class GameController : Singleton<GameController>
 
     // Set all the objects in the scene to be active or not. If activate is false, the filterList will be filled with all the objects that are
     // currently active in the scene. If activate is true, the filterList will only activate objects in the provided filterList.
-    public void ActivateAllObjectsInScene(Scene scene, bool activate, List<GameObject> filterList)
+    public static void ActivateAllObjectsInScene(Scene scene, bool activate, List<GameObject> filterList)
     {
         foreach (GameObject obj in scene.GetRootGameObjects())
         {
