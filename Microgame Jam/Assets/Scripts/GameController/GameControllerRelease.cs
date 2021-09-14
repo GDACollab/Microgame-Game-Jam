@@ -48,8 +48,17 @@ public class GameControllerRelease : GameController
     //Picks a random level in the build order then transitions to it
     protected override void LevelTransition(bool didWin)
     {
-        // We want these listeners to only be active when the game is transitioning.
-        // So we remove all listeners once we get to UnpauseGame.
+        // I don't want to override the Start or Awake functions (in case GameController needs them), so we'll just be
+        // detecting if we need to make a new UnityEvent:
+        if (canHideGame == null)
+        {
+            canHideGame = new UnityEvent();
+            canShowGame = new UnityEvent();
+            canUnpause = new UnityEvent();
+        }
+
+        // We want these listeners to only be active when the game is transitioning, so we'll remove these listeners in UnpauseGame:
+
         canHideGame.AddListener(UnloadPrevGame);
         canShowGame.AddListener(ShowGame);
         canUnpause.AddListener(UnpauseGame);
