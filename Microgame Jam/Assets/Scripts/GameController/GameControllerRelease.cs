@@ -105,7 +105,7 @@ public class GameControllerRelease : GameController
         }
 
         //Step 0: If this scene is from the queue of games recently played... uhhh... pick again?
-        while (previousGames.Contains(destinationScene) && minSceneIndex != SceneManager.sceneCountInBuildSettings - 1)
+        while (previousGames.Contains(destinationScene))
         {
             destinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
