@@ -29,24 +29,22 @@ public class GameControllerDevelop : GameController
         // So if FindObjectsOfType finds both itself and any other GameControllers, this won't get called.
         if (FindObjectsOfType(typeof(GameController)).Length <= 1)
         {
-            StartCoroutine("SimulatePause");
+            SimulatePause();
         }
     }
 
-    IEnumerator SimulatePause()
+    void SimulatePause()
     {
+        // TODO: Create faux animation to pause the game with, and then to start the game with.
         Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(gameStartDelay);
-        Time.timeScale = 1;
         this.SceneInit();
     }
 
-    IEnumerator SimulateEnd()
+    void SimulateEnd()
     {
-        Debug.Log("Pausing the game now to simulate what the transition would look like on your game's end...");
-        Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(endGameDelay);
-        Debug.Log("Pause over, unloading scene to simulate what the transition would look like.");
+        // TODO: Replace this with a transition.
+        // Pausing is no longer feasible.
+        Debug.Log("Simulating transition");
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -56,7 +54,7 @@ public class GameControllerDevelop : GameController
     {
         Debug.Log("Game done! This is where the game would transition to the next microgame.");
         Debug.Log($"The game controller has recorded {this.gameWins} and {this.gameFails} loses");
-        StartCoroutine("SimulateEnd");
+        SimulateEnd();
     }
     private void OnDestroy()
     {

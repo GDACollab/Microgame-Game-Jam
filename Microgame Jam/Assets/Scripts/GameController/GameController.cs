@@ -34,12 +34,6 @@ public abstract class GameController : Singleton<GameController>
     // Whether or not the SetTimer function has been called for this game.
     private bool timerSet = false;
 
-    // How long to wait on a paused game screen before starting the game.
-    protected float gameStartDelay = 2.0f;
-
-    // How long to wait on a paused game before loading the next game.
-    protected float endGameDelay = 2.0f;
-
     // Keeps track if WinGame or LoseGame has been called for this game.
     protected bool gameCanEnd = true;
 
