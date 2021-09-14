@@ -9,9 +9,9 @@ public class ScoreTracker : MonoBehaviour
     public GameObject WinState;
     public GameObject LoseState;
 
-
-    void OnDisable()
+    private void OnEnable()
     {
+        // This is to prevent any one animation from starting when TransitionScene is reloaded.
         WinState.SetActive(false);
         LoseState.SetActive(false);
     }
@@ -19,12 +19,12 @@ public class ScoreTracker : MonoBehaviour
     public void DidWin(bool win, UnityEvent canHideGame, UnityEvent canShowGame, UnityEvent canUnpause) {
         if (win)
         {
-            WinState.GetComponent<TransitionAnimation>().SetEvents(canHideGame, canShowGame, canUnpause);
             WinState.SetActive(true);
+            WinState.GetComponent<TransitionAnimation>().SetEvents(canHideGame, canShowGame, canUnpause);
         }
         else {
-            LoseState.GetComponent<TransitionAnimation>().SetEvents(canHideGame, canShowGame, canUnpause);
             LoseState.SetActive(true);
+            LoseState.GetComponent<TransitionAnimation>().SetEvents(canHideGame, canShowGame, canUnpause);
         }
     }
 }
