@@ -34,22 +34,44 @@ public class MainMenuNavigation : MonoBehaviour
     List<GameObject> nextGameObjectsToActivate;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        if (!SceneManager.GetSceneByBuildIndex(transitionSceneIndex).isLoaded) {
-            StartCoroutine(PreloadScene(transitionSceneIndex));
-        }
+        // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
+        if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
+        {
+            // Make sure GameController is set up:
+            if (FindObjectsOfType(typeof(GameController)).Length == 0)
+            {
+                var gameControllerCreator = new GameObject();
+                gameControllerCreator.AddComponent<GameControllerRelease>();
+                var controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
+                // We make sure to set the minSceneIndex so that GameController knows which scenes to look at for games.
+                controllerComponent.minSceneIndex = minSceneIndex;
 
-        if (!SceneManager.GetSceneByBuildIndex(gameOverSceneIndex).isLoaded) {
-            // And make sure to have the gameOverScene in handy, in case anything goes wrong.
-            StartCoroutine(PreloadScene(gameOverSceneIndex));
-        }
+                // We also have to set the scene for game over:
+                controllerComponent.gameoverSceneIndex = gameOverSceneIndex;
 
-        // Just choose a random game from the list. Let GameControllerRelease handle the rest later.
-        var gameIndex = Random.Range(minSceneIndex, SceneManager.sceneCountInBuildSettings);
-        nextGameTransitionIndex = gameIndex;
-        nextGameObjectsToActivate = new List<GameObject>();
-        StartCoroutine(PreloadScene(gameIndex, nextGameObjectsToActivate));
+                // And the scene for transitions:
+                controllerComponent.transitionSceneIndex = transitionSceneIndex;
+            }
+
+            if (!SceneManager.GetSceneByBuildIndex(transitionSceneIndex).isLoaded)
+            {
+                StartCoroutine(PreloadScene(transitionSceneIndex));
+            }
+
+            if (!SceneManager.GetSceneByBuildIndex(gameOverSceneIndex).isLoaded)
+            {
+                // And make sure to have the gameOverScene in handy, in case anything goes wrong.
+                StartCoroutine(PreloadScene(gameOverSceneIndex));
+            }
+
+            // Just choose a random game from the list. Let GameControllerRelease handle the rest later.
+            var gameIndex = Random.Range(minSceneIndex, SceneManager.sceneCountInBuildSettings);
+            nextGameTransitionIndex = gameIndex;
+            nextGameObjectsToActivate = new List<GameObject>();
+            StartCoroutine(PreloadScene(gameIndex, nextGameObjectsToActivate));
+        }
     }
 
     IEnumerator PreloadScene(int index) {
@@ -72,20 +94,6 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void StartGame() {
-        if (FindObjectsOfType(typeof(GameController)).Length == 0)
-        {
-            var gameControllerCreator = new GameObject();
-            gameControllerCreator.AddComponent<GameControllerRelease>();
-            var controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
-            // We make sure to set the minSceneIndex so that GameController knows which scenes to look at for games.
-            controllerComponent.minSceneIndex = minSceneIndex;
-
-            // We also have to set the scene for game over:
-            controllerComponent.gameoverSceneIndex = gameOverSceneIndex;
-
-            // And the scene for transitions:
-            controllerComponent.transitionSceneIndex = transitionSceneIndex;
-        }
 
         // Make sure the canvas for this scene can't be tampered with any further:
         GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().enabled = false;
