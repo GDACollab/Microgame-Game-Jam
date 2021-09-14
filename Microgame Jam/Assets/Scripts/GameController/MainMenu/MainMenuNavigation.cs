@@ -27,24 +27,19 @@ public class MainMenuNavigation : MonoBehaviour
     [Tooltip("The index of the Game Over scene.")]
     public int gameOverSceneIndex;
 
-    // The index of the next game we're loading.
-    public int nextGameTransitionIndex;
-
-    // The list of objects that are active in the next game.
-    List<GameObject> nextGameObjectsToActivate;
-
     // Start is called before the first frame update
     void OnEnable()
     {
         // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
         if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
         {
+            GameControllerRelease controllerComponent = null;
             // Make sure GameController is set up:
             if (FindObjectsOfType(typeof(GameController)).Length == 0)
             {
                 var gameControllerCreator = new GameObject();
                 gameControllerCreator.AddComponent<GameControllerRelease>();
-                var controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
+                controllerComponent = gameControllerCreator.GetComponent<GameControllerRelease>();
                 // We make sure to set the minSceneIndex so that GameController knows which scenes to look at for games.
                 controllerComponent.minSceneIndex = minSceneIndex;
 
@@ -53,6 +48,9 @@ public class MainMenuNavigation : MonoBehaviour
 
                 // And the scene for transitions:
                 controllerComponent.transitionSceneIndex = transitionSceneIndex;
+            }
+            else if (FindObjectsOfType(typeof(GameController)).Length == 1){
+                controllerComponent = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
             }
 
             if (!SceneManager.GetSceneByBuildIndex(transitionSceneIndex).isLoaded)
@@ -66,11 +64,11 @@ public class MainMenuNavigation : MonoBehaviour
                 StartCoroutine(PreloadScene(gameOverSceneIndex));
             }
 
-            // Just choose a random game from the list. Let GameControllerRelease handle the rest later.
-            var gameIndex = Random.Range(minSceneIndex, SceneManager.sceneCountInBuildSettings);
-            nextGameTransitionIndex = gameIndex;
-            nextGameObjectsToActivate = new List<GameObject>();
-            StartCoroutine(PreloadScene(gameIndex, nextGameObjectsToActivate));
+            if (controllerComponent != null)
+            {
+                // Then, tell the gameController to start the next game:
+                StartCoroutine(controllerComponent.GetNextGame());
+            }
         }
     }
 
@@ -81,16 +79,6 @@ public class MainMenuNavigation : MonoBehaviour
         }
         // This method is static, so we can call it when we need to:
         GameController.ActivateAllObjectsInScene(SceneManager.GetSceneByBuildIndex(index), false);
-    }
-
-    IEnumerator PreloadScene(int index, List<GameObject> objectsToTrack) {
-        var loading = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
-        while (!loading.isDone)
-        {
-            yield return null;
-        }
-        // This method is static, so we can call it when we need to:
-        GameController.ActivateAllObjectsInScene(SceneManager.GetSceneByBuildIndex(index), false, objectsToTrack);
     }
 
     public void StartGame() {

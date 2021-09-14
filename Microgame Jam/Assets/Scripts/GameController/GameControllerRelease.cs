@@ -51,7 +51,7 @@ public class GameControllerRelease : GameController
     //Picks a random level in the build order then transitions to it
     protected override void LevelTransition(bool didWin)
     {
-        StartGameTransition(didWin);
+        StartCoroutine(StartGameTransition(didWin));
     }
 
     // Called when the animation covers the previous game.
@@ -83,7 +83,7 @@ public class GameControllerRelease : GameController
     IEnumerator LoadTransitionScene(bool didWin) {
         // The transition scene should have already been loaded by MainMenuNavigation.cs.
         // We need to get a reference to the transitionScene if we haven't already:
-        if (transitionScene == null)
+        if (transitionScene.name == null)
         {
             transitionScene = SceneManager.GetSceneByBuildIndex(transitionSceneIndex);
         }
@@ -137,7 +137,7 @@ public class GameControllerRelease : GameController
         }
     }
 
-    IEnumerator GetNextGame() {
+    public IEnumerator GetNextGame() {
         // Okay, now we can start figuring out what we're loading for next time:
         nextDestinationScene = this.previousGame;
         // We're done with this scene, so as long as it's not the game over scene, we should add it to the list of places we don't want to go:
@@ -151,7 +151,9 @@ public class GameControllerRelease : GameController
         {
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
-        var loading = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
+        Debug.Log("Loading " + nextDestinationScene + " next.");
+
+        var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
 
         // Wait until we're done loading to start deactivating stuff.
         while (!loading.isDone)
@@ -159,14 +161,14 @@ public class GameControllerRelease : GameController
             yield return null;
         }
 
-        nextGameScene = SceneManager.GetSceneByBuildIndex(destinationScene);
+        nextGameScene = SceneManager.GetSceneByBuildIndex(nextDestinationScene);
 
         // Tell GameController.cs to continually hide everything that shows up in nextGameScene:
         showGameObjects = false;
     }
 
     //Starts setting everything up to allow for the transition animations from the TransitionScene (see the MasterScenes/Transition scene)
-    void StartGameTransition(bool didWin)
+    IEnumerator StartGameTransition(bool didWin)
     {
         // We want these listeners to only be active when the game is transitioning, so we'll remove these listeners in UnpauseGame.
         // But for now, we activate them so that the animations triggered by transitionScene can invoke these events:
@@ -174,6 +176,11 @@ public class GameControllerRelease : GameController
         canHideGame.AddListener(UnloadPrevGame);
         canShowGame.AddListener(ShowGame);
         canUnpause.AddListener(UnpauseGame);
+
+        // Wait until the next game scene is loaded:
+        while (nextGameScene != null && !nextGameScene.isLoaded) {
+            yield return null;
+        }
 
         // Since we've transitioned over, we can now set destinationScene to nextDestinationScene:
         destinationScene = nextDestinationScene;
