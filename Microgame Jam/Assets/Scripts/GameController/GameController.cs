@@ -181,8 +181,8 @@ public abstract class GameController : Singleton<GameController>
         TearDownController(win);
         gameDifficulty = Mathf.Clamp(1 + ((gameWins - 1) / 5), 1, 3);
         Debug.Log("New difficulty: " + gameDifficulty);
-        LevelTransition();
+        LevelTransition(win);
     }
 
-    protected abstract void LevelTransition();
+    protected abstract void LevelTransition(bool didWin);
 }

@@ -30,9 +30,9 @@ public class GameControllerRelease : GameController
 
 
     //Picks a random level in the build order then transitions to it
-    protected override void LevelTransition()
+    protected override void LevelTransition(bool didWin)
     {
-        StartCoroutine(AsyncTransitionTiming());
+        StartCoroutine(AsyncTransitionTiming(didWin));
     }
 
     /*IEnumerator SyncTransitionTiming()
@@ -71,7 +71,7 @@ public class GameControllerRelease : GameController
     //should be instant
     //Doesn't quite work yet, but that has more to do with Thomas not understanding how to do
     //asynchronous scene managment correctly
-    IEnumerator AsyncTransitionTiming()
+    IEnumerator AsyncTransitionTiming(bool didWin)
     {
         // We wait 2 seconds to make the transition to the loading screen smoother. We pause the current time scale to
         // make sure stuff like animations remain paused:
@@ -116,6 +116,9 @@ public class GameControllerRelease : GameController
             // Otherwise, our scene is already loaded, so we just set it to be active.
             ActivateAllObjectsInScene(transitionScene, true);
             SceneManager.SetActiveScene(transitionScene);
+
+            // Now select the appropriate animation for whether or not we've won or lost:
+            GameObject.Find("PointTracker").GetComponent<ScoreTracker>().DidWin(didWin);
         }
         
         //SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(transitionSceneIndex));

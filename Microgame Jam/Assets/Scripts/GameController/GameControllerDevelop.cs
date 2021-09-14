@@ -52,7 +52,7 @@ public class GameControllerDevelop : GameController
 
     //Would normally cause a scene transition here, but because this is just for development,
     //it only prints out some debug messages
-    protected override void LevelTransition()
+    protected override void LevelTransition(bool didWin)
     {
         Debug.Log("Game done! This is where the game would transition to the next microgame.");
         Debug.Log($"The game controller has recorded {this.gameWins} and {this.gameFails} loses");
