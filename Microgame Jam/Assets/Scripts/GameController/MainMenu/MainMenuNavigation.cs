@@ -81,7 +81,6 @@ public class MainMenuNavigation : MonoBehaviour
 
             if (!gameOverSceneExists)
             {
-                Debug.Log("Loading game over");
                 // And make sure to have the gameOverScene in handy, in case anything goes wrong.
                 StartCoroutine(PreloadScene(gameOverSceneIndex));
             }

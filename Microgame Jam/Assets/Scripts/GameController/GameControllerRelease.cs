@@ -56,9 +56,11 @@ public class GameControllerRelease : GameController
 
     // Called when the animation covers the previous game.
     protected void UnloadPrevGame() {
-        //Unload the previous scene (as long as it's not the game over, since we want to keep that):
-        if (this.previousGame != gameoverSceneIndex)
+        //Unload the previous scene (as long as it's not the game over, since we want to keep that, but hide everything):
+        if (this.previousGame == gameoverSceneIndex)
         {
+            ActivateAllObjectsInScene(SceneManager.GetSceneByBuildIndex(gameoverSceneIndex), false);
+        } else {
             SceneManager.UnloadSceneAsync(this.previousGame);
         }
         //this picks between game over and the next game depending on the comparison
