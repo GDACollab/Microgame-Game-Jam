@@ -323,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &705635126
 Animator:
   serializedVersion: 3
@@ -451,6 +451,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WinState: {fileID: 176914781}
   LoseState: {fileID: 1826130505}
+  liveObjects:
+  - {fileID: 705635125}
+  - {fileID: 1044159476}
+  - {fileID: 996063344}
 --- !u!222 &736965922
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -477,7 +481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &996063345
 Animator:
   serializedVersion: 3
@@ -665,7 +669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1044159477
 Animator:
   serializedVersion: 3
