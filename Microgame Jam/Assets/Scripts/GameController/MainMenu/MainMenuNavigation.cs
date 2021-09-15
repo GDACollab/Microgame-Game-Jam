@@ -31,6 +31,7 @@ public class MainMenuNavigation : MonoBehaviour
     void OnEnable()
     {
         // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
+        Debug.Log(FindObjectsOfType(typeof(MainMenuNavigation)).Length);
         if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
         {
             GameControllerRelease controllerComponent = null;
@@ -49,17 +50,41 @@ public class MainMenuNavigation : MonoBehaviour
                 // And the scene for transitions:
                 controllerComponent.transitionSceneIndex = transitionSceneIndex;
             }
-            else if (FindObjectsOfType(typeof(GameController)).Length == 1){
+            else if (FindObjectsOfType(typeof(GameController)).Length == 1)
+            {
                 controllerComponent = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
             }
 
-            if (!SceneManager.GetSceneByBuildIndex(transitionSceneIndex).isLoaded)
+            bool transitionSceneExists = false;
+            bool gameOverSceneExists = false;
+
+            for (int i = 0; i < SceneManager.sceneCount; i++)
+            {
+                Scene j = SceneManager.GetSceneAt(i);
+                if (j.buildIndex == transitionSceneIndex)
+                {
+                    transitionSceneExists = true;
+                }
+                else if (j.buildIndex == gameOverSceneIndex)
+                {
+                    gameOverSceneExists = true;
+                }
+                if (transitionSceneExists && gameOverSceneExists)
+                {
+                    break;
+                }
+            }
+
+            Debug.Log(gameOverSceneExists);
+
+            if (!transitionSceneExists)
             {
                 StartCoroutine(PreloadScene(transitionSceneIndex));
             }
 
-            if (!SceneManager.GetSceneByBuildIndex(gameOverSceneIndex).isLoaded)
+            if (!gameOverSceneExists)
             {
+                Debug.Log("Loading game over");
                 // And make sure to have the gameOverScene in handy, in case anything goes wrong.
                 StartCoroutine(PreloadScene(gameOverSceneIndex));
             }

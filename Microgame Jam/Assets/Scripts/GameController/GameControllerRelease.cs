@@ -146,8 +146,8 @@ public class GameControllerRelease : GameController
             previousGames.Enqueue(nextDestinationScene);
         }
 
-
-        while (previousGames.Contains(nextDestinationScene))
+        // This can be called while we're currently in the gameOverSceneIndex, so if that's the case, we want to make sure we don't select gameOverSceneIndex as the next game.
+        while (previousGames.Contains(nextDestinationScene) || nextDestinationScene == gameoverSceneIndex)
         {
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
@@ -192,14 +192,11 @@ public class GameControllerRelease : GameController
         // Since we've transitioned over, we can now set destinationScene to nextDestinationScene:
         destinationScene = nextDestinationScene;
 
-        Debug.Log($"Selecting scene #{destinationScene}");
-
-        // Activate the transitioning scene, to show that we're in a transition.
-        StartCoroutine(LoadTransitionScene(didWin));
-
         // Begin setting the relevant things so that ShowGame and UnpauseGame work as intended.
         // If the game's over, actually go to the end.
-        if (this.gameFails >= this.maxFails) {
+        if (this.gameFails >= this.maxFails)
+        {
+            Debug.Log("Starting Game Over");
             // Unload the scene we've just loaded, in case we're going to game over.
             var isUnloading = SceneManager.UnloadSceneAsync(destinationScene);
             // Since we're currently unloading, we can hide any current game objects:
@@ -212,8 +209,14 @@ public class GameControllerRelease : GameController
             destinationScene = gameoverSceneIndex;
         }
 
+
         // Make sure any new objects are not going to show up while we do loading:
         gameScene = SceneManager.GetSceneByBuildIndex(destinationScene);
+
+        Debug.Log($"Selecting scene #{destinationScene}");
+
+        // Activate the transitioning scene, to show that we're in a transition.
+        StartCoroutine(LoadTransitionScene(didWin));
 
         // Because we're about to start activating everything in the next scene, we need to make sure everything in the level
         // will be paused.
