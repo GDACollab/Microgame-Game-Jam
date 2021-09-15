@@ -123,9 +123,6 @@ public class GameControllerRelease : GameController
             transitionCamera.GetComponent<Camera>().CopyFrom(gameMainCamera);
         }
 
-
-        // Now that this scene is loaded, mirror the camera settings from the previous game to match this one.
-
         foreach (GameObject obj in transitionScene.GetRootGameObjects())
         {
             if (obj.name == "PointTracker")
@@ -137,8 +134,11 @@ public class GameControllerRelease : GameController
         }
     }
 
-    public IEnumerator GetNextGame() {
-        // Okay, now we can start figuring out what we're loading for next time:
+    public IEnumerator GetNextGame(ThreadPriority loadingPriority) {
+        // Okay, now we can start figuring out what we're loading for next time.
+        // We first set the priority:
+        Application.backgroundLoadingPriority = loadingPriority;
+
         nextDestinationScene = this.previousGame;
         // We're done with this scene, so as long as it's not the game over scene, we should add it to the list of places we don't want to go:
         if (this.previousGame != gameoverSceneIndex)
@@ -163,8 +163,15 @@ public class GameControllerRelease : GameController
 
         nextGameScene = SceneManager.GetSceneByBuildIndex(nextDestinationScene);
 
+        // Hide all the game objects:
+        gameObjectsToActivate = new List<GameObject>();
+        ActivateAllObjectsInScene(nextGameScene, false, gameObjectsToActivate);
+
         // Tell GameController.cs to continually hide everything that shows up in nextGameScene:
         showGameObjects = false;
+
+        // Now we can restore thread priority:
+        Application.backgroundLoadingPriority = ThreadPriority.Normal;
     }
 
     //Starts setting everything up to allow for the transition animations from the TransitionScene (see the MasterScenes/Transition scene)
@@ -192,6 +199,10 @@ public class GameControllerRelease : GameController
 
         // Begin setting the relevant things so that ShowGame and UnpauseGame work as intended.
         // If the game's over, actually go to the end.
+        if (this.gameFails >= this.maxFails) {
+            // Unload the scene we've just loaded, in case we're going to game over.
+            SceneManager.UnloadSceneAsync(destinationScene);
+        }
         destinationScene = this.gameFails >= this.maxFails ? gameoverSceneIndex : destinationScene;
 
         // Make sure any new objects are not going to show up while we do loading:
@@ -245,7 +256,8 @@ public class GameControllerRelease : GameController
             this.SceneInit();
 
             // And now we can start loading the next game:
-            StartCoroutine(GetNextGame());
+            // Load in the background, to avoid problems.
+            StartCoroutine(GetNextGame(ThreadPriority.Low));
         }
     }
 }

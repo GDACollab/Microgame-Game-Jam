@@ -66,8 +66,9 @@ public class MainMenuNavigation : MonoBehaviour
 
             if (controllerComponent != null)
             {
-                // Then, tell the gameController to start the next game:
-                StartCoroutine(controllerComponent.GetNextGame());
+                // Then, tell the gameController to start the next game.
+                // We want this to be as fast as possible.
+                StartCoroutine(controllerComponent.GetNextGame(ThreadPriority.High));
             }
         }
     }
