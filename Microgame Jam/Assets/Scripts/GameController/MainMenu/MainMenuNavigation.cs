@@ -31,7 +31,6 @@ public class MainMenuNavigation : MonoBehaviour
     void OnEnable()
     {
         // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
-        Debug.Log(FindObjectsOfType(typeof(MainMenuNavigation)).Length);
         if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
         {
             GameControllerRelease controllerComponent = null;
@@ -74,8 +73,6 @@ public class MainMenuNavigation : MonoBehaviour
                     break;
                 }
             }
-
-            Debug.Log(gameOverSceneExists);
 
             if (!transitionSceneExists)
             {
