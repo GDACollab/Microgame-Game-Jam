@@ -98,6 +98,8 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void LoadMainMenu() {
+        // Make sure this scene is unloaded, just in case:
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadScene("TitleScreen");
     }
 

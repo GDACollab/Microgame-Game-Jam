@@ -151,7 +151,7 @@ public class GameControllerRelease : GameController
         {
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
-        Debug.Log("Loading " + nextDestinationScene + " next.");
+        Debug.Log("Loading #" + nextDestinationScene + " next.");
 
         var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
 
@@ -201,9 +201,16 @@ public class GameControllerRelease : GameController
         // If the game's over, actually go to the end.
         if (this.gameFails >= this.maxFails) {
             // Unload the scene we've just loaded, in case we're going to game over.
-            SceneManager.UnloadSceneAsync(destinationScene);
+            var isUnloading = SceneManager.UnloadSceneAsync(destinationScene);
+            // Since we're currently unloading, we can hide any current game objects:
+            showGameObjects = true;
+
+            // Set gameObjectsToActivate to null so that ShowGame() knows to just show everything.
+            gameObjectsToActivate = null;
+
+            // And now the next scene is the gameOver scene:
+            destinationScene = gameoverSceneIndex;
         }
-        destinationScene = this.gameFails >= this.maxFails ? gameoverSceneIndex : destinationScene;
 
         // Make sure any new objects are not going to show up while we do loading:
         gameScene = SceneManager.GetSceneByBuildIndex(destinationScene);
@@ -233,11 +240,24 @@ public class GameControllerRelease : GameController
         // A good thing TODO would be to make a looping transition screen, and to wait until the game has finished loading before
         // starting the animation to transition to the next game.
         showGameObjects = true;
-        ActivateAllObjectsInScene(gameScene, true, gameObjectsToActivate);
+        Debug.Log("Showing " + gameScene.name);
+
+        // If gameObjectsToActivate is null, then something has probably been changed about the gameScene, so it's better
+        // to just show everything and let whoever's programming worry about it.
+        if (gameObjectsToActivate == null)
+        {
+            ActivateAllObjectsInScene(gameScene, true);
+        }
+        else
+        {
+            ActivateAllObjectsInScene(gameScene, true, gameObjectsToActivate);
+        }
     }
 
     // Called when it's safe to unpause the game.
     protected void UnpauseGame() {
+        Debug.Log("Unpausing " + gameScene.name);
+
         ActivateAllObjectsInScene(transitionScene, false);
         // And now the scene is loaded in, so we can resume time:
         Time.timeScale = 1;

@@ -8,7 +8,7 @@ public abstract class GameController : Singleton<GameController>
     ///Fields--------------------------------------------------------------------------------------
     //The amount of games that can be failed until the game is over
     //We might want to put this elsewhere but we can figure that out later
-    public int maxFails { get; private set; } = 3;
+    public int maxFails { get; private set; } = 1;
 
     //The previous game that was played to make sure it doesn't get picked again
     protected int previousGame { get; set; } = 0;
