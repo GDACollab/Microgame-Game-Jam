@@ -27,9 +27,12 @@ public class MainMenuNavigation : MonoBehaviour
     [Tooltip("The index of the Game Over scene.")]
     public int gameOverSceneIndex;
 
+    public UnityEngine.EventSystems.EventSystem eventSystem;
+
     // Start is called before the first frame update
     void OnEnable()
     {
+        eventSystem.enabled = true;
         // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
         if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
         {
@@ -106,7 +109,7 @@ public class MainMenuNavigation : MonoBehaviour
     public void StartGame() {
 
         // Make sure the canvas for this scene can't be tampered with any further:
-        GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().enabled = false;
+        eventSystem.enabled = false;
 
         // As soon as we load the next scene, GameController should reset.
         // We do this by .Instance so that we ensure the instance that's created is derived from GameControllerRelease.
@@ -119,8 +122,8 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void LoadMainMenu() {
-        // Make sure this scene is unloaded, just in case:
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        var controller = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
+        controller.ResetPrevGame();
         SceneManager.LoadScene("TitleScreen");
     }
 

@@ -8,7 +8,7 @@ public abstract class GameController : Singleton<GameController>
     ///Fields--------------------------------------------------------------------------------------
     //The amount of games that can be failed until the game is over
     //We might want to put this elsewhere but we can figure that out later
-    public int maxFails { get; private set; } = 1;
+    public int maxFails { get; private set; } = 3;
 
     //The previous game that was played to make sure it doesn't get picked again
     protected int previousGame { get; set; } = 0;
@@ -72,9 +72,15 @@ public abstract class GameController : Singleton<GameController>
     }
     public static void ActivateAllObjectsInScene(Scene scene, bool activate)
     {
-        foreach (GameObject obj in scene.GetRootGameObjects())
+        if (scene.IsValid())
         {
-            obj.SetActive(activate);
+            foreach (GameObject obj in scene.GetRootGameObjects())
+            {
+                obj.SetActive(activate);
+            }
+        }
+        else {
+            Debug.LogWarning("Trying to activate objects in a scene that isn't valid.");
         }
     }
 
@@ -82,21 +88,27 @@ public abstract class GameController : Singleton<GameController>
     // currently active in the scene. If activate is true, the filterList will only activate objects in the provided filterList.
     public static void ActivateAllObjectsInScene(Scene scene, bool activate, List<GameObject> filterList)
     {
-        foreach (GameObject obj in scene.GetRootGameObjects())
+        if (scene.IsValid())
         {
-            if (activate == false && obj.activeSelf)
+            foreach (GameObject obj in scene.GetRootGameObjects())
             {
-                filterList.Add(obj);
-            }
+                if (activate == false && obj.activeSelf)
+                {
+                    filterList.Add(obj);
+                }
 
-            if (activate == true && filterList.Contains(obj))
-            {
-                obj.SetActive(activate);
+                if (activate == true && filterList.Contains(obj))
+                {
+                    obj.SetActive(activate);
+                }
+                else if (activate == false)
+                {
+                    obj.SetActive(activate);
+                }
             }
-            else if (activate == false)
-            {
-                obj.SetActive(activate);
-            }
+        }
+        else {
+            Debug.LogWarning("Trying to activate objects in a scene that isn't valid.");
         }
     }
 

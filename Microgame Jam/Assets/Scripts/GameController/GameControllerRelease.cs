@@ -54,6 +54,10 @@ public class GameControllerRelease : GameController
         StartCoroutine(StartGameTransition(didWin));
     }
 
+    public void ResetPrevGame() {
+        this.previousGame = 0;
+    }
+
     // Called when the animation covers the previous game.
     protected void UnloadPrevGame() {
         //Unload the previous scene (as long as it's not the game over, since we want to keep that, but hide everything):
@@ -63,6 +67,7 @@ public class GameControllerRelease : GameController
         } else {
             SceneManager.UnloadSceneAsync(this.previousGame);
         }
+
         //this picks between game over and the next game depending on the comparison
         this.previousGame = destinationScene;
 
