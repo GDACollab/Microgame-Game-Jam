@@ -35,9 +35,6 @@ public class GameControllerRelease : GameController
     // It's safe to unpause the next game
     private UnityEvent canUnpause = new UnityEvent();
 
-    // A list of game objects in the next game that we need to unpause. Set by ActivateAllObjectsInScene
-    private List<GameObject> gameObjectsToActivate;
-
     // The scene we want to go to next.
     private int destinationScene;
 

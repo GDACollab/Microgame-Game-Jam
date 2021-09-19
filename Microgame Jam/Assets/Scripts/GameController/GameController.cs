@@ -39,6 +39,10 @@ public abstract class GameController : Singleton<GameController>
 
     protected bool showGameObjects = true;
 
+    // A list of game objects in the next game that we need to unpause. Set by ActivateAllObjectsInScene.
+    // Used by GameControllerRelease.cs and in the Update functions.
+    protected List<GameObject> gameObjectsToActivate;
+
     protected Scene gameScene;
 
     protected Scene nextGameScene;
@@ -67,7 +71,8 @@ public abstract class GameController : Singleton<GameController>
         // Prevent any game objects from showing up if we don't want them to:
         if (!showGameObjects)
         {
-            ActivateAllObjectsInScene(nextGameScene, showGameObjects);
+            // If any new game objects show up, they'll be added to gameObejctsToActivate.
+            ActivateAllObjectsInScene(nextGameScene, showGameObjects, gameObjectsToActivate);
         }
     }
     public static void ActivateAllObjectsInScene(Scene scene, bool activate)
