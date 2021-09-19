@@ -11,10 +11,20 @@ public class TransitionAnimation : MonoBehaviour
     UnityEvent hideGame;
     UnityEvent showGame;
     UnityEvent startGame;
+    public MaskController maskController;
+
     public void SetEvents(UnityEvent hide, UnityEvent show, UnityEvent start) {
         hideGame = hide;
         showGame = show;
         startGame = start;
+    }
+
+    public void OnStartTransition() {
+        maskController.ToggleMaskDirection();
+    }
+
+    public void OnEndTransitionStart() {
+        maskController.ToggleMaskDirection();
     }
 
     // These are functions called by the Transition_Screen_Win and Transition_Screen_Lose sprites when their animations
