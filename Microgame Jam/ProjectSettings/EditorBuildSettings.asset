@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MasterScenes/Credits.unity
     guid: 4710b5f8c5caaaf4ebef6a8a0c16d114
-  - enabled: 1
-    path: Assets/TestScenes/TestScene1.unity
-    guid: 7d3e47f4c21fdaa45b2275d644c8645a
-  - enabled: 1
-    path: Assets/TestScenes/TestScene2.unity
-    guid: 48b04f0d739a583468f00902db6bab80
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}
