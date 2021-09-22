@@ -22,6 +22,7 @@ public class TransitionAnimation : MonoBehaviour
 
     public void OnStartTransition() {
         maskController.ToggleMaskDirection();
+        soundToPlay.Play();
     }
 
     public void OnEndTransitionStart() {
@@ -34,7 +35,6 @@ public class TransitionAnimation : MonoBehaviour
     // When the current game on screen can be safely hidden.
     public void OnGameHide() {
         hideGame.Invoke();
-        soundToPlay.Play();
     }
 
     // When the next game can be shown on screen (we try to wait as long as possible for this in the animation, since sounds
