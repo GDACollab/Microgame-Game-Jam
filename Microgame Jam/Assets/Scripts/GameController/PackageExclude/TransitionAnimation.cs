@@ -13,6 +13,7 @@ public class TransitionAnimation : MonoBehaviour
     UnityEvent startGame;
     public MaskController maskController;
     public AudioSource soundToPlay;
+    public ScoreTracker pointTracker;
 
     public void SetEvents(UnityEvent hide, UnityEvent show, UnityEvent start) {
         hideGame = hide;
@@ -35,6 +36,10 @@ public class TransitionAnimation : MonoBehaviour
     // When the current game on screen can be safely hidden.
     public void OnGameHide() {
         hideGame.Invoke();
+    }
+
+    public void OnSetNeutral() {
+        pointTracker.SetNeutralAnim();
     }
 
     // When the next game can be shown on screen (we try to wait as long as possible for this in the animation, since sounds
