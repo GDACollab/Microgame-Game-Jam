@@ -11,10 +11,23 @@ public class TransitionAnimation : MonoBehaviour
     UnityEvent hideGame;
     UnityEvent showGame;
     UnityEvent startGame;
+    public MaskController maskController;
+    public AudioSource soundToPlay;
+    public ScoreTracker pointTracker;
+
     public void SetEvents(UnityEvent hide, UnityEvent show, UnityEvent start) {
         hideGame = hide;
         showGame = show;
         startGame = start;
+    }
+
+    public void OnStartTransition() {
+        maskController.ToggleMaskDirection();
+        soundToPlay.Play();
+    }
+
+    public void OnEndTransitionStart() {
+        maskController.ToggleMaskDirection();
     }
 
     // These are functions called by the Transition_Screen_Win and Transition_Screen_Lose sprites when their animations
@@ -23,6 +36,10 @@ public class TransitionAnimation : MonoBehaviour
     // When the current game on screen can be safely hidden.
     public void OnGameHide() {
         hideGame.Invoke();
+    }
+
+    public void OnSetNeutral() {
+        pointTracker.SetNeutralAnim();
     }
 
     // When the next game can be shown on screen (we try to wait as long as possible for this in the animation, since sounds

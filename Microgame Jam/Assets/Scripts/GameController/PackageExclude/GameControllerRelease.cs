@@ -24,9 +24,6 @@ public class GameControllerRelease : GameController
 
     private Queue<int> previousGames = new Queue<int>();
 
-    //the load of the transition scene
-    private bool transitionLoaded;
-
     // The scene that's used to transition between levels.
     private Scene transitionScene;
 
@@ -38,11 +35,11 @@ public class GameControllerRelease : GameController
     // It's safe to unpause the next game
     private UnityEvent canUnpause = new UnityEvent();
 
-    // A list of game objects in the next game that we need to unpause. Set by ActivateAllObjectsInScene
-    private List<GameObject> gameObjectsToActivate;
-
     // The scene we want to go to next.
     private int destinationScene;
+
+    // Where we want to go to after destinationScene is done.
+    private int nextDestinationScene;
 
     // The default transition camera, so we can restore its settings after mirroring previous games' cameras.
     private Camera transitionCameraDefault;
@@ -54,10 +51,20 @@ public class GameControllerRelease : GameController
         StartCoroutine(StartGameTransition(didWin));
     }
 
+    public void ResetPrevGame() {
+        this.previousGame = 0;
+    }
+
     // Called when the animation covers the previous game.
     protected void UnloadPrevGame() {
-        //Unload the previous scene:
-        SceneManager.UnloadSceneAsync(this.previousGame);
+        //Unload the previous scene (as long as it's not the game over, since we want to keep that, but hide everything):
+        if (this.previousGame == gameoverSceneIndex)
+        {
+            ActivateAllObjectsInScene(SceneManager.GetSceneByBuildIndex(gameoverSceneIndex), false);
+        } else {
+            SceneManager.UnloadSceneAsync(this.previousGame);
+        }
+
         //this picks between game over and the next game depending on the comparison
         this.previousGame = destinationScene;
 
@@ -80,68 +87,24 @@ public class GameControllerRelease : GameController
 
     }
 
-    //The timing of the actual scene transition
-    //It's a coroutine to handle timing of effects because I doubt this transition 
-    //should be instant
-    //Doesn't quite work yet, but that has more to do with Thomas not understanding how to do
-    //asynchronous scene managment correctly
-    IEnumerator StartGameTransition(bool didWin)
-    {
-
-        // We want these listeners to only be active when the game is transitioning, so we'll remove these listeners in UnpauseGame:
-
-        canHideGame.AddListener(UnloadPrevGame);
-        canShowGame.AddListener(ShowGame);
-        canUnpause.AddListener(UnpauseGame);
-
-        destinationScene = this.previousGame;
-        // We're done with this scene, so as long as it's not the game over scene, we should add it to the list of places we don't want to go:
-        if (this.previousGame == gameoverSceneIndex)
+    IEnumerator LoadTransitionScene(bool didWin) {
+        // The transition scene should have already been loaded by MainMenuNavigation.cs.
+        // We need to get a reference to the transitionScene if we haven't already:
+        if (transitionScene.name == null)
         {
-            SceneManager.UnloadSceneAsync(gameoverSceneIndex);
-        }
-        else {
-            previousGames.Enqueue(destinationScene);
-        }
-
-        //Step 0: If this scene is from the queue of games recently played... uhhh... pick again?
-        while (previousGames.Contains(destinationScene))
-        {
-            destinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
-        }
-
-        Debug.Log($"Selecting scene #{destinationScene}");
-
-        //And if the game's over, actually go to the end.
-        destinationScene = this.gameFails >= this.maxFails ? gameoverSceneIndex : destinationScene;
-        Debug.Log($"Transitioning to scene #{destinationScene}");
-
-        // Step 1: Tyler takes over writing the comments now. Let's see what we can fix.
-
-        // Step 2: If the transition scene isn't loaded, load it now.
-        // Once this step is done, the transition scene will always be loaded.
-        if (!transitionLoaded)
-        {
-            // We want the previous screen to be shown, if possible.
-            var transitionLoading = SceneManager.LoadSceneAsync(transitionSceneIndex, LoadSceneMode.Additive);
-            transitionLoaded = true;
             transitionScene = SceneManager.GetSceneByBuildIndex(transitionSceneIndex);
-            while (!transitionScene.isLoaded) {
-                yield return null;
-            }
-            SceneManager.SetActiveScene(transitionScene);
-        }
-        else {
-            // Otherwise, our scene is already loaded, so we just set it to be active.
-            ActivateAllObjectsInScene(transitionScene, true);
-            SceneManager.SetActiveScene(transitionScene);
         }
 
-        while (!transitionScene.isLoaded) {
+        // Now we set everything in the transition scene to be active:
+        ActivateAllObjectsInScene(transitionScene, true);
+        SceneManager.SetActiveScene(transitionScene);
+
+        // In case the transition scene still needs to load some stuff, we wait.
+        while (!transitionScene.isLoaded)
+        {
             yield return null;
         }
 
-        // Step 3, before we start loading the transition scene.
         // Mirror the main camera settings from the previous game scene, since we don't want to unload things weirdly.
         // This is a hacky fix, but unless people start experimenting with their unity camera setups (and changing their camera's tags),
         // this should hopefully work fine for most games.
@@ -154,7 +117,8 @@ public class GameControllerRelease : GameController
             {
                 gameMainCamera = camera.GetComponent<Camera>();
             }
-            if (camera.scene.buildIndex == transitionSceneIndex) {
+            if (camera.scene.buildIndex == transitionSceneIndex)
+            {
                 transitionCamera = camera;
                 transitionCameraDefault = transitionCamera.GetComponent<Camera>();
             }
@@ -166,39 +130,105 @@ public class GameControllerRelease : GameController
             transitionCamera.GetComponent<Camera>().CopyFrom(gameMainCamera);
         }
 
-
-        // Now that this scene is loaded, mirror the camera settings from the previous game to match this one.
-
-        foreach (GameObject obj in transitionScene.GetRootGameObjects()) {
-            if (obj.name == "PointTracker") {
+        foreach (GameObject obj in transitionScene.GetRootGameObjects())
+        {
+            if (obj.name == "PointTracker")
+            {
                 // Now select the appropriate animation for whether or not we've won or lost, and we allow it to carry our unity events to later trigger
                 // at various animation points:
                 obj.GetComponent<ScoreTracker>().DidWin(didWin, canHideGame, canShowGame, canUnpause);
             }
         }
+    }
 
-        // Because we're about to start loading the next scene, we need to make sure everything in the level
-        // will be paused.
-        // NOTE: BECAUSE OF THIS, WHENEVER INTRODUCING DELAYS, YOU MUST USE WaitForSecondsRealtime.
-        // The animations for Transition_Screen_Win and Transition_Screen_Lose run on Unscaled Time because of this.
-        Time.timeScale = 0;
+    public IEnumerator GetNextGame(ThreadPriority loadingPriority) {
+        // Okay, now we can start figuring out what we're loading for next time.
+        // We first set the priority:
+        Application.backgroundLoadingPriority = loadingPriority;
 
-        var loading = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
+        nextDestinationScene = this.previousGame;
+        // We're done with this scene, so as long as it's not the game over scene, we should add it to the list of places we don't want to go:
+        if (this.previousGame != gameoverSceneIndex)
+        {
+            previousGames.Enqueue(nextDestinationScene);
+        }
+
+        // This can be called while we're currently in the gameOverSceneIndex, so if that's the case, we want to make sure we don't select gameOverSceneIndex as the next game.
+        while (previousGames.Contains(nextDestinationScene) || nextDestinationScene == gameoverSceneIndex)
+        {
+            nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
+        }
+        Debug.Log("Loading #" + nextDestinationScene + " next.");
+
+        var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
 
         // Wait until we're done loading to start deactivating stuff.
-        while (!loading.isDone) {
+        while (!loading.isDone)
+        {
             yield return null;
         }
+
+        nextGameScene = SceneManager.GetSceneByBuildIndex(nextDestinationScene);
+
+        // Hide all the game objects:
+        gameObjectsToActivate = new List<GameObject>();
+        ActivateAllObjectsInScene(nextGameScene, false, gameObjectsToActivate);
+
+        // Tell GameController.cs to continually hide everything that shows up in nextGameScene:
+        showGameObjects = false;
+
+        // Now we can restore thread priority:
+        Application.backgroundLoadingPriority = ThreadPriority.Normal;
+    }
+
+    //Starts setting everything up to allow for the transition animations from the TransitionScene (see the MasterScenes/Transition scene)
+    IEnumerator StartGameTransition(bool didWin)
+    {
+        // We want these listeners to only be active when the game is transitioning, so we'll remove these listeners in UnpauseGame.
+        // But for now, we activate them so that the animations triggered by transitionScene can invoke these events:
+
+        canHideGame.AddListener(UnloadPrevGame);
+        canShowGame.AddListener(ShowGame);
+        canUnpause.AddListener(UnpauseGame);
+
+        // Wait until the next game scene is loaded:
+        while (nextGameScene != null && !nextGameScene.isLoaded) {
+            yield return null;
+        }
+
+        // Since we've transitioned over, we can now set destinationScene to nextDestinationScene:
+        destinationScene = nextDestinationScene;
+
+        // Begin setting the relevant things so that ShowGame and UnpauseGame work as intended.
+        // If the game's over, actually go to the end.
+        if (this.gameFails >= this.maxFails)
+        {
+            // Unload the scene we've just loaded, in case we're going to game over.
+            var isUnloading = SceneManager.UnloadSceneAsync(destinationScene);
+            // Since we're currently unloading, we can hide any current game objects:
+            showGameObjects = true;
+
+            // Set gameObjectsToActivate to null so that ShowGame() knows to just show everything.
+            gameObjectsToActivate = null;
+
+            // And now the next scene is the gameOver scene:
+            destinationScene = gameoverSceneIndex;
+        }
+
 
         // Make sure any new objects are not going to show up while we do loading:
         gameScene = SceneManager.GetSceneByBuildIndex(destinationScene);
 
-        gameObjectsToActivate = new List<GameObject>();
+        Debug.Log($"Selecting scene #{destinationScene}");
 
-        // Step 4: Hide everything in the loaded scene so we don't get two scenes on top of one another
-        ActivateAllObjectsInScene(gameScene, false, gameObjectsToActivate);
+        // Activate the transitioning scene, to show that we're in a transition.
+        StartCoroutine(LoadTransitionScene(didWin));
 
-        showGameObjects = false;
+        // Because we're about to start activating everything in the next scene, we need to make sure everything in the level
+        // will be paused.
+        // NOTE: BECAUSE OF THIS, WHENEVER INTRODUCING DELAYS, YOU MUST USE WaitForSecondsRealtime.
+        // The animations for Transition_Screen_Win and Transition_Screen_Lose run on Unscaled Time because of this.
+        Time.timeScale = 0;
 
         // We do this before the scene is loaded, because a player might click the restart button when the scene is loaded, but before
         // we've reset all variables.
@@ -219,11 +249,24 @@ public class GameControllerRelease : GameController
         // A good thing TODO would be to make a looping transition screen, and to wait until the game has finished loading before
         // starting the animation to transition to the next game.
         showGameObjects = true;
-        ActivateAllObjectsInScene(gameScene, true, gameObjectsToActivate);
+        Debug.Log("Showing " + gameScene.name);
+
+        // If gameObjectsToActivate is null, then something has probably been changed about the gameScene, so it's better
+        // to just show everything and let whoever's programming worry about it.
+        if (gameObjectsToActivate == null)
+        {
+            ActivateAllObjectsInScene(gameScene, true);
+        }
+        else
+        {
+            ActivateAllObjectsInScene(gameScene, true, gameObjectsToActivate);
+        }
     }
 
     // Called when it's safe to unpause the game.
     protected void UnpauseGame() {
+        Debug.Log("Unpausing " + gameScene.name);
+
         ActivateAllObjectsInScene(transitionScene, false);
         // And now the scene is loaded in, so we can resume time:
         Time.timeScale = 1;
@@ -240,6 +283,10 @@ public class GameControllerRelease : GameController
         {
             Debug.Log("Scene Activated.");
             this.SceneInit();
+
+            // And now we can start loading the next game:
+            // Load in the background, to avoid problems.
+            StartCoroutine(GetNextGame(ThreadPriority.Low));
         }
     }
 }

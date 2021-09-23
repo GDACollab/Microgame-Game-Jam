@@ -36,3 +36,7 @@ GameController.Instance.maxFails is the number of times that a player can lose b
 GameController.Instance.gameFails is the number of times the player has lost games.
 
 GameController.Instance.gameWins is the number of times the player has won games.
+
+Fairly useless functions that you can still access anyways:
+
+GameController.Instance.ActivateAllObjectsInScene will set all the objects in a given scene to be active or not.
