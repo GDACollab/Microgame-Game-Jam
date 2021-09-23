@@ -83,7 +83,7 @@ public class CreditsManager : MonoBehaviour
         Text creditsText = creditsObject.AddComponent<Text>();
         creditsText.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
         creditsText.text = "";
-        creditsText.fontSize = 20;
+        creditsText.fontSize = 30;
         creditsText.alignment = TextAnchor.UpperCenter;
         creditsText.verticalOverflow = VerticalWrapMode.Overflow;
 
@@ -105,6 +105,6 @@ public class CreditsManager : MonoBehaviour
     void Update()
     {
         //scroll credits up the screen
-        creditsObject.transform.position += new Vector3(0, scrollSpeed * Time.deltaTime, 0);   
+        creditsObject.transform.position += new Vector3(0, scrollSpeed * Screen.currentResolution.height * Time.deltaTime, 0);   
     }
 }
