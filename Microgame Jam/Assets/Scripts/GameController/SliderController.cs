@@ -9,6 +9,6 @@ public class SliderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetComponent<Slider>().value = GameController.Instance.gameTime / GameController.Instance.maxTime;
+        GetComponent<Slider>().value = 1 - (GameController.Instance.gameTime / GameController.Instance.maxTime);
     }
 }
