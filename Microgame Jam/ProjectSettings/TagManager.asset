@@ -41,3 +41,33 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Sort1
+    uniqueID: 652414581
+    locked: 0
+  - name: Sort2
+    uniqueID: 467651159
+    locked: 0
+  - name: Sort3
+    uniqueID: 592292285
+    locked: 0
+  - name: Sort4
+    uniqueID: 2641983603
+    locked: 0
+  - name: Sort5
+    uniqueID: 3520894395
+    locked: 0
+  - name: Sort6
+    uniqueID: 151992327
+    locked: 0
+  - name: Sort7
+    uniqueID: 543528703
+    locked: 0
+  - name: Sort8
+    uniqueID: 141648107
+    locked: 0
+  - name: Sort9
+    uniqueID: 878680479
+    locked: 0
+  - name: Sort10
+    uniqueID: 5895867
+    locked: 0
