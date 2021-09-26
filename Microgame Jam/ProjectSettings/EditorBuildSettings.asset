@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Reroute_Scenes/Reroute_MainScene.unity
     guid: b6abf8b839aeb544fab5b0d8e828dd8d
+  - enabled: 1
+    path: Assets/DontCrash.unity
+    guid: 86705a1c46edceb498cb7bb9f60ccf08
   m_configObjects: {}

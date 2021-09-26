@@ -60,12 +60,15 @@ public class Reroute_LevelController : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
-        gameCameraAnim = gameCamera.GetComponent<Animator>();
-        StartCoroutine(StartingRoutine());
-        snakeTimeRemaining = 15;
-        canWin = true;
+        if (GameController.Instance.timerOn)
+        {
+            gameCameraAnim = gameCamera.GetComponent<Animator>();
+            StartCoroutine(StartingRoutine());
+            snakeTimeRemaining = 15;
+            canWin = true;
+        }
 
     }
 

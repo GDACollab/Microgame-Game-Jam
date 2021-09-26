@@ -392,7 +392,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &112814585
@@ -841,7 +841,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &349952412
@@ -3432,6 +3432,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d043eb84c1088354d964bdfa4ce87da8, type: 3}
   - {fileID: 8300000, guid: 378f5d2d1b336524d944e2dfe36df974, type: 3}
   canWin: 0
+  hasWon: 0
   hasLost: 0
 --- !u!82 &1314922119
 AudioSource:
@@ -4139,7 +4140,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1627285557
@@ -4419,7 +4420,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -509083335
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a15eb1ad34dde044db107aa144e6ecc2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4813,7 +4814,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1945682978
@@ -4992,6 +4993,10 @@ PrefabInstance:
     - target: {fileID: 7294173090221277677, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294173091350267036, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7294173091350267039, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
       propertyPath: m_IsActive
