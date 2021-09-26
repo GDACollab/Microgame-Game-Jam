@@ -381,8 +381,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1463066015
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0.9028931, b: 0.8632076, a: 1}
@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 112814587}
   m_Layer: 0
   m_Name: NonPixelCamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -830,8 +830,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1463066015
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0.9028931, b: 0.8632076, a: 1}
@@ -1051,9 +1051,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1463066015
-  m_SortingLayer: 1
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 84e8748007a4b0d4eb85c9b366314e9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1634,6 +1634,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 4fdddab9a19d083419763b76cabf8ce0, type: 3}
+    - target: {fileID: 7138040531486220693, guid: dd4e27e742009c147a289ba041d52bef, type: 3}
+      propertyPath: m_SortingOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7138040531486220694, guid: dd4e27e742009c147a289ba041d52bef, type: 3}
       propertyPath: m_Name
       value: Reroute_SnakeSegment (3)
@@ -2085,9 +2089,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -742398191
-  m_SortingLayer: 2
-  m_SortingOrder: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 8009baeb329e41f4ca2607ef6562f7f5, type: 3}
   m_Color: {r: 0.34838334, g: 0.8679245, b: 0.33980063, a: 1}
   m_FlipX: 0
@@ -3408,6 +3412,7 @@ MonoBehaviour:
   gameCamera: {fileID: 1431139336}
   handMasterAnim: {fileID: 1898384780}
   asteroidAnim: {fileID: 1408542613}
+  displayLight: {fileID: 626684073}
   countdownNumber: {fileID: 1746702110}
   countdownSprites:
   - {fileID: 21300000, guid: a15eb1ad34dde044db107aa144e6ecc2, type: 3}
@@ -4123,8 +4128,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1463066015
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0.9028931, b: 0.8632076, a: 1}
@@ -4797,8 +4802,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1463066015
-  m_SortingLayer: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0.9028931, b: 0.8632076, a: 1}
@@ -4987,6 +4992,10 @@ PrefabInstance:
     - target: {fileID: 7294173090221277677, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7294173091350267039, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
@@ -5210,18 +5219,6 @@ PrefabInstance:
     - target: {fileID: 2392260542646538865, guid: 75b4dc652943e53469692c37307c985b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392260542646538867, guid: 75b4dc652943e53469692c37307c985b, type: 3}
-      propertyPath: m_Size.x
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392260542646538867, guid: 75b4dc652943e53469692c37307c985b, type: 3}
-      propertyPath: m_Size.y
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2392260542646538867, guid: 75b4dc652943e53469692c37307c985b, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 2392260542646538879, guid: 75b4dc652943e53469692c37307c985b, type: 3}
       propertyPath: m_Name

@@ -17,6 +17,7 @@ public class Reroute_LevelController : MonoBehaviour
     private Animator gameCameraAnim;
     public Animator handMasterAnim;
     public Animator asteroidAnim;
+    public Light displayLight;
 
     [Header("Countdown Values")]
 
@@ -44,6 +45,7 @@ public class Reroute_LevelController : MonoBehaviour
 
     [Header("Game States")]
     public bool canWin;
+    public bool hasWon;
     public bool hasLost;
 
 
@@ -178,9 +180,13 @@ public class Reroute_LevelController : MonoBehaviour
 
     public IEnumerator WinRoutine()
     {
-
+        hasWon = true;
         gameCameraAnim.SetBool("isWin", true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
+
+        displayLight.color = new Color(0.3019608f, 0.8980392f, 0.3689611f);
+
+        yield return new WaitForSeconds(1f);
 
         asteroidAnim.Play("reroute_asteroid_move");
         //yield return new WaitForSeconds(1f);
@@ -229,7 +235,7 @@ public class Reroute_LevelController : MonoBehaviour
         {
             print("lost via collision");
 
-            if (!hasLost)
+            if (!hasLost && !hasWon)
             {
                 hasLost = true;
                 StartCoroutine(LoseRoutine());
@@ -244,7 +250,7 @@ public class Reroute_LevelController : MonoBehaviour
         if (isVulnerable)
         {
             print("lost via wall");
-            if (!hasLost)
+            if (!hasLost && !hasWon)
             {
                 hasLost = true;
                 StartCoroutine(LoseRoutine());
