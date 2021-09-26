@@ -30,9 +30,9 @@ public class GameControllerDevelop : GameController
         {
             Destroy(this);
         }
-        else {
+        else
             gameDifficulty = gameDifficultySlider;
-        }
+        print(gameDifficulty);
     }
 
     private void Start()
