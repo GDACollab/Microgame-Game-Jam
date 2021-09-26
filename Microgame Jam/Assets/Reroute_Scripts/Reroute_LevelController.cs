@@ -161,7 +161,6 @@ public class Reroute_LevelController : MonoBehaviour
         var appleSound = Instantiate(audioOneshotPrefab, transform.position, Quaternion.identity);
         appleSound.GetComponent<AudioSource>().clip = soundList[2];
         appleSound.GetComponent<AudioSource>().volume = 0.05f;
-
         applesEatenText.text = applesEaten + "/" + requiredApples;
         if(applesEaten < requiredApples)
         {
@@ -227,6 +226,7 @@ public class Reroute_LevelController : MonoBehaviour
 
     public void SpawnNewApple()
     {
+        Debug.Log(applePrefab);
         var newApple = Instantiate(applePrefab, new Vector3(Random.Range(appleSpawnBox.bounds.min.x, appleSpawnBox.bounds.max.x), Random.Range(appleSpawnBox.bounds.min.y, appleSpawnBox.bounds.max.y), 0), Quaternion.identity);
      
 

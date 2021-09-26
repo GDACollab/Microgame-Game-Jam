@@ -161,8 +161,11 @@ public class GameControllerRelease : GameController
         Debug.Log("Loading #" + nextDestinationScene + " next.");
         // TODO: Comment this out.
         nextDestinationScene = 4;
+        if (this.previousGame == 4) {
+            nextDestinationScene = 5;
+        }
 
-        var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
+            var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
 
         // Wait until we're done loading to start deactivating stuff.
         while (!loading.isDone)
