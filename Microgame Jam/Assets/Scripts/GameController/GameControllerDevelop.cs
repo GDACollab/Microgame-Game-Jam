@@ -28,10 +28,8 @@ public class GameControllerDevelop : GameController
         }
         if (FindObjectsOfType(typeof(GameController)).Length > 1)
         {
-            Destroy(this);
-        }
-        else {
             gameDifficulty = gameDifficultySlider;
+            Destroy(this);
         }
     }
 
