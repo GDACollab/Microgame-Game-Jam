@@ -25,7 +25,8 @@ public class HungryHarold_Manager : MonoBehaviour
             float x = UnityEngine.Random.Range(fishMin.x, fishMax.x);
             float y = UnityEngine.Random.Range(fishMin.y, fishMax.y);
             Vector2 randomfishPos = new Vector2(x, y);
-            Instantiate(fish, randomfishPos, Quaternion.identity);
+            GameObject fishes = Instantiate(fish, randomfishPos, Quaternion.identity);
+            fishes.transform.parent = GameObject.Find("HungryHarold_MainCamera").transform;
         }
     }
 
@@ -47,7 +48,8 @@ public class HungryHarold_Manager : MonoBehaviour
                 float x = UnityEngine.Random.Range(enemyMin.x, enemyMax.x);
                 float y = UnityEngine.Random.Range(enemyMin.y, enemyMax.y);
                 Vector2 randomenemyPos = new Vector2(x, y);
-                Instantiate(enemy, randomenemyPos, Quaternion.identity);
+                GameObject enemies = Instantiate(enemy, randomenemyPos, Quaternion.identity);
+                enemies.transform.parent = GameObject.Find("HungryHarold_MainCamera").transform;
             }
         }
 
