@@ -38,8 +38,6 @@ public class DDC_GameManager : MonoBehaviour
             diffScore = 20;
         }
 
-        //total = diffScore;
-
         bool placedTable = false;
 
         // Spawn the walls in different spots around the room
@@ -60,7 +58,7 @@ public class DDC_GameManager : MonoBehaviour
                 pos = chairPositions[randomPos].position;
                 chairPositions.RemoveAt(randomPos);            
 
-                Instantiate(squareWall, pos, rot);
+                Instantiate(squareWall, pos, rot, transform);
             }
             else
             {
@@ -69,7 +67,7 @@ public class DDC_GameManager : MonoBehaviour
                 pos = tablePositions[randomPos].position;
                 tablePositions.RemoveAt(randomPos);
 
-                Instantiate(rectWall, pos, rot);
+                Instantiate(rectWall, pos, rot, transform);
                 placedTable = true;
             }
         }
@@ -79,7 +77,7 @@ public class DDC_GameManager : MonoBehaviour
         {
             rot = Quaternion.Euler(0, 0, Random.Range(0, 360));
             pos = new Vector3(Random.Range(-8.3f, 8.3f), Random.Range(-4.5f, 4.5f), -.1f);
-            Instantiate(prefab, pos, rot);
+            Instantiate(prefab, pos, rot, transform);
         }
 
         
