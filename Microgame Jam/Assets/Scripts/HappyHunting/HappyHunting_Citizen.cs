@@ -20,7 +20,7 @@ public class HappyHunting_Citizen : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         Vector3 direction = new Vector3(Random.value, Random.value, 0);
         direction = direction.normalized;
