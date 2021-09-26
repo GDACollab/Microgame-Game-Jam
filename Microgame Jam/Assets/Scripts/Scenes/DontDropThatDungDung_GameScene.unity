@@ -123,6 +123,53 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &264633705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 264633706}
+  m_Layer: 0
+  m_Name: DontDropThatDungDung_Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &264633706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264633705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.521811, y: -5.0960317, z: -20.438395}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2048160334}
+  - {fileID: 2054315996}
+  - {fileID: 822610964}
+  - {fileID: 2121966282}
+  - {fileID: 569102843}
+  - {fileID: 1132208578}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &537801450 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2868859165198683295, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
+  m_PrefabInstance: {fileID: 544328562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a3b9d9681603aeceb862db9d8540824, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &544328562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -132,7 +179,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2868859165198684000, guid: 50c186f376fa2f741a9ee56e3821b2e9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -265,8 +312,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569102841}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.77, y: 9.33, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.24819, y: 14.426031, z: 20.438395}
   m_LocalScale: {x: 1, y: 1, z: 2.909788}
   m_Children:
   - {fileID: 781572810}
@@ -274,8 +321,8 @@ Transform:
   - {fileID: 1479409068}
   - {fileID: 1798843418}
   - {fileID: 1838979066}
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 264633706}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &569102844
 MonoBehaviour:
@@ -315,7 +362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b96f99f2e4152374f9ee5d6e84dd5450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gc: {fileID: 0}
+  gc: {fileID: 537801450}
 --- !u!1 &781572809
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +459,7 @@ GameObject:
   - component: {fileID: 822610961}
   - component: {fileID: 822610965}
   m_Layer: 0
-  m_Name: DDDD_Beetle
+  m_Name: DontDropThatDungDung_Beetle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -512,10 +559,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822610960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -2}
+  m_LocalPosition: {x: -8.521811, y: 8.096031, z: 18.438395}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 264633706}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &822610965
@@ -625,12 +672,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132208575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: -19}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.521811, y: 4.0960317, z: 1.4383945}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 264633706}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1216157174
 PrefabInstance:
@@ -661,7 +708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1057430956940450940, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1057430956940450940, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1146,10 +1193,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048160331}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -20}
+  m_LocalPosition: {x: -8.521811, y: 5.0960317, z: 0.43839455}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 264633706}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2054315990
@@ -1168,7 +1215,7 @@ GameObject:
   - component: {fileID: 2054315991}
   - component: {fileID: 2054315997}
   m_Layer: 0
-  m_Name: DDDD_Dung
+  m_Name: DontDropThatDungDung_Dung
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1297,10 +1344,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054315990}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -3}
+  m_LocalPosition: {x: -8.521811, y: 8.096031, z: 17.438395}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 264633706}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2054315997
@@ -1336,7 +1383,7 @@ GameObject:
   - component: {fileID: 2121966281}
   - component: {fileID: 2121966283}
   m_Layer: 0
-  m_Name: Environment
+  m_Name: DontDropThatDungDung_Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1358,6 +1405,7 @@ MonoBehaviour:
   - {fileID: 8807377024854374504, guid: fcb858d9600eb384683331736bd458ab, type: 3}
   - {fileID: 8807377024854374504, guid: 3aa8b62bcf7a4ea4287af41879d8162d, type: 3}
   - {fileID: 8807377024854374504, guid: b0b1c44277d668a4daebd49bf4a438ee, type: 3}
+  DDDDobjects: {fileID: 264633705}
 --- !u!4 &2121966282
 Transform:
   m_ObjectHideFlags: 0
@@ -1365,11 +1413,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121966280}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.006984, y: -0.4975443, z: -15.219199}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.5148263, y: 4.5984874, z: 5.2191954}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 264633706}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &2121966283
