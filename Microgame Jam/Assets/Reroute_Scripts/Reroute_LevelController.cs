@@ -18,6 +18,7 @@ public class Reroute_LevelController : MonoBehaviour
     public Animator handMasterAnim;
     public Animator asteroidAnim;
     public Light displayLight;
+    public Reroute_SnakeControl snakeController;
 
     [Header("Countdown Values")]
 
@@ -62,20 +63,19 @@ public class Reroute_LevelController : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        if (GameController.Instance.timerOn)
-        {
-            gameCameraAnim = gameCamera.GetComponent<Animator>();
-            StartCoroutine(StartingRoutine());
-            snakeTimeRemaining = 15;
-            canWin = true;
-        }
-
+        gameCameraAnim = gameCamera.GetComponent<Animator>();
+        StartCoroutine(StartingRoutine());
+        snakeTimeRemaining = 15;
+        canWin = true;
+        isVulnerable = false;
+        currentTurnInvincibleTime = baseInvincibleTime;
     }
 
     public IEnumerator StartingRoutine()
     {
-        isVulnerable = false;
-        currentTurnInvincibleTime = baseInvincibleTime;
+        while (!GameController.Instance.timerOn) {
+            yield return null;
+        }
         
         yield return new WaitForSeconds(0.3f);
         collectOxygenWarningImage.color = new Color(1, 1, 1, 1);
@@ -88,8 +88,8 @@ public class Reroute_LevelController : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         collectOxygenWarningImage.color = new Color(1, 1, 1, 0);
         countdownNumber.color = new Color(1,1,1,0);
-        Reroute_SnakeControl.Instance.speed = Reroute_SnakeControl.Instance.baseSpeed;
-        Reroute_SnakeControl.Instance.isSpeedingUp = true;
+        snakeController.speed = snakeController.baseSpeed;
+        snakeController.isSpeedingUp = true;
         gameCameraAnim.Play("reroute_gameCamAnimate");
 
         yield return new WaitForSeconds(2f);
@@ -125,7 +125,7 @@ public class Reroute_LevelController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!hasLost && Reroute_SnakeControl.Instance.isSpeedingUp)
+        if (!hasLost && snakeController.isSpeedingUp)
         {
             if (snakeTimeRemaining > 0)
             {

@@ -89,7 +89,6 @@ public class Reroute_SnakeControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (isSpeedingUp)
         {
             rb.velocity = transform.right * speed;

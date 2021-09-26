@@ -159,6 +159,8 @@ public class GameControllerRelease : GameController
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
         Debug.Log("Loading #" + nextDestinationScene + " next.");
+        // TODO: Comment this out.
+        nextDestinationScene = 4;
 
         var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
 
