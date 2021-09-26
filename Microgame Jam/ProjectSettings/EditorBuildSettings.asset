@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MasterScenes/Credits.unity
     guid: 4710b5f8c5caaaf4ebef6a8a0c16d114
+  - enabled: 1
+    path: Assets/Scripts/Scenes/DontDropThatDungDung_GameScene.unity
+    guid: be5b59f0283d1b341a329c203712d445
   m_configObjects: {}
