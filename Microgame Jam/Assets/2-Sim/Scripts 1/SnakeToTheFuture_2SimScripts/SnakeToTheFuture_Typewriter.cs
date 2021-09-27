@@ -102,25 +102,15 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
             print("win");
             PortalAnimations.PortalVisible(true);
             yield return new WaitForSeconds(time);
-            StartCoroutine(GetMerge());
+            var currScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+            var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_3sim");
+            var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_3sim", LoadSceneMode.Additive);
+            foreach (GameObject rootObject in currScene.GetRootGameObjects())
+            {
+                Destroy(rootObject);
+            }
             print("joe mama");
         }
-    }
-    IEnumerator GetMerge()
-    {
-        var currScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
-        var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_3heist");
-        var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_3heist", LoadSceneMode.Additive);
-        while (!loading.isDone)
-        {
-            yield return null;
-        }
-        foreach (GameObject o in currScene.GetRootGameObjects())
-        {
-            Destroy(o);
-        }
-        SceneManager.MergeScenes(nextScene, currScene);
-        SceneManager.UnloadSceneAsync(nextScene);
     }
 
     void Update()

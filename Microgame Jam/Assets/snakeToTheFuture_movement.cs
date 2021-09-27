@@ -30,6 +30,14 @@ public class snakeToTheFuture_movement : MonoBehaviour
     private void OnDisable()
     {
         CancelInvoke("Move");
+        var scene2 = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+        var scene3 = SceneManager.GetSceneByName("snakeToTheFuture_3sim");
+        if (scene2.isLoaded) {
+            SceneManager.UnloadSceneAsync(scene2);
+        }
+        if (scene3.isLoaded) {
+            SceneManager.UnloadSceneAsync(scene3);
+        }
     }
 
     IEnumerator StartGame() {
@@ -138,25 +146,18 @@ public class snakeToTheFuture_movement : MonoBehaviour
             return;
         }
         if (coll.name.StartsWith("snakeToTheFuture_portal2") && direction==2 && objective==2){
-            StartCoroutine(GetMerge());
+            var currScene = SceneManager.GetSceneByName("snakeToTheFuture_1snake");
+            var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+            var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_2sim", LoadSceneMode.Additive);
+            foreach (GameObject rootObject in currScene.GetRootGameObjects())
+            {
+                if (rootObject.name != this.name) {
+                    Destroy(rootObject);
+                }
+            }
             return;
         }
         GameController.Instance.LoseGame();
-    }
-
-    IEnumerator GetMerge() {
-        var currScene = SceneManager.GetSceneByName("snakeToTheFuture_1snake");
-        var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
-        var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_2sim", LoadSceneMode.Additive);
-        while (!loading.isDone) {
-            yield return null;
-        }
-        foreach (GameObject o in currScene.GetRootGameObjects())
-        {
-            Destroy(o);
-        }
-        SceneManager.MergeScenes(nextScene, currScene);
-        SceneManager.UnloadSceneAsync(nextScene);
     }
 }
 
