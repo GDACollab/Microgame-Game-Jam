@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dd0a9832d262a0459b1f9cd655e22e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSceneIndex: 4
+  minSceneIndex: 6
   transitionSceneIndex: 2
   gameOverSceneIndex: 1
+  eventSystem: {fileID: 0}

@@ -22,10 +22,15 @@ public class snakeToTheFuture_heistMovement : MonoBehaviour
     public GameObject Original;
     int i = 0;
     // Use this for initialization
-    void Start () {
+    void OnEnable () {
         InvokeRepeating("Move", 0.3f, 0.3f);    
     }
-   
+
+    private void OnDisable()
+    {
+        CancelInvoke("Move");
+    }
+
     // Update is called once per frame
     void Update () {
         if (Input.GetKeyDown(KeyCode.RightArrow)){

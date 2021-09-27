@@ -138,10 +138,25 @@ public class snakeToTheFuture_movement : MonoBehaviour
             return;
         }
         if (coll.name.StartsWith("snakeToTheFuture_portal2") && direction==2 && objective==2){
-            SceneManager.LoadScene (sceneName: "snakeToTheFuture_2sim");
+            StartCoroutine(GetMerge());
             return;
         }
         GameController.Instance.LoseGame();
+    }
+
+    IEnumerator GetMerge() {
+        var currScene = SceneManager.GetSceneByName("snakeToTheFuture_1snake");
+        var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+        var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_2sim", LoadSceneMode.Additive);
+        while (!loading.isDone) {
+            yield return null;
+        }
+        foreach (GameObject o in currScene.GetRootGameObjects())
+        {
+            Destroy(o);
+        }
+        SceneManager.MergeScenes(nextScene, currScene);
+        SceneManager.UnloadSceneAsync(nextScene);
     }
 }
 
