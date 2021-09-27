@@ -110,15 +110,19 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
 
     IEnumerator LoadNext() {
         var currScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
-        var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_3sim");
-        var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_3sim", LoadSceneMode.Additive);
+        var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_3heist");
+        var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_3heist", LoadSceneMode.Additive);
         while (!loading.isDone) {
+            Debug.Log(loading.progress);
             yield return null;
         }
         foreach (GameObject rootObject in currScene.GetRootGameObjects())
         {
-            Destroy(rootObject);
+            if (rootObject.name != this.name) {
+                Destroy(rootObject);
+            }
         }
+        Destroy(this);
     }
 
     void Update()
