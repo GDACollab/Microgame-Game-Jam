@@ -129,10 +129,7 @@ public class snakeToTheFuture_movement : MonoBehaviour
             SceneManager.LoadScene (sceneName: "snakeToTheFuture_2sim");
             return;
         }
-        gameController.LoseGame();
-        foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
-            Destroy(o);
-        }
+        GameController.Instance.LoseGame();
     }
 }
 

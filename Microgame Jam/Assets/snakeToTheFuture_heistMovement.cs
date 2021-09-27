@@ -123,15 +123,9 @@ public class snakeToTheFuture_heistMovement : MonoBehaviour
             return;
         }
         if (coll.name.StartsWith("snakeToTheFuture_portal2")){
-            gameController.WinGame();
-            foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
-                Destroy(o);
-            }
-            return;
-        }
-        gameController.LoseGame();
-        foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
-            Destroy(o);
+            GameController.Instance.WinGame();
+        } else {
+            GameController.Instance.LoseGame();
         }
     }
 }
