@@ -8,20 +8,30 @@ public class StoneSkip_GameRunner : MonoBehaviour
     public List<StoneSkip_State> states;
     private StoneSkip_State currentState;
 
-    private void Start()
+    private void OnEnable()
     {
+        StartCoroutine(StartGame());
+    }
+
+    IEnumerator StartGame() {
+        while (!GameController.Instance.timerOn) {
+            yield return null;
+        }
         SetState("Charging");
     }
 
     //State update running functionality
     void FixedUpdate()
     {
-        if (currentState.switchState)
+        if (GameController.Instance.timerOn)
         {
-            SetState(currentState.switchStateName);
-        }
+            if (currentState.switchState)
+            {
+                SetState(currentState.switchStateName);
+            }
 
-        currentState.StateUpdate();
+            currentState.StateUpdate();
+        }
     }
 
     public void SetState(string stateName) {
