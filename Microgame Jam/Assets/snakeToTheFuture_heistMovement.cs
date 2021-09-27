@@ -120,6 +120,7 @@ public class snakeToTheFuture_heistMovement : MonoBehaviour
             GameObject portalTheSecond =(GameObject)Instantiate(portal2,
                                             new Vector2 (5,-5),
                                               Quaternion.identity);
+            portalTheSecond.GetComponent<SpriteRenderer>().enabled = false;
             return;
         }
         if (coll.name.StartsWith("snakeToTheFuture_portal2")){
