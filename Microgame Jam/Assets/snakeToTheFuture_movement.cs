@@ -156,6 +156,7 @@ public class snakeToTheFuture_movement : MonoBehaviour
                 }
             }
             CancelInvoke("Move");
+            GetComponent<SpriteRenderer>().enabled = false;
             return;
         }
         GameController.Instance.LoseGame();

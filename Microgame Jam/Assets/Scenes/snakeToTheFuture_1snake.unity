@@ -964,7 +964,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1320263067}
   - component: {fileID: 1320263066}
-  - component: {fileID: 1320263065}
   m_Layer: 0
   m_Name: snakeToTheFuture_snakeMusic
   m_TagString: Untagged
@@ -972,14 +971,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1320263065
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320263064}
-  m_Enabled: 1
 --- !u!82 &1320263066
 AudioSource:
   m_ObjectHideFlags: 0
