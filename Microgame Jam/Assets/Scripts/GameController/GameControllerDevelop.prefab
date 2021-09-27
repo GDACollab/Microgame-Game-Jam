@@ -53,10 +53,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2868859165198684000}
     m_Modifications:
-    - target: {fileID: 728409200307178064, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1057430956053420306, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -68,6 +64,10 @@ PrefabInstance:
     - target: {fileID: 1057430956940450912, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
       propertyPath: m_Name
       value: Timer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1057430956940450915, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1057430956940450940, guid: 89115dc9ccc86014191ffad63e6f5bce, type: 3}
       propertyPath: m_Pivot.x
