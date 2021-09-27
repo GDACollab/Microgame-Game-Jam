@@ -6,13 +6,13 @@ public class SpeedBox_Player : MonoBehaviour
 {
     SpeedBox_Game game;
 
-    bool disableControls = true;
+    public bool disableControls = true;
 
     // Start is called before the first frame update
     void Start()
     {
         game = GameObject.FindGameObjectWithTag("Grid").GetComponent<SpeedBox_Game>();
-        Invoke("EnableControls", 0.1f);
+        Invoke("EnableControls", 0.35f);
     }
 
     // Update is called once per frame
@@ -70,6 +70,12 @@ public class SpeedBox_Player : MonoBehaviour
             game.effects.HitParticle(hit.point, direction, hit.distance);
             transform.position = hit.point - (Vector2)direction * 0.5f;
             game.Shake(hit.distance, direction, 0.1f);
+            if ((transform.position - game.box.transform.GetChild(1).position).magnitude < 0.6f)
+            {
+                transform.position = hit.point + (Vector2)direction * 0.5f;
+                disableControls = true;
+                game.Finish(direction);
+            } 
         }
 
         game.effects.AfterImage(oldPosition, transform.position);

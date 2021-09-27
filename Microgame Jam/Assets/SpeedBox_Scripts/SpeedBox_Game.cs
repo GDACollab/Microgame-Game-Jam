@@ -34,7 +34,10 @@ public class SpeedBox_Game : MonoBehaviour
     {
         cam = Camera.main;
         boxOffset = transform.GetChild(0).gameObject;
-        main.SetMaxTimer(15);
+        //=v=v=v=v=v=v=v=v=v=v=v=[ONLY FOR PLAYABLE WEBGL]=v=v=v=v=v=v=v=v=v=v=v=
+        //main.SetMaxTimer(20 * Mathf.Pow(0.9f, PlayerPrefs.GetInt("SpeedBox_Wins", 0)));
+        //Debug.Log("This Snippet of Code Should Only be Running for the WebGL Build");
+        //=^=^=^=^=^=^=^=^=^=^=^=[ONLY FOR PLAYABLE WEBGL]=^=^=^=^=^=^=^=^=^=^=^=
         int a = 0, b = 0, c = 0;
         foreach (GameObject box in boxesArray)
         {
@@ -69,6 +72,16 @@ public class SpeedBox_Game : MonoBehaviour
             effects.Shatter(box.transform.GetChild(1).position, finishColors[main.gameDifficulty - 1]);
             sounds.Play(SpeedBox_Sounds.SFX.Shatter, 1);
             Destroy(box.transform.GetChild(1).gameObject);
+            /*/=v=v=v=v=v=v=v=v=v=v=v=[ONLY FOR PLAYABLE WEBGL]=v=v=v=v=v=v=v=v=v=v=v=
+            PlayerPrefs.SetInt("SpeedBox_Wins", PlayerPrefs.GetInt("SpeedBox_Wins", 0) + 1);
+            Debug.Log("This Snippet of Code Should Only be Running for the WebGL Build");
+            if (PlayerPrefs.GetInt("SpeedBox_Wins", 0) > 5)
+            {
+                PlayerPrefs.SetInt("SpeedBox_Difficulty", PlayerPrefs.GetInt("SpeedBox_Difficulty", 1) + 1);
+                PlayerPrefs.SetInt("SpeedBox_Wins", 0);
+                if (PlayerPrefs.GetInt("SpeedBox_Difficulty", 1) > 3) PlayerPrefs.SetInt("SpeedBox_Difficulty", 1);
+            }
+            //=^=^=^=^=^=^=^=^=^=^=^=[ONLY FOR PLAYABLE WEBGL]=^=^=^=^=^=^=^=^=^=^=^=*/
             Invoke("Win", 1);
         }
         else
