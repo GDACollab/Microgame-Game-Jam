@@ -155,6 +155,7 @@ public class snakeToTheFuture_movement : MonoBehaviour
                     Destroy(rootObject);
                 }
             }
+            CancelInvoke("Move");
             return;
         }
         GameController.Instance.LoseGame();

@@ -293,7 +293,6 @@ GameObject:
   m_Component:
   - component: {fileID: 299984085}
   - component: {fileID: 299984084}
-  - component: {fileID: 299984083}
   m_Layer: 0
   m_Name: snakeToTheFuture_simMusic
   m_TagString: Untagged
@@ -301,14 +300,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &299984083
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 299984082}
-  m_Enabled: 1
 --- !u!82 &299984084
 AudioSource:
   m_ObjectHideFlags: 0

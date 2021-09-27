@@ -14,7 +14,7 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
 
     //----------
 
-    [TextArea(5,10)]
+    [TextArea(5, 10)]
     public string[] FullTexts;
 
     int MaxNumberTexts;
@@ -46,7 +46,7 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
     public SnakeToTheFuture_PortalAnimations PortalAnimations;
 
     //---------
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,24 +61,24 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
         SnakeAnimator.ChangeSprite("main");
         SnakeLadyAnimator.ChangeSprite("main");
         //PortalAnimations = Portal.GetComponent<SnakeToTheFuture_PortalAnimations>();
-        
+
     }
 
 
     IEnumerator ShowText()
     {
-        for (int i = 0;  i < FullTexts[CurrentNumberText].Length; i = i+TextSkip)
+        for (int i = 0; i < FullTexts[CurrentNumberText].Length; i = i + TextSkip)
         {
-            CurrentText = FullTexts[CurrentNumberText].Substring(0,i);
+            CurrentText = FullTexts[CurrentNumberText].Substring(0, i);
             Text.text = CurrentText;
 
-            if (FullTexts[CurrentNumberText].Length-CurrentText.Length <= TextSkip)
+            if (FullTexts[CurrentNumberText].Length - CurrentText.Length <= TextSkip)
             {
                 TextSkip = 1;
                 //print("REDUCED");
             }
 
-            if (i == FullTexts[CurrentNumberText].Length-1)
+            if (i == FullTexts[CurrentNumberText].Length - 1)
             {
                 AwaitSpace = true;
                 TextSkip = MasterTextSkip;
@@ -89,7 +89,7 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
         }
     }
 
-    IEnumerator DelayEnd (float time, string ending)
+    IEnumerator DelayEnd(float time, string ending)
     {
         yield return new WaitForSeconds(time);
         if (ending == "lose")
@@ -102,14 +102,22 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
             print("win");
             PortalAnimations.PortalVisible(true);
             yield return new WaitForSeconds(time);
-            var currScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
-            var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_3sim");
-            var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_3sim", LoadSceneMode.Additive);
-            foreach (GameObject rootObject in currScene.GetRootGameObjects())
-            {
-                Destroy(rootObject);
-            }
+            StartCoroutine(LoadNext());
+
             print("joe mama");
+        }
+    }
+
+    IEnumerator LoadNext() {
+        var currScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+        var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_3sim");
+        var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_3sim", LoadSceneMode.Additive);
+        while (!loading.isDone) {
+            yield return null;
+        }
+        foreach (GameObject rootObject in currScene.GetRootGameObjects())
+        {
+            Destroy(rootObject);
         }
     }
 
