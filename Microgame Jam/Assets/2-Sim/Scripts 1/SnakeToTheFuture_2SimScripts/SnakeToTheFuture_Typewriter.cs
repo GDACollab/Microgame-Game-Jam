@@ -96,9 +96,6 @@ public class SnakeToTheFuture_Typewriter : MonoBehaviour
         {
             print("lose");
             GameController.Instance.LoseGame();
-            foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) {
-                Destroy(o);
-            }
         }
         else if (ending == "win")
         {
