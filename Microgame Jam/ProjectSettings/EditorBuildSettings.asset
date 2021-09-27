@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MasterScenes/Credits.unity
     guid: 4710b5f8c5caaaf4ebef6a8a0c16d114
+  - enabled: 1
+    path: Assets/DontCrash.unity
+    guid: aa1eafd70d6ea0f4f9fbc855935f41ec
+  - enabled: 1
+    path: Assets/Speedbox_Scenes/SpeedBox_GameScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
