@@ -18,12 +18,9 @@ EditorBuildSettings:
     path: Assets/MasterScenes/Credits.unity
     guid: 4710b5f8c5caaaf4ebef6a8a0c16d114
   - enabled: 1
-    path: Assets/2-Sim/Scenes 1/snakeToTheFuture_2sim.unity
-    guid: 36fb164062d709e4aa6e8183c46e144d
-  - enabled: 1
     path: Assets/Scenes/snakeToTheFuture_1snake.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/snakeToTheFuture_3heist.unity
-    guid: 9e30ee16325482d4596dcc3f9de6e4eb
+    path: Assets/DontCrash.unity
+    guid: aa1eafd70d6ea0f4f9fbc855935f41ec
   m_configObjects: {}

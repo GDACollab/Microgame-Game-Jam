@@ -23,8 +23,20 @@ public class snakeToTheFuture_movement : MonoBehaviour
     public GameObject Original;
     int i = 0;
     // Use this for initialization
-    void Start () {
-        InvokeRepeating("Move", 0.1f, 0.1f);    
+    void OnEnable () {
+        StartCoroutine(StartGame());
+    }
+
+    private void OnDisable()
+    {
+        CancelInvoke("Move");
+    }
+
+    IEnumerator StartGame() {
+        while (!GameController.Instance.timerOn) {
+            yield return null;
+        }
+        InvokeRepeating("Move", 0.1f, 0.1f);
     }
    
     // Update is called once per frame
@@ -49,7 +61,7 @@ public class snakeToTheFuture_movement : MonoBehaviour
         direction=1;
         }
     }
-   
+
     void Move() {
         Vector2 oldPos = transform.position;
         transform.Translate(dir);
