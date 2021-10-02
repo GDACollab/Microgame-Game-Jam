@@ -83,7 +83,8 @@ public class GameControllerDevelop : GameController
     // We don't want to override Update from GameController.
     private void LateUpdate()
     {
-        if (isSimulatingFadeOut) {
+        if (isSimulatingFadeOut)
+        {
             fadeOutSimulation.color = new Color(fadeOutSimulation.color.r, fadeOutSimulation.color.g, fadeOutSimulation.color.b, opacity);
             opacity += fadeOutDir * fadeOutSpeed;
             if (opacity <= 0)
@@ -93,7 +94,8 @@ public class GameControllerDevelop : GameController
                 fadeOutSimulation.gameObject.SetActive(false);
                 this.SceneInit();
             }
-            else if (opacity >= 1) {
+            else if (opacity >= 1)
+            {
                 isSimulatingFadeOut = false;
                 // Don't ask me how this reloads the scene, but it somehow does.
                 var newScene = SceneManager.CreateScene("SampleLoadingScene");
