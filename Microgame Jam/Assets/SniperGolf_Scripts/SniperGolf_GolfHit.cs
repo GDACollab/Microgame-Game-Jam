@@ -21,6 +21,11 @@ public class SniperGolf_GolfHit : MonoBehaviour
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
+    private void OnEnable()
+    {
+        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    }
+
     // Update is called once per frame
     void Update()
     {
