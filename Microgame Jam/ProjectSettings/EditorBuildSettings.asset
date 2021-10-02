@@ -21,6 +21,72 @@ EditorBuildSettings:
     path: Assets/Reroute_Scenes/Reroute_MainScene.unity
     guid: b6abf8b839aeb544fab5b0d8e828dd8d
   - enabled: 1
-    path: Assets/DontCrash.unity
-    guid: 86705a1c46edceb498cb7bb9f60ccf08
+    path: Assets/2-Sim/Scenes 1/snakeToTheFuture_2sim.unity
+    guid: 36fb164062d709e4aa6e8183c46e144d
+  - enabled: 1
+    path: Assets/FlippedOff_Scenes/FlippedOff_mainScene.unity
+    guid: 8aa3e3245e367124fb4bd1871fa6ee3f
+  - enabled: 1
+    path: Assets/GimmeFive_Scenes/GimmeFive_Main.unity
+    guid: bed1d929327a7e942bf56a9ca907feef
+  - enabled: 1
+    path: Assets/Scenes/BirdFishing_Scene.unity
+    guid: 48c2e358bedd1154a93b2a45b1755686
+  - enabled: 1
+    path: Assets/Scenes/ChompyDino_Game.unity
+    guid: 756f6047116284012aeeafb1d280c760
+  - enabled: 1
+    path: Assets/Scenes/DDC_Scene.unity
+    guid: 9d40615cd831eb04db9db1d0d5628f40
+  - enabled: 1
+    path: Assets/Scenes/EtchASketch.unity
+    guid: 8f3d031f97a2ff0478ede38b619a6c9d
+  - enabled: 1
+    path: Assets/Scenes/Fulcrum_SampleScene.unity
+    guid: cbd23062755d65a429144c88940fca31
+  - enabled: 1
+    path: Assets/Scenes/HappyHunting_Scene.unity
+    guid: 0f478c528f7706f46a67151da87abec2
+  - enabled: 1
+    path: Assets/Scenes/HungryHarold_Scene.unity
+    guid: d280865f713b3904bb1a9fa865d48ce5
+  - enabled: 1
+    path: Assets/Scenes/JerboasEscape_Scene.unity
+    guid: 81efeb3e59ffd37498278f2056eafee3
+  - enabled: 1
+    path: Assets/Scenes/LowBandwidth_Scene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MeltyMeltyRunRun_PlayScene.unity
+    guid: c1a24f709f11b6143822eac4f39cf1c0
+  - enabled: 1
+    path: Assets/Scenes/PongJuggle.unity
+    guid: 9111dd2b989fc5f4a88612159546295d
+  - enabled: 1
+    path: Assets/Scenes/PopstarPoser_Scene.unity
+    guid: f17f5763b418eaa41ad717679ff551fc
+  - enabled: 1
+    path: Assets/Scenes/snakeToTheFuture_1snake.unity
+    guid: b52ea4a0dcd287240b9d9d842f41b3b3
+  - enabled: 1
+    path: Assets/Scenes/snakeToTheFuture_3heist.unity
+    guid: 9e30ee16325482d4596dcc3f9de6e4eb
+  - enabled: 1
+    path: Assets/Scenes/StoneSkip_MainScene.unity
+    guid: 9d577f7ac43bd974488abe82b64f0315
+  - enabled: 1
+    path: Assets/Scenes/WarpSpeed_Scene.unity
+    guid: cbb2acdadc67a424d924d6e7be46940c
+  - enabled: 1
+    path: Assets/Scenes/Yukidamage.unity
+    guid: 08b3dc023f595794b90161fa23d6fd67
+  - enabled: 1
+    path: Assets/Scripts/Scenes/DontDropThatDungDung_GameScene.unity
+    guid: be5b59f0283d1b341a329c203712d445
+  - enabled: 1
+    path: Assets/SniperGolf_Scenes/SniperGolf_Scene.unity
+    guid: 1207d37e20d366c45b3dd232a0540eef
+  - enabled: 1
+    path: Assets/Speedbox_Scenes/SpeedBox_GameScene.unity
+    guid: c09a7866ff783264faf1a6923309e73e
   m_configObjects: {}
