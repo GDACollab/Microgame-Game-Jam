@@ -28,8 +28,15 @@ public class GameControllerDevelop : GameController
         }
         if (FindObjectsOfType(typeof(GameController)).Length > 1)
         {
-            gameDifficulty = gameDifficultySlider;
             Destroy(this);
+        }
+        else
+        {
+            gameDifficulty = gameDifficultySlider;
+            //=v=v=v=v=v=v=v=v=v=v=v=[ONLY FOR PLAYABLE WEBGL]=v=v=v=v=v=v=v=v=v=v=v=
+            //gameDifficulty = PlayerPrefs.GetInt("SpeedBox_Difficulty", 1);
+            //Debug.Log("This Snippet of Code Should Only be Running for the WebGL Build");
+            //=^=^=^=^=^=^=^=^=^=^=^=[ONLY FOR PLAYABLE WEBGL]=^=^=^=^=^=^=^=^=^=^=^=
         }
     }
 
