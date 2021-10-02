@@ -158,6 +158,12 @@ public class GameControllerRelease : GameController
         {
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
+
+        // TODO: Comment this out.
+        nextDestinationScene = 4;
+        if (this.previousGame == 4) {
+            nextDestinationScene = 5;
+        }
         Debug.Log("Loading #" + nextDestinationScene + " next.");
         // TODO: Comment this out.
         nextDestinationScene = 4;
