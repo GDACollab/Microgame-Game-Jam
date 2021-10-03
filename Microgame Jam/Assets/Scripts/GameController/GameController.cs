@@ -71,7 +71,6 @@ public abstract class GameController : Singleton<GameController>
         // Prevent any game objects from showing up if we don't want them to:
         if (!showGameObjects)
         {
-            Debug.Log("Test");
             // If any new game objects show up, they'll be added to gameObejctsToActivate.
             ActivateAllObjectsInScene(nextGameScene, showGameObjects, gameObjectsToActivate);
         }

@@ -22,6 +22,8 @@ public class GameControllerRelease : GameController
     [Tooltip("If there are say... 1000 games, how many should we push to the queue of previously played games before we start removing memory of having played those games?")]
     public int maxQueueLength = 10;
 
+    public bool isDebug = false;
+
     private Queue<int> previousGames = new Queue<int>();
 
     // The scene that's used to transition between levels.
@@ -157,6 +159,17 @@ public class GameControllerRelease : GameController
         while (previousGames.Contains(nextDestinationScene) || nextDestinationScene == gameoverSceneIndex)
         {
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
+        }
+
+        if (isDebug) {
+            if (this.previousGame < minSceneIndex)
+            {
+                nextDestinationScene = minSceneIndex;
+            }
+            else
+            {
+                nextDestinationScene = this.previousGame + 1;
+            }
         }
 
         Debug.Log("Loading #" + nextDestinationScene + " next.");

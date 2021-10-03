@@ -27,6 +27,8 @@ public class MainMenuNavigation : MonoBehaviour
     [Tooltip("The index of the Game Over scene.")]
     public int gameOverSceneIndex;
 
+    public bool isDebug = false;
+
     public UnityEngine.EventSystems.EventSystem eventSystem;
 
     // Start is called before the first frame update
@@ -51,6 +53,8 @@ public class MainMenuNavigation : MonoBehaviour
 
                 // And the scene for transitions:
                 controllerComponent.transitionSceneIndex = transitionSceneIndex;
+
+                controllerComponent.isDebug = isDebug;
             }
             else if (FindObjectsOfType(typeof(GameController)).Length == 1)
             {
