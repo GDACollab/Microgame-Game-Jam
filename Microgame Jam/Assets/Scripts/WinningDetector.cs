@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class WinningDetector : MonoBehaviour
 {
     private SpriteRenderer sprite;
-    private TextMeshProUGUI TextPro;
+    private Text TextPro;
     private bool onEnter = false;
     private bool NikoWin = false;
     private float dtotal = 0.0f;
@@ -15,7 +15,7 @@ public class WinningDetector : MonoBehaviour
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        TextPro = GameObject.Find("Tutorial").GetComponent<TextMeshProUGUI>();
+        TextPro = GameObject.Find("Tutorial").GetComponent<Text>();
         switch(GameController.Instance.gameDifficulty){
             case 1:
                 difficile = 3;

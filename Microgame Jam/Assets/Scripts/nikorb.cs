@@ -1,19 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 public class nikorb : MonoBehaviour
 {
     private Rigidbody2D rb;
     private float YCoord;
-    private TextMeshProUGUI TextPro;
+    private Text TextPro;
     private bool NikoDead = false;
     // Start is called before the first frame update
     void Start()
     {
 
-        TextPro = GameObject.Find("Tutorial").GetComponent<TextMeshProUGUI>();
+        TextPro = GameObject.Find("Tutorial").GetComponent<Text>();
         float xCord = Random.Range(2.6f, 3.5f);
 
         if (Random.Range(0,10) % 2 == 0) {
