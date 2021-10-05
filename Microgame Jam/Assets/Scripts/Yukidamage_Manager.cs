@@ -8,7 +8,7 @@ public class Yukidamage_Manager : MonoBehaviour {
     [SerializeField] public float timeToSpawnAntagonist;
     public bool gameOver = false;
 
-    void Awake() {
+    void OnEnable() {
         GameController.Instance.SetMaxTimer(20f);
     }
 

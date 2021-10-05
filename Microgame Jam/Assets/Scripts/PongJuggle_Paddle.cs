@@ -19,7 +19,7 @@ public class PongJuggle_Paddle : MonoBehaviour
     public GameObject hand4;
     public GameObject loseBox;
 
-    private void Start()
+    private void OnEnable()
     {
         GameController.Instance.SetMaxTimer(20);
 

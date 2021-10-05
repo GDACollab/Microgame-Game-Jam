@@ -22,7 +22,7 @@ public class GimmeFive_Controller : MonoBehaviour
     bool animateHand = false;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         float time;
         switch (GameController.Instance.gameDifficulty) {

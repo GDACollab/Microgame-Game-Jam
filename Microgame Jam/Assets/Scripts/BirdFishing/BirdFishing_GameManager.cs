@@ -14,7 +14,7 @@ public class BirdFishing_GameManager : MonoBehaviour
         gameData.ResetEvents();
     }
 
-    private void Start()
+    private void OnEnable()
     {
         //Define game difficulty
         gameData.SetDifficulty( GameController.Instance.gameDifficulty );

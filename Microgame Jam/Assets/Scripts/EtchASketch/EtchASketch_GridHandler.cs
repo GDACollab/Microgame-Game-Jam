@@ -18,7 +18,7 @@ public class EtchASketch_GridHandler : MonoBehaviour {
     [SerializeField] private AudioSource win;
 
     // Start is called before the first frame update
-    void Start() {
+    void OnEnable() {
         Vector3Int[] vectorArray = {new Vector3Int(1, 3, 0), new Vector3Int(2, 2, 0),
                                     new Vector3Int(3, 2, 0), new Vector3Int(4, 2, 0),
                                     new Vector3Int(5, 2, 0), new Vector3Int(6, 2, 0),
