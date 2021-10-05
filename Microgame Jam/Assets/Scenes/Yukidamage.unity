@@ -825,5 +825,13 @@ PrefabInstance:
       propertyPath: tree
       value: 
       objectReference: {fileID: 421889387}
+    - target: {fileID: 7486721422117935513, guid: ddef346ea0154a246be8b22eeb5505f4, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7486721422117935513, guid: ddef346ea0154a246be8b22eeb5505f4, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddef346ea0154a246be8b22eeb5505f4, type: 3}

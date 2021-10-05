@@ -60,17 +60,17 @@ EditorBuildSettings:
     path: Assets/Scenes/PongJuggle.unity
     guid: 9111dd2b989fc5f4a88612159546295d
   - enabled: 1
-    path: Assets/Scenes/PopstarPoser_Scene.unity
-    guid: f17f5763b418eaa41ad717679ff551fc
-  - enabled: 1
     path: Assets/Scenes/snakeToTheFuture_1snake.unity
     guid: b52ea4a0dcd287240b9d9d842f41b3b3
   - enabled: 1
-    path: Assets/Scenes/StoneSkip_MainScene.unity
-    guid: 9d577f7ac43bd974488abe82b64f0315
+    path: Assets/Scenes/PopstarPoser_Scene.unity
+    guid: f17f5763b418eaa41ad717679ff551fc
   - enabled: 1
     path: Assets/Scenes/WarpSpeed_Scene.unity
     guid: cbb2acdadc67a424d924d6e7be46940c
+  - enabled: 1
+    path: Assets/Scenes/StoneSkip_MainScene.unity
+    guid: 9d577f7ac43bd974488abe82b64f0315
   - enabled: 1
     path: Assets/Scenes/Yukidamage.unity
     guid: 08b3dc023f595794b90161fa23d6fd67
