@@ -132,41 +132,50 @@ public class snakeToTheFuture_movement : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D coll) {
-        if (coll.name.StartsWith("snakeToTheFuture_apple")){
-            Destroy(coll.gameObject);
-            ate = true;
-            objective++;
-            return;
-        }
-        if (coll.name.StartsWith("snakeToTheFuture_portal1")){
-            if (objective==1){
-            Destroy(coll.gameObject);
-            Original.GetComponent<SpriteRenderer>().enabled = false;
-            GameObject carChassise =(GameObject)Instantiate(apple2,
-                                            new Vector2 (0,2),
-                                              Quaternion.identity);
-            GameObject portalTheSecond =(GameObject)Instantiate(portal2,
-                                            new Vector2 (-6,0),
-                                              Quaternion.identity);
-            }
-            return;
-        }
-        if (coll.name.StartsWith("snakeToTheFuture_portal2") && direction==2 && objective==2){
-            var currScene = SceneManager.GetSceneByName("snakeToTheFuture_1snake");
-            var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
-            var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_2sim", LoadSceneMode.Additive);
-            foreach (GameObject rootObject in currScene.GetRootGameObjects())
+        // If the current scene is Snake to the future, then ALL of this is allowed.
+        if (SceneManager.GetActiveScene().name == "snakeToTheFuture_1snake")
+        {
+            if (coll.name.StartsWith("snakeToTheFuture_apple"))
             {
-                if (rootObject.name != this.name) {
-                    Destroy(rootObject);
-                }
+                Destroy(coll.gameObject);
+                ate = true;
+                objective++;
+                return;
             }
-            CancelInvoke("Move");
-            GetComponent<SpriteRenderer>().enabled = false;
-            return;
+            if (coll.name.StartsWith("snakeToTheFuture_portal1"))
+            {
+                if (objective == 1)
+                {
+                    Destroy(coll.gameObject);
+                    Original.GetComponent<SpriteRenderer>().enabled = false;
+                    GameObject carChassise = (GameObject)Instantiate(apple2,
+                                                    new Vector2(0, 2),
+                                                      Quaternion.identity);
+                    GameObject portalTheSecond = (GameObject)Instantiate(portal2,
+                                                    new Vector2(-6, 0),
+                                                      Quaternion.identity);
+                }
+                return;
+            }
+            if (coll.name.StartsWith("snakeToTheFuture_portal2") && direction == 2 && objective == 2)
+            {
+                var currScene = SceneManager.GetSceneByName("snakeToTheFuture_1snake");
+                var nextScene = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+                var loading = SceneManager.LoadSceneAsync(sceneName: "snakeToTheFuture_2sim", LoadSceneMode.Additive);
+                foreach (GameObject rootObject in currScene.GetRootGameObjects())
+                {
+                    if (rootObject.name != this.name)
+                    {
+                        Destroy(rootObject);
+                    }
+                }
+                CancelInvoke("Move");
+                GetComponent<SpriteRenderer>().enabled = false;
+                return;
+            }
+            StopGame();
+            GameController.Instance.LoseGame();
         }
-        StopGame();
-        GameController.Instance.LoseGame();
     }
 }
 
