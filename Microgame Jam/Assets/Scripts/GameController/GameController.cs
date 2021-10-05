@@ -164,8 +164,6 @@ public abstract class GameController : Singleton<GameController>
 
     void TearDownController(bool win)
     {
-        //stop the game timer
-        timerOn = false;
 
         if (gameCanEnd)
         {
@@ -188,13 +186,21 @@ public abstract class GameController : Singleton<GameController>
 
     void ConcludeGame(bool win)
     {
-        timerSet = false;
-        //Reset the maxTimer, in case it was set:
-        maxTime = 20.0f;
-        TearDownController(win);
-        gameDifficulty = Mathf.Clamp(1 + ((gameWins - 1) / 5), 1, 3);
-        Debug.Log("New difficulty: " + gameDifficulty);
-        LevelTransition(win);
+        // Quick fix to make sure ConcludeGame can't be called multiple times.
+        // If the timer is on, then we're going to set the timer to be off next.
+        if (timerOn)
+        {
+            //stop the game timer
+            timerOn = false;
+
+            timerSet = false;
+            //Reset the maxTimer, in case it was set:
+            maxTime = 20.0f;
+            TearDownController(win);
+            gameDifficulty = Mathf.Clamp(1 + ((gameWins - 1) / 5), 1, 3);
+            Debug.Log("New difficulty: " + gameDifficulty);
+            LevelTransition(win);
+        }
     }
 
     protected abstract void LevelTransition(bool didWin);

@@ -263,10 +263,10 @@ public class GameControllerRelease : GameController
         // A good thing TODO would be to make a looping transition screen, and to wait until the game has finished loading before
         // starting the animation to transition to the next game.
         if (!gameScene.isLoaded) {
-            Debug.LogError("ERROR WHILE SHOWING GAME: GAME SCENE IS NOT LOADED");
+            Debug.LogError("ERROR WHILE SHOWING GAME: GAME SCENE IS NOT LOADED, BUILD INDEX");
         }
         showGameObjects = true;
-        Debug.Log("Showing " + gameScene.name);
+        Debug.Log("Showing " + gameScene.name + ", build index " + gameScene.buildIndex);
 
         // If gameObjectsToActivate is null, then something has probably been changed about the gameScene, so it's better
         // to just show everything and let whoever's programming worry about it.
@@ -287,7 +287,7 @@ public class GameControllerRelease : GameController
             Debug.LogError("ERROR WHILE SHOWING GAME: GAME SCENE IS NOT LOADED");
         }
 
-        Debug.Log("Unpausing " + gameScene.name);
+        Debug.Log("Unpausing " + gameScene.name + ", build index " + gameScene.buildIndex);
 
         ActivateAllObjectsInScene(transitionScene, false);
         // And now the scene is loaded in, so we can resume time:
