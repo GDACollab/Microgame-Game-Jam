@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BirdFishing_Player : MonoBehaviour
 {
@@ -34,8 +35,11 @@ public class BirdFishing_Player : MonoBehaviour
 
     private void OnTriggerEnter( Collider other )
     {
-        data.OnCaughtBird();
+        if (SceneManager.GetActiveScene().name == "BirdFishing_Scene")
+        {
+            data.OnCaughtBird();
 
-        other.GetComponent<BirdFishing_Bird>().Caught();
+            other.GetComponent<BirdFishing_Bird>().Caught();
+        }
     }
 }
