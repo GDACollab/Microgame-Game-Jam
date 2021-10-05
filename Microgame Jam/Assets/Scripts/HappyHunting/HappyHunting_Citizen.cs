@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HappyHunting_Citizen : MonoBehaviour
 {
@@ -53,15 +54,18 @@ public class HappyHunting_Citizen : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Citizen"))
+        if (SceneManager.GetActiveScene().name == "HappyHunting_Scene")
         {
-            //referencing video for characters bouncing on walls
-            //https://www.youtube.com/watch?v=RoZG5RARGF0
-            float speed = _lastVelocity.magnitude;
-            Vector3 direction = Vector3.Reflect(_lastVelocity.normalized, collision.contacts[0].normal);
+            if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Citizen"))
+            {
+                //referencing video for characters bouncing on walls
+                //https://www.youtube.com/watch?v=RoZG5RARGF0
+                float speed = _lastVelocity.magnitude;
+                Vector3 direction = Vector3.Reflect(_lastVelocity.normalized, collision.contacts[0].normal);
 
-            _rigidBody.velocity = direction * Mathf.Max(speed, 0f);
+                _rigidBody.velocity = direction * Mathf.Max(speed, 0f);
 
+            }
         }
         
     }
