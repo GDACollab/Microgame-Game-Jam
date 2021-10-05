@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Linq;
 
 public class snakeToTheFuture_heistMovement : MonoBehaviour
@@ -26,9 +27,24 @@ public class snakeToTheFuture_heistMovement : MonoBehaviour
         InvokeRepeating("Move", 0.3f, 0.3f);    
     }
 
-    private void OnDisable()
+    private void StopGame()
     {
         CancelInvoke("Move");
+        var scene2 = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
+        var scene3 = SceneManager.GetSceneByName("snakeToTheFuture_3heist");
+        if (scene2.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(scene2);
+        }
+        if (scene3.isLoaded)
+        {
+            SceneManager.UnloadSceneAsync(scene3);
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopGame();
     }
 
     // Update is called once per frame
@@ -129,8 +145,10 @@ public class snakeToTheFuture_heistMovement : MonoBehaviour
             return;
         }
         if (coll.name.StartsWith("snakeToTheFuture_portal2")){
+            StopGame();
             GameController.Instance.WinGame();
         } else {
+            StopGame();
             GameController.Instance.LoseGame();
         }
     }

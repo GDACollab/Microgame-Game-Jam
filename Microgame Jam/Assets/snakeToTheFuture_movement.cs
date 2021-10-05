@@ -29,13 +29,19 @@ public class snakeToTheFuture_movement : MonoBehaviour
 
     private void OnDisable()
     {
+        StopGame();
+    }
+
+    private void StopGame() {
         CancelInvoke("Move");
         var scene2 = SceneManager.GetSceneByName("snakeToTheFuture_2sim");
-        var scene3 = SceneManager.GetSceneByName("snakeToTheFuture_3sim");
-        if (scene2.isLoaded) {
+        var scene3 = SceneManager.GetSceneByName("snakeToTheFuture_3heist");
+        if (scene2.isLoaded)
+        {
             SceneManager.UnloadSceneAsync(scene2);
         }
-        if (scene3.isLoaded) {
+        if (scene3.isLoaded)
+        {
             SceneManager.UnloadSceneAsync(scene3);
         }
     }
@@ -159,6 +165,7 @@ public class snakeToTheFuture_movement : MonoBehaviour
             GetComponent<SpriteRenderer>().enabled = false;
             return;
         }
+        StopGame();
         GameController.Instance.LoseGame();
     }
 }
