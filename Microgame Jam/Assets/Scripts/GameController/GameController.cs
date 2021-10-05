@@ -164,7 +164,8 @@ public abstract class GameController : Singleton<GameController>
 
     void TearDownController(bool win)
     {
-
+        //stop the game timer
+        timerOn = false;
         if (gameCanEnd)
         {
             gameCanEnd = false;
@@ -187,11 +188,8 @@ public abstract class GameController : Singleton<GameController>
     void ConcludeGame(bool win)
     {
         // Quick fix to make sure ConcludeGame can't be called multiple times.
-        // If the timer is on, then we're going to set the timer to be off next.
-        if (timerOn)
+        if (gameCanEnd)
         {
-            //stop the game timer
-            timerOn = false;
 
             timerSet = false;
             //Reset the maxTimer, in case it was set:
