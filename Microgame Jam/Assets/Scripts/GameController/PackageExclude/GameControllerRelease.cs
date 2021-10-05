@@ -262,6 +262,9 @@ public class GameControllerRelease : GameController
         // If that doesn't happen, well, some changes will have to be made to the game that's being loaded.
         // A good thing TODO would be to make a looping transition screen, and to wait until the game has finished loading before
         // starting the animation to transition to the next game.
+        if (!gameScene.isLoaded) {
+            Debug.LogError("ERROR WHILE SHOWING GAME: GAME SCENE IS NOT LOADED");
+        }
         showGameObjects = true;
         Debug.Log("Showing " + gameScene.name);
 
@@ -279,6 +282,11 @@ public class GameControllerRelease : GameController
 
     // Called when it's safe to unpause the game.
     protected void UnpauseGame() {
+        if (!gameScene.isLoaded)
+        {
+            Debug.LogError("ERROR WHILE SHOWING GAME: GAME SCENE IS NOT LOADED");
+        }
+
         Debug.Log("Unpausing " + gameScene.name);
 
         ActivateAllObjectsInScene(transitionScene, false);
