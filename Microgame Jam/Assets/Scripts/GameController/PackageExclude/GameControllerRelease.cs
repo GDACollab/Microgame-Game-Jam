@@ -126,6 +126,13 @@ public class GameControllerRelease : GameController
             }
         }
 
+        if (gameMainCamera == null) {
+            Debug.LogWarning("Could not find main camera in next game scene.");
+        }
+        if (transitionCamera == null) {
+            Debug.LogWarning("Could not find transition camera.");
+        }
+
         // Copy the settings from the game's camera, if we found one:
         if (gameMainCamera != null && transitionCamera != null)
         {
