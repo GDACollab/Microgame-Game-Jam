@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SniperGolf_Goal : MonoBehaviour
 {
@@ -20,9 +21,13 @@ public class SniperGolf_Goal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<SniperGolf_GolfHit>(out SniperGolf_GolfHit ball) && GameController.Instance.timerOn){
-            winSound.Play();
-            GameController.Instance.WinGame();
+        if (SceneManager.GetActiveScene().name == "SniperGolf_Scene")
+        {
+            if (collision.TryGetComponent<SniperGolf_GolfHit>(out SniperGolf_GolfHit ball) && GameController.Instance.timerOn)
+            {
+                winSound.Play();
+                GameController.Instance.WinGame();
+            }
         }
     }
 }
