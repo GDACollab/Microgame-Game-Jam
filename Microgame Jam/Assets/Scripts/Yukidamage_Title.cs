@@ -18,9 +18,13 @@ public class Yukidamage_Title : MonoBehaviour
     
     void Update()
     {
-        rb.velocity = new Vector2(-manager.speed, 0);
-        if(GameController.Instance.gameTime >= lifetime){
-            Destroy(gameObject);
+        if (GameController.Instance.timerOn)
+        {
+            rb.velocity = new Vector2(-manager.speed, 0);
+            if (GameController.Instance.gameTime >= lifetime)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

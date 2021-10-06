@@ -9,11 +9,15 @@ public class Yukidamage_Antagonist : MonoBehaviour {
     [SerializeField] float minSpawnHeight;
     [SerializeField] float maxSpawnHeight;
 
-    // Start is called before the first frame update
-    void Start() {
-        GetComponent<SpriteRenderer>().enabled = false;
+    void OnEnable() {
         antagonistMovement = GetComponent<Rigidbody2D>();
+        GetComponent<SpriteRenderer>().enabled = false;
         antagonistMovement.transform.position = new Vector2(10, Random.Range(minSpawnHeight, maxSpawnHeight));
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame

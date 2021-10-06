@@ -43,9 +43,9 @@ public class Yukidamage_ObstacleSpawner : MonoBehaviour {
         Vector2 spawnLocation = RandomizeLocation();
         bool isTree = (Random.Range(0f, 1f) < 0.5);
         if (isTree) {
-            Instantiate(tree, spawnLocation, Quaternion.identity);
+            Instantiate(tree, spawnLocation, Quaternion.identity, this.transform);
         } else {
-            Instantiate(rock, spawnLocation, Quaternion.identity);
+            Instantiate(rock, spawnLocation, Quaternion.identity, this.transform);
         }
     }
 
@@ -60,7 +60,7 @@ public class Yukidamage_ObstacleSpawner : MonoBehaviour {
     private void SpawnDeath() {
         for (float i = 4.5f; i >= -4.5f; i -= 2f) {
             Vector2 treeLocation = new Vector2(10f, i);
-            Instantiate(rock, treeLocation, Quaternion.identity);
+            Instantiate(rock, treeLocation, Quaternion.identity, this.transform);
         }
     }
 }
