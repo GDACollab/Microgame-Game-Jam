@@ -23,7 +23,7 @@ public class HappyHunting_Crosshair : MonoBehaviour
     private float _timer = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         //gathering citizens and setting the target
         _citizens = GameObject.FindGameObjectsWithTag("Citizen");
