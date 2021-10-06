@@ -222,7 +222,7 @@ public class GameControllerRelease : GameController
 
         // Begin setting the relevant things so that ShowGame and UnpauseGame work as intended.
         // If the game's over, actually go to the end.
-        if (this.gameFails >= this.maxFails)
+        if (this.gameFails >= this.maxFails || (this.isDebug && destinationScene >= SceneManager.sceneCountInBuildSettings))
         {
             // Unload the scene we've just loaded, in case we're going to game over.
             var isUnloading = SceneManager.UnloadSceneAsync(destinationScene);
