@@ -57,7 +57,7 @@ public class ScoreTracker : MonoBehaviour
             livesToDestroy.Add(life);
             life.SetActive(false);
         }
-        if (didLose) {
+        if (didLose && lives > 0) {
             didLose = false;
         }
     }
