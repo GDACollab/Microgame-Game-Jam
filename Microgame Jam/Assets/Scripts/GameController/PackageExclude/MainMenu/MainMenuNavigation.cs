@@ -116,11 +116,8 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void StartGame() {
-        Debug.Log("Start Game");
         // Make sure the canvas for this scene can't be tampered with any further:
         eventSystem.enabled = false;
-
-        Debug.Log("Event system disabled...");
 
         // As soon as we load the next scene, GameController should reset.
         // We do this by .Instance so that we ensure the instance that's created is derived from GameControllerRelease.
