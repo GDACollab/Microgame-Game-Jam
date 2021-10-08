@@ -127,8 +127,7 @@ public class MainMenuNavigation : MonoBehaviour
     public void LoadCredits()
     {
         var credits = SceneManager.LoadSceneAsync("Credits", LoadSceneMode.Additive);
-        SetActiveWhenDone(credits, SceneManager.GetSceneByName("Credits"));
-        SceneManager.UnloadSceneAsync("TitleScreen");
+        StartCoroutine(SetActiveWhenDone(credits, SceneManager.GetSceneByName("Credits")));
     }
 
     IEnumerator SetActiveWhenDone(AsyncOperation op, Scene newScene) {
@@ -137,15 +136,15 @@ public class MainMenuNavigation : MonoBehaviour
             yield return null;
         }
         SceneManager.SetActiveScene(newScene);
+        var currScene = this.gameObject.scene;
+        SceneManager.UnloadSceneAsync(currScene);
     }
 
     public void LoadMainMenu() {
         var controller = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
         controller.ResetPrevGame();
-        var currScene = this.gameObject.scene;
         var load = SceneManager.LoadSceneAsync("TitleScreen", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync(currScene);
-        SetActiveWhenDone(load, SceneManager.GetSceneByName("TitleScreen"));
+        StartCoroutine(SetActiveWhenDone(load, SceneManager.GetSceneByName("TitleScreen")));
     }
 
     public void QuitGame() {
