@@ -63,9 +63,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MeltyMeltyRunRun_PlayScene.unity
     guid: c1a24f709f11b6143822eac4f39cf1c0
   - enabled: 1
-    path: Assets/Scenes/PopstarPoser_Scene.unity
-    guid: f17f5763b418eaa41ad717679ff551fc
-  - enabled: 1
     path: Assets/Scenes/PongJuggle.unity
     guid: 9111dd2b989fc5f4a88612159546295d
   - enabled: 1
@@ -84,9 +81,12 @@ EditorBuildSettings:
     path: Assets/SniperGolf_Scenes/SniperGolf_Scene.unity
     guid: 1207d37e20d366c45b3dd232a0540eef
   - enabled: 1
+    path: Assets/Speedbox_Scenes/SpeedBox_GameScene.unity
+    guid: c09a7866ff783264faf1a6923309e73e
+  - enabled: 1
     path: Assets/Scenes/snakeToTheFuture_1snake.unity
     guid: b52ea4a0dcd287240b9d9d842f41b3b3
   - enabled: 1
-    path: Assets/Speedbox_Scenes/SpeedBox_GameScene.unity
-    guid: c09a7866ff783264faf1a6923309e73e
+    path: Assets/Scenes/PopstarPoser_Scene.unity
+    guid: f17f5763b418eaa41ad717679ff551fc
   m_configObjects: {}

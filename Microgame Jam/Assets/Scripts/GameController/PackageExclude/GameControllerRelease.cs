@@ -24,6 +24,8 @@ public class GameControllerRelease : GameController
 
     public bool isDebug = false;
 
+    bool debugEnding = false;
+
     private Queue<int> previousGames = new Queue<int>();
 
     // The scene that's used to transition between levels.
@@ -168,7 +170,8 @@ public class GameControllerRelease : GameController
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
 
-        if (isDebug) {
+        if (isDebug && !debugEnding)
+        {
             if (this.previousGame < minSceneIndex)
             {
                 nextDestinationScene = minSceneIndex;
@@ -177,11 +180,17 @@ public class GameControllerRelease : GameController
             {
                 nextDestinationScene = this.previousGame + 1;
             }
+
+            if (nextDestinationScene >= SceneManager.sceneCountInBuildSettings)
+            {
+                debugEnding = true;
+                nextDestinationScene = this.minSceneIndex;
+            }
         }
 
         Debug.Log("Loading #" + nextDestinationScene + " next.");
 
-            var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
+        var loading = SceneManager.LoadSceneAsync(nextDestinationScene, LoadSceneMode.Additive);
 
         // Wait until we're done loading to start deactivating stuff.
         while (!loading.isDone)
@@ -222,8 +231,9 @@ public class GameControllerRelease : GameController
 
         // Begin setting the relevant things so that ShowGame and UnpauseGame work as intended.
         // If the game's over, actually go to the end.
-        if (this.gameFails >= this.maxFails || (this.isDebug && destinationScene >= SceneManager.sceneCountInBuildSettings))
+        if (this.gameFails >= this.maxFails || (this.isDebug && debugEnding))
         {
+            debugEnding = false;
             // Unload the scene we've just loaded, in case we're going to game over.
             var isUnloading = SceneManager.UnloadSceneAsync(destinationScene);
             // Since we're currently unloading, we can hide any current game objects:
