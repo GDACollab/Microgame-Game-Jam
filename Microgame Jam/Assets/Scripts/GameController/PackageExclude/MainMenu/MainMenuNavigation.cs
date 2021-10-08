@@ -63,10 +63,12 @@ public class MainMenuNavigation : MonoBehaviour
 
             bool transitionSceneExists = false;
             bool gameOverSceneExists = false;
+            bool nextGameExists = false;
 
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene j = SceneManager.GetSceneAt(i);
+                Debug.Log(j.buildIndex);
                 if (j.buildIndex == transitionSceneIndex)
                 {
                     transitionSceneExists = true;
@@ -74,6 +76,9 @@ public class MainMenuNavigation : MonoBehaviour
                 else if (j.buildIndex == gameOverSceneIndex)
                 {
                     gameOverSceneExists = true;
+                }
+                else if (j.buildIndex >= this.minSceneIndex) {
+                    nextGameExists = true;
                 }
                 if (transitionSceneExists && gameOverSceneExists)
                 {
@@ -92,7 +97,7 @@ public class MainMenuNavigation : MonoBehaviour
                 StartCoroutine(PreloadScene(gameOverSceneIndex));
             }
 
-            if (controllerComponent != null)
+            if (controllerComponent != null && !nextGameExists)
             {
                 // Then, tell the gameController to start the next game.
                 // We want this to be as fast as possible.
@@ -111,9 +116,11 @@ public class MainMenuNavigation : MonoBehaviour
     }
 
     public void StartGame() {
-
+        Debug.Log("Start Game");
         // Make sure the canvas for this scene can't be tampered with any further:
         eventSystem.enabled = false;
+
+        Debug.Log("Event system disabled...");
 
         // As soon as we load the next scene, GameController should reset.
         // We do this by .Instance so that we ensure the instance that's created is derived from GameControllerRelease.
@@ -122,13 +129,26 @@ public class MainMenuNavigation : MonoBehaviour
 
     public void LoadCredits()
     {
-        SceneManager.LoadScene("Credits");
+        var credits = SceneManager.LoadSceneAsync("Credits", LoadSceneMode.Additive);
+        SetActiveWhenDone(credits, SceneManager.GetSceneByName("Credits"));
+        SceneManager.UnloadSceneAsync("TitleScreen");
+    }
+
+    IEnumerator SetActiveWhenDone(AsyncOperation op, Scene newScene) {
+        while (!op.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(newScene);
     }
 
     public void LoadMainMenu() {
         var controller = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
         controller.ResetPrevGame();
-        SceneManager.LoadScene("TitleScreen");
+        var currScene = this.gameObject.scene;
+        var load = SceneManager.LoadSceneAsync("TitleScreen", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync(currScene);
+        SetActiveWhenDone(load, SceneManager.GetSceneByName("TitleScreen"));
     }
 
     public void QuitGame() {

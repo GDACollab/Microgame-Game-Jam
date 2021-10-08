@@ -244,6 +244,9 @@ public class GameControllerRelease : GameController
 
             // And now the next scene is the gameOver scene:
             destinationScene = gameoverSceneIndex;
+
+            // Quick fix to make sure the try again button works:
+            gameCanEnd = true;
         }
 
 
