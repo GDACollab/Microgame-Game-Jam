@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537704130b93f80468064af99526167d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  creditsFile: {fileID: 4900000, guid: 96fc255b8d8e0e24cada398d090cbc3b, type: 3}
+  creditsFile: {fileID: 4900000, guid: 8aa1a1c67f33ef34888eaedad2fe1e08, type: 3}
   creditsObject: {fileID: 3845190152779371545}
   canvasObject: {fileID: 0}
   scrollSpeed: 100

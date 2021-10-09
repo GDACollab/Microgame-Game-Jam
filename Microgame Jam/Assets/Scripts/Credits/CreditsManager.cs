@@ -80,25 +80,25 @@ public class CreditsManager : MonoBehaviour
     void WriteCredits()
     {
         //create text component on creditsObject and set it up properly
-        Text creditsText = creditsObject.AddComponent<Text>();
-        creditsText.font = Resources.GetBuiltinResource(typeof(Font), "Arial.ttf") as Font;
+        Text creditsText = GetComponent<Text>();
         creditsText.text = "";
-        creditsText.fontSize = 30;
-        creditsText.alignment = TextAnchor.UpperCenter;
-        creditsText.verticalOverflow = VerticalWrapMode.Overflow;
+        
 
         //read through creditsList and add entries to the text component
         foreach (List<string> l in creditsList)
         {
+            var first = true;
             foreach(string s in l)
             {
-                creditsText.text += s + "\n";
+                creditsText.text += ((first)? "<b>" : "") +  s + ((first)? "</b>": "") + "\n\n";
+                if (first)
+                {
+                    first = false;
+                }
             }
-            creditsText.text += "\n\n";
+            creditsText.text += "\n\n\n";
         }
-
-        //set position of creditsObject to be just off the screen
-        creditsObject.transform.position = new Vector3(Screen.width * 0.5f, -creditsObject.GetComponent<RectTransform>().rect.height / 2, 0);
+        this.transform.position = new Vector3(this.transform.position.x, -GetComponent<RectTransform>().rect.height / 2, 0);
     }
 
     // Update is called once per frame
