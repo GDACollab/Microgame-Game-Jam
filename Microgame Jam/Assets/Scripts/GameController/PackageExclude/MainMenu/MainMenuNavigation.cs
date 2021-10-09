@@ -86,15 +86,15 @@ public class MainMenuNavigation : MonoBehaviour
                 }
             }
 
-            if (!transitionSceneExists)
-            {
-                StartCoroutine(PreloadScene(transitionSceneIndex));
-            }
-
             if (!gameOverSceneExists)
             {
                 // And make sure to have the gameOverScene in handy, in case anything goes wrong.
                 StartCoroutine(PreloadScene(gameOverSceneIndex));
+            }
+
+            if (!transitionSceneExists)
+            {
+                StartCoroutine(PreloadScene(transitionSceneIndex));
             }
 
             if (controllerComponent != null && !nextGameExists)

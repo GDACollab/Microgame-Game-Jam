@@ -124,7 +124,6 @@ public abstract class GameController : Singleton<GameController>
         gameCanEnd = true;
         //turn on the game timer
         timerOn = true;
-        gameTime = 0.0f;
     }
 
     //Starts the Game Conclusion after the game is won
@@ -190,6 +189,8 @@ public abstract class GameController : Singleton<GameController>
         // Quick fix to make sure ConcludeGame can't be called multiple times.
         if (gameCanEnd)
         {
+            // Reset the gameTime so that weird stuff doesn't happen for games that rely on gameTime intitially:
+            gameTime = 0.0f;
 
             timerSet = false;
             //Reset the maxTimer, in case it was set:

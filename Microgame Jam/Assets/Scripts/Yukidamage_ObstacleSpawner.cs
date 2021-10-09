@@ -29,7 +29,7 @@ public class Yukidamage_ObstacleSpawner : MonoBehaviour {
             timeToSpawn = GameController.Instance.gameTime + RandomizeTime();
             waitingOnSpawn = true;
         }
-        if (GameController.Instance.gameTime >= timeToSpawn && GameController.Instance.gameTime <= manager.timeToSpawnAntagonist - 0.5) {
+        if (GameController.Instance.gameTime >= timeToSpawn && GameController.Instance.gameTime <= manager.timeToSpawnAntagonist - 0.5f) {
             SpawnObstacle();
             waitingOnSpawn = false;
         }
