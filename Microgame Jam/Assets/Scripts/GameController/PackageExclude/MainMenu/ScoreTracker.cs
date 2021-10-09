@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class ScoreTracker : MonoBehaviour
 {
@@ -33,13 +34,6 @@ public class ScoreTracker : MonoBehaviour
 
     protected void SetAnim(GameObject prefab) {
         int lives = GameController.Instance.maxFails - GameController.Instance.gameFails;
-        if (lives == 0)
-        {
-            didLose = true;
-        }
-        else if (didLose) {
-            lives = 0;
-        }
         for (int i = 0; i < liveObjects.Count; i++)
         {
             GameObject life = liveObjects[i];
@@ -56,9 +50,6 @@ public class ScoreTracker : MonoBehaviour
             lives--;
             livesToDestroy.Add(life);
             life.SetActive(false);
-        }
-        if (didLose && lives > 0) {
-            didLose = false;
         }
     }
 

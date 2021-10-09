@@ -198,6 +198,14 @@ public class GameControllerRelease : GameController
             yield return null;
         }
 
+        if (destinationScene == gameoverSceneIndex)
+        {
+            // The game is over, so reset all variables.
+            this.gameWins = 0;
+            this.gameDifficulty = 1;
+            this.gameFails = 0;
+        }
+
         nextGameScene = SceneManager.GetSceneByBuildIndex(nextDestinationScene);
 
         // Hide all the game objects:
@@ -263,16 +271,6 @@ public class GameControllerRelease : GameController
         // NOTE: BECAUSE OF THIS, WHENEVER INTRODUCING DELAYS, YOU MUST USE WaitForSecondsRealtime.
         // The animations for Transition_Screen_Win and Transition_Screen_Lose run on Unscaled Time because of this.
         Time.timeScale = 0;
-
-        // We do this before the scene is loaded, because a player might click the restart button when the scene is loaded, but before
-        // we've reset all variables.
-        if (destinationScene == gameoverSceneIndex)
-        {
-            // The game is over, so reset all variables.
-            this.gameWins = 0;
-            this.gameDifficulty = 0;
-            this.gameFails = 0;
-        }
     }
 
     // Called when it's safe to start loading everything in the game's scene (dictated by animation events from the TransitionScene by Transition_Scene_Win or Transition_Scene_Lose).

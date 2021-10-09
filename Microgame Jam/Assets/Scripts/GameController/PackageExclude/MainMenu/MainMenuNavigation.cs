@@ -68,7 +68,6 @@ public class MainMenuNavigation : MonoBehaviour
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene j = SceneManager.GetSceneAt(i);
-                Debug.Log(j.buildIndex);
                 if (j.buildIndex == transitionSceneIndex)
                 {
                     transitionSceneExists = true;
