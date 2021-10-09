@@ -98,7 +98,7 @@ public class CreditsManager : MonoBehaviour
             }
             creditsText.text += "\n\n\n";
         }
-        this.transform.position = new Vector3(this.transform.position.x, -GetComponent<RectTransform>().rect.height / 2, 0);
+        this.transform.position = new Vector3(this.transform.position.x, -this.transform.localScale.y * GetComponent<RectTransform>().rect.height / 2, 0);
     }
 
     // Update is called once per frame
