@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ChecklistManager : MonoBehaviour
 {
@@ -10,12 +11,45 @@ public class ChecklistManager : MonoBehaviour
     [Tooltip("This should be in order of their scene build order.")]
     public List<string> manualGameNames;
     public GameObject toggleText;
+    public Vector3 baseCheckboxGridPos;
 
     int excludedGamesFlag;
+
+
+
+    public void UpdateFlag(int buildIndex, bool toggle)
+    {
+        if (!toggle)
+        {
+            excludedGamesFlag &= ~GetFlagFromBuildIndex(buildIndex);
+        }
+        else
+        {
+            excludedGamesFlag |= GetFlagFromBuildIndex(buildIndex);
+        }
+
+        PlayerPrefs.SetInt("excludedGames", excludedGamesFlag);
+        SetExcludedGames();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        var checkboxGrid = transform.GetChild(0);
+        baseCheckboxGridPos = checkboxGrid.GetComponent<RectTransform>().anchoredPosition;
+        int i = 0;
+        foreach (string name in manualGameNames) {
+            var checkbox = Instantiate(toggleText, checkboxGrid);
+            checkbox.GetComponentInChildren<Text>().text = name;
+            checkbox.GetComponent<CheckboxToggler>().associatedBuildIndex = i;
+            checkbox.GetComponent<CheckboxToggler>().checkboxCallback.AddListener(UpdateFlag);
+            i++;
+        }
+    }
+
+    public void MoveSlider(Scrollbar slider) {
+        var checkboxGrid = transform.GetChild(0).GetComponent<RectTransform>();
+        checkboxGrid.anchoredPosition = baseCheckboxGridPos + new Vector3(0, slider.value * 500, 0);
     }
 
     public void GetFlags() {
@@ -38,19 +72,6 @@ public class ChecklistManager : MonoBehaviour
 
     private int GetFlagFromBuildIndex(int buildIndex) {
         return 1 << (buildIndex - mainMenu.minSceneIndex);
-    }
-
-    public void UpdateFlag(int buildIndex, bool remove) {
-        if (remove)
-        {
-            excludedGamesFlag &= ~GetFlagFromBuildIndex(buildIndex);
-        }
-        else {
-            excludedGamesFlag |= GetFlagFromBuildIndex(buildIndex);
-        }
-
-        PlayerPrefs.SetInt("excludedGames", excludedGamesFlag);
-        SetExcludedGames();
     }
 
     // Should be called on menu exit:

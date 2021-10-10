@@ -31,7 +31,7 @@ public class MainMenuNavigation : MonoBehaviour
 
     public UnityEngine.EventSystems.EventSystem eventSystem;
 
-    GameControllerRelease controllerComponent;
+    GameControllerRelease controllerComponent = null;
 
     // Start is called before the first frame update
     void OnEnable()
@@ -40,6 +40,7 @@ public class MainMenuNavigation : MonoBehaviour
         // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
         if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
         {
+            controllerComponent = null;
             // Make sure GameController is set up:
             if (FindObjectsOfType(typeof(GameController)).Length == 0)
             {
@@ -54,6 +55,8 @@ public class MainMenuNavigation : MonoBehaviour
 
                 // And the scene for transitions:
                 controllerComponent.transitionSceneIndex = transitionSceneIndex;
+
+                controllerComponent.excludedGames = new List<int>();
 
                 controllerComponent.isDebug = isDebug;
             }

@@ -588,18 +588,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!156049354 &188231228
-Grid:
+--- !u!114 &188231228
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188231226}
   m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: -19
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 115.57, y: 18.95}
+  m_Spacing: {x: 0, y: 5.77}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &203709575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1421,6 +1433,7 @@ MonoBehaviour:
   - Warp Speed
   - Yukidamage
   toggleText: {fileID: 1942198692144848503, guid: beca0fb8e13e93c44ad4ca68cc039ba7, type: 3}
+  baseCheckboxGridPos: {x: 0, y: 0, z: 0}
 --- !u!224 &709572585 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7006401143563385027, guid: 0c28398bad8c67c48a26efd091f499bc, type: 3}
@@ -2384,7 +2397,19 @@ MonoBehaviour:
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 666866935}
+        m_TargetAssemblyTypeName: ChecklistManager, Assembly-CSharp
+        m_MethodName: MoveSlider
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1654189245}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Scrollbar, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1654189246
 MonoBehaviour:
   m_ObjectHideFlags: 0

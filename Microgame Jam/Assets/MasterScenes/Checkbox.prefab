@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1942198692144848456}
   - component: {fileID: 1942198692144848457}
+  - component: {fileID: 1684278169501255631}
   m_Layer: 5
   m_Name: Checkbox
   m_TagString: Untagged
@@ -86,6 +87,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &1684278169501255631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942198692144848503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25c199d87e906424ebb0fda6e05edbcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  associatedBuildIndex: 0
 --- !u!1 &1942198692826261132
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,8 +210,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -8, y: 0.19999981}
-  m_SizeDelta: {x: 346.2651, y: 64.0461}
+  m_AnchoredPosition: {x: 28.1, y: 0.19999981}
+  m_SizeDelta: {x: 543.1, y: 64.0461}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1942198693458457265
 CanvasRenderer:
@@ -238,7 +252,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: Toggle
 --- !u!1 &1942198693828524435
