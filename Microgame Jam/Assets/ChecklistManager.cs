@@ -19,7 +19,7 @@ public class ChecklistManager : MonoBehaviour
 
     public void UpdateFlag(int buildIndex, bool toggle)
     {
-        if (!toggle)
+        if (toggle)
         {
             excludedGamesFlag &= ~GetFlagFromBuildIndex(buildIndex);
         }
@@ -27,7 +27,6 @@ public class ChecklistManager : MonoBehaviour
         {
             excludedGamesFlag |= GetFlagFromBuildIndex(buildIndex);
         }
-
         PlayerPrefs.SetInt("excludedGames", excludedGamesFlag);
         SetExcludedGames();
     }
@@ -35,6 +34,7 @@ public class ChecklistManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GetFlags();
         var checkboxGrid = transform.GetChild(0).GetChild(0);
         baseCheckboxGridPos = checkboxGrid.GetComponent<RectTransform>().anchoredPosition;
         int i = 0;
@@ -43,7 +43,7 @@ public class ChecklistManager : MonoBehaviour
             checkbox.GetComponentInChildren<Text>().text = name;
             checkbox.GetComponent<CheckboxToggler>().associatedBuildIndex = i;
             checkbox.GetComponent<CheckboxToggler>().checkboxCallback.AddListener(UpdateFlag);
-            checkbox.GetComponent<Toggle>().isOn = ((excludedGamesFlag >> i) & 1) == 0;
+            checkbox.GetComponent<Toggle>().isOn = (((excludedGamesFlag >> i) & 1) == 0);
             i++;
         }
     }
@@ -76,7 +76,7 @@ public class ChecklistManager : MonoBehaviour
     }
 
     private int GetFlagFromBuildIndex(int buildIndex) {
-        return 1 << (buildIndex - mainMenu.minSceneIndex);
+        return 1 << buildIndex;
     }
 
     // Should be called on menu exit:
@@ -85,7 +85,7 @@ public class ChecklistManager : MonoBehaviour
         for (int i = 0; i < SceneManager.sceneCountInBuildSettings - mainMenu.minSceneIndex; i++) {
             var flag = excludedGamesFlag >> i;
             if ((flag & 1) == 1) {
-                gamesToExclude.Add(i);
+                gamesToExclude.Add(i + mainMenu.minSceneIndex);
             }
         }
         mainMenu.OnExcludedGamesUpdate(gamesToExclude);
