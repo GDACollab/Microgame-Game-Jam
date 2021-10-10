@@ -31,6 +31,8 @@ public class MainMenuNavigation : MonoBehaviour
 
     public UnityEngine.EventSystems.EventSystem eventSystem;
 
+    GameControllerRelease controllerComponent;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -38,7 +40,6 @@ public class MainMenuNavigation : MonoBehaviour
         // Only do this if there's only one MainMenuNavigation up (to prevent this code from being run multiple times):
         if (FindObjectsOfType(typeof(MainMenuNavigation)).Length <= 1)
         {
-            GameControllerRelease controllerComponent = null;
             // Make sure GameController is set up:
             if (FindObjectsOfType(typeof(GameController)).Length == 0)
             {
@@ -103,6 +104,10 @@ public class MainMenuNavigation : MonoBehaviour
                 StartCoroutine(controllerComponent.GetNextGame(ThreadPriority.High));
             }
         }
+    }
+
+    public void OnExcludedGamesUpdate(List<int> excludedGames) {
+        controllerComponent.excludedGames = excludedGames;
     }
 
     IEnumerator PreloadScene(int index) {

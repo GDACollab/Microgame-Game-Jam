@@ -24,6 +24,10 @@ public class GameControllerRelease : GameController
 
     public bool isDebug = false;
 
+    // List of games to exclude from play.
+    // Set by MainMenuController.cs, in turn set by ChecklistManager.cs
+    public List<int> excludedGames;
+
     bool debugEnding = false;
 
     private Queue<int> previousGames = new Queue<int>();
@@ -165,7 +169,7 @@ public class GameControllerRelease : GameController
         }
 
         // This can be called while we're currently in the gameOverSceneIndex, so if that's the case, we want to make sure we don't select gameOverSceneIndex as the next game.
-        while (previousGames.Contains(nextDestinationScene) || nextDestinationScene == gameoverSceneIndex)
+        while (previousGames.Contains(nextDestinationScene) || excludedGames.Contains(nextDestinationScene) || nextDestinationScene == gameoverSceneIndex)
         {
             nextDestinationScene = Random.Range(this.minSceneIndex, SceneManager.sceneCountInBuildSettings);
         }
