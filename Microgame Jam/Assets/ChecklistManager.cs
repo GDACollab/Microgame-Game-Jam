@@ -50,7 +50,7 @@ public class ChecklistManager : MonoBehaviour
 
     public void MoveSlider(Scrollbar slider) {
         var checkboxGrid = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
-        checkboxGrid.anchoredPosition = baseCheckboxGridPos + new Vector3(0, slider.value * 459, 0);
+        checkboxGrid.anchoredPosition = baseCheckboxGridPos + new Vector3(0, slider.value * 682, 0);
     }
 
     public void CloseMenu() {
