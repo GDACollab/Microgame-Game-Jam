@@ -35,7 +35,7 @@ public class ChecklistManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var checkboxGrid = transform.GetChild(0);
+        var checkboxGrid = transform.GetChild(0).GetChild(0);
         baseCheckboxGridPos = checkboxGrid.GetComponent<RectTransform>().anchoredPosition;
         int i = 0;
         foreach (string name in manualGameNames) {
@@ -43,13 +43,18 @@ public class ChecklistManager : MonoBehaviour
             checkbox.GetComponentInChildren<Text>().text = name;
             checkbox.GetComponent<CheckboxToggler>().associatedBuildIndex = i;
             checkbox.GetComponent<CheckboxToggler>().checkboxCallback.AddListener(UpdateFlag);
+            checkbox.GetComponent<Toggle>().isOn = ((excludedGamesFlag >> i) & 1) == 0;
             i++;
         }
     }
 
     public void MoveSlider(Scrollbar slider) {
-        var checkboxGrid = transform.GetChild(0).GetComponent<RectTransform>();
-        checkboxGrid.anchoredPosition = baseCheckboxGridPos + new Vector3(0, slider.value * 500, 0);
+        var checkboxGrid = transform.GetChild(0).GetChild(0).GetComponent<RectTransform>();
+        checkboxGrid.anchoredPosition = baseCheckboxGridPos + new Vector3(0, slider.value * 459, 0);
+    }
+
+    public void CloseMenu() {
+        gameObject.SetActive(false);
     }
 
     public void GetFlags() {

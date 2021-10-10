@@ -29,6 +29,8 @@ public class MainMenuNavigation : MonoBehaviour
 
     public bool isDebug = false;
 
+    public ChecklistManager checklistManager;
+
     public UnityEngine.EventSystems.EventSystem eventSystem;
 
     GameControllerRelease controllerComponent = null;
@@ -56,7 +58,9 @@ public class MainMenuNavigation : MonoBehaviour
                 // And the scene for transitions:
                 controllerComponent.transitionSceneIndex = transitionSceneIndex;
 
-                controllerComponent.excludedGames = new List<int>();
+                // Make sure the checklistManager is all set up:
+                checklistManager.GetFlags();
+                checklistManager.SetExcludedGames();
 
                 controllerComponent.isDebug = isDebug;
             }
@@ -107,6 +111,10 @@ public class MainMenuNavigation : MonoBehaviour
                 StartCoroutine(controllerComponent.GetNextGame(ThreadPriority.High));
             }
         }
+    }
+
+    public void ShowGameList() {
+        checklistManager.gameObject.SetActive(true);
     }
 
     public void OnExcludedGamesUpdate(List<int> excludedGames) {
