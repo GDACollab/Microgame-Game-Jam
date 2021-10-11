@@ -1619,6 +1619,7 @@ MonoBehaviour:
   - Yukidamage
   toggleText: {fileID: 1942198692144848503, guid: beca0fb8e13e93c44ad4ca68cc039ba7, type: 3}
   baseCheckboxGridPos: {x: 0, y: 0, z: 0}
+  scrollbar: {fileID: 1654189245}
 --- !u!224 &709572585 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7006401143563385027, guid: 0c28398bad8c67c48a26efd091f499bc, type: 3}

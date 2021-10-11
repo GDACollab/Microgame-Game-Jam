@@ -14,6 +14,7 @@ public class ChecklistManager : MonoBehaviour
     public GameObject toggleText;
     public Vector3 baseCheckboxGridPos;
     public Dictionary<int, Toggle> activeToggles;
+    public Scrollbar scrollbar;
 
     int excludedGamesFlag;
 
@@ -23,7 +24,7 @@ public class ChecklistManager : MonoBehaviour
     {
         var checkboxGrid = transform.GetChild(0).GetChild(0);
         var currToggle = checkboxGrid.GetChild(buildIndex).GetComponent<Toggle>();
-        if (activeToggles.Count > 2)
+        if (activeToggles.Count > 2 && toggle == false)
         {
             if (toggle)
             {
@@ -110,6 +111,7 @@ public class ChecklistManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        scrollbar.value -= Input.GetAxis("Mouse ScrollWheel");
+        scrollbar.value = Mathf.Clamp(scrollbar.value, 0, 1);
     }
 }
