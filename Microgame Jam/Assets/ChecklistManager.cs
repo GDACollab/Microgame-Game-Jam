@@ -24,7 +24,7 @@ public class ChecklistManager : MonoBehaviour
     {
         var checkboxGrid = transform.GetChild(0).GetChild(0);
         var currToggle = checkboxGrid.GetChild(buildIndex).GetComponent<Toggle>();
-        if (activeToggles.Count > 2 || toggle == true)
+        if (activeToggles.Count > 2 || (toggle == true && !activeToggles.ContainsKey(buildIndex)))
         {
             if (toggle)
             {
@@ -71,6 +71,8 @@ public class ChecklistManager : MonoBehaviour
     }
 
     public void CloseMenu() {
+        // We need to now reload the current scene:
+        mainMenu.GetNewGame();
         gameObject.SetActive(false);
     }
 
@@ -90,6 +92,8 @@ public class ChecklistManager : MonoBehaviour
             PlayerPrefs.SetInt("excludedGames", excludedGamesFlag);
             
         }
+        // Make sure main menu has a list of everything we currently have:
+        SetExcludedGames();
     }
 
     private int GetFlagFromBuildIndex(int buildIndex) {

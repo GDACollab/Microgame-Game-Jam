@@ -95,6 +95,16 @@ public class GameControllerRelease : GameController
 
     }
 
+    public IEnumerator RefreshGameScene() {
+        if (excludedGames.Contains(nextDestinationScene)) {
+            var unloading = SceneManager.UnloadSceneAsync(nextDestinationScene);
+            while (!unloading.isDone) {
+                yield return null;
+            }
+            StartCoroutine(GetNextGame(ThreadPriority.High));
+        }
+    }
+
     IEnumerator LoadTransitionScene(bool didWin) {
         // The transition scene should have already been loaded by MainMenuNavigation.cs.
         // We need to get a reference to the transitionScene if we haven't already:

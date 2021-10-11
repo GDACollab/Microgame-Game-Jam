@@ -130,6 +130,10 @@ public class MainMenuNavigation : MonoBehaviour
         GameController.ActivateAllObjectsInScene(SceneManager.GetSceneByBuildIndex(index), false);
     }
 
+    public void GetNewGame() {
+        StartCoroutine(controllerComponent.RefreshGameScene());
+    }
+
     public void StartGame() {
         // Make sure the canvas for this scene can't be tampered with any further:
         eventSystem.enabled = false;
