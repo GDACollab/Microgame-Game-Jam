@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class ChecklistManager : MonoBehaviour
     public List<string> manualGameNames;
     public GameObject toggleText;
     public Vector3 baseCheckboxGridPos;
+    public Dictionary<int, Toggle> activeToggles;
 
     int excludedGamesFlag;
 
@@ -19,21 +21,32 @@ public class ChecklistManager : MonoBehaviour
 
     public void UpdateFlag(int buildIndex, bool toggle)
     {
-        if (toggle)
+        var checkboxGrid = transform.GetChild(0).GetChild(0);
+        var currToggle = checkboxGrid.GetChild(buildIndex).GetComponent<Toggle>();
+        if (activeToggles.Count > 2)
         {
-            excludedGamesFlag &= ~GetFlagFromBuildIndex(buildIndex);
+            if (toggle)
+            {
+                excludedGamesFlag &= ~GetFlagFromBuildIndex(buildIndex);
+                activeToggles.Add(buildIndex, currToggle);
+            }
+            else
+            {
+                excludedGamesFlag |= GetFlagFromBuildIndex(buildIndex);
+                activeToggles.Remove(buildIndex);
+            }
+            PlayerPrefs.SetInt("excludedGames", excludedGamesFlag);
+            SetExcludedGames();
         }
-        else
-        {
-            excludedGamesFlag |= GetFlagFromBuildIndex(buildIndex);
+        else {
+            currToggle.isOn = true;
         }
-        PlayerPrefs.SetInt("excludedGames", excludedGamesFlag);
-        SetExcludedGames();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        activeToggles = new Dictionary<int, Toggle>();
         GetFlags();
         var checkboxGrid = transform.GetChild(0).GetChild(0);
         baseCheckboxGridPos = checkboxGrid.GetComponent<RectTransform>().anchoredPosition;
@@ -44,6 +57,9 @@ public class ChecklistManager : MonoBehaviour
             checkbox.GetComponent<CheckboxToggler>().associatedBuildIndex = i;
             checkbox.GetComponent<CheckboxToggler>().checkboxCallback.AddListener(UpdateFlag);
             checkbox.GetComponent<Toggle>().isOn = (((excludedGamesFlag >> i) & 1) == 0);
+            if (checkbox.GetComponent<Toggle>().isOn) {
+                activeToggles.Add(i, checkbox.GetComponent<Toggle>());
+            }
             i++;
         }
     }
