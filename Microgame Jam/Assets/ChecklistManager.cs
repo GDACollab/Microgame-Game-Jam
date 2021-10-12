@@ -24,7 +24,7 @@ public class ChecklistManager : MonoBehaviour
     {
         var checkboxGrid = transform.GetChild(0).GetChild(0);
         var currToggle = checkboxGrid.GetChild(buildIndex).GetComponent<Toggle>();
-        if (activeToggles.Count > 2 || (toggle == true && !activeToggles.ContainsKey(buildIndex)))
+        if (activeToggles.Count > 4 || (toggle == true && !activeToggles.ContainsKey(buildIndex)))
         {
             if (toggle)
             {
