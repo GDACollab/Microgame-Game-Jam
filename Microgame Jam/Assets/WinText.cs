@@ -14,23 +14,23 @@ public class WinText : MonoBehaviour
         {
             text += "\nWow!";
         }
-        else if (wins <= 20)
+        else if (wins > 10 && wins <= 20)
         {
             text += "\nAmazing!";
         }
-        else if (wins <= 30)
+        else if (wins > 20 && wins <= 30)
         {
             text += "\nFantastic!";
         }
-        else if (wins <= 50)
+        else if (wins > 30 && wins <= 50)
         {
             text += "\nI don't believe it!";
         }
-        else if (wins <= 70)
+        else if (wins > 50 && wins <= 70)
         {
             text += "\nI don't believe it! No, seriously. I don't believe it. What did you <b>do</b>?";
         }
-        else if (wins <= 100)
+        else if (wins > 70 && wins <= 100)
         {
             text += "\nLet's call this a win for everyone. Now go. Leave. Be free!";
         }
