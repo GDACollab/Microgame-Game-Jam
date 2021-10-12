@@ -78,8 +78,7 @@ public class GameControllerRelease : GameController
 
         // We make sure the queue remains at a fixed size once it reaches capacity. A game should not be played until a player has already
         // played gameCoveragePercentage% of all available games.
-        Debug.Log(Mathf.Clamp((SceneManager.sceneCountInBuildSettings - minSceneIndex - excludedGames.Count) * gameCoveragePercentage, 0, maxQueueLength));;
-        if (previousGames.Count > Mathf.Clamp((SceneManager.sceneCountInBuildSettings - minSceneIndex - excludedGames.Count) * gameCoveragePercentage, 0, maxQueueLength))
+        if (previousGames.Count >= Mathf.Clamp((SceneManager.sceneCountInBuildSettings - minSceneIndex - excludedGames.Count) * gameCoveragePercentage, 1, maxQueueLength))
         {
             previousGames.Dequeue();
         }
