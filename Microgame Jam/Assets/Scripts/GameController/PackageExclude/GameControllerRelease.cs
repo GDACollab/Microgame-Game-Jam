@@ -98,10 +98,10 @@ public class GameControllerRelease : GameController
     public IEnumerator RefreshGameScene() {
         if (excludedGames.Contains(nextDestinationScene)) {
             var unloading = SceneManager.UnloadSceneAsync(nextDestinationScene);
+            StartCoroutine(GetNextGame(ThreadPriority.High));
             while (!unloading.isDone) {
                 yield return null;
             }
-            StartCoroutine(GetNextGame(ThreadPriority.High));
         }
     }
 

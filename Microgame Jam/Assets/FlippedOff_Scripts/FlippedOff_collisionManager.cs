@@ -27,7 +27,6 @@ public class FlippedOff_collisionManager : MonoBehaviour
     void Start()
     {
         playerCol = gameObject.GetComponent<BoxCollider>();
-        Debug.Log(GameController.Instance.gameDifficulty);
 
         //face = Transform.Find("Plane")
     }

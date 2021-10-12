@@ -60,7 +60,6 @@ public class MainMenuNavigation : MonoBehaviour
 
                 // Make sure the checklistManager is all set up:
                 checklistManager.GetFlags();
-                checklistManager.SetExcludedGames();
 
                 controllerComponent.isDebug = isDebug;
             }
@@ -117,10 +116,6 @@ public class MainMenuNavigation : MonoBehaviour
         checklistManager.gameObject.SetActive(true);
     }
 
-    public void OnExcludedGamesUpdate(List<int> excludedGames) {
-        controllerComponent.excludedGames = excludedGames;
-    }
-
     IEnumerator PreloadScene(int index) {
         var loading = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
         while (!loading.isDone) {
@@ -128,10 +123,6 @@ public class MainMenuNavigation : MonoBehaviour
         }
         // This method is static, so we can call it when we need to:
         GameController.ActivateAllObjectsInScene(SceneManager.GetSceneByBuildIndex(index), false);
-    }
-
-    public void GetNewGame() {
-        StartCoroutine(controllerComponent.RefreshGameScene());
     }
 
     public void StartGame() {

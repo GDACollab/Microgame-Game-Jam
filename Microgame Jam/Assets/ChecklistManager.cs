@@ -72,7 +72,8 @@ public class ChecklistManager : MonoBehaviour
 
     public void CloseMenu() {
         // We need to now reload the current scene:
-        mainMenu.GetNewGame();
+        var controller = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
+        StartCoroutine(controller.RefreshGameScene());
         gameObject.SetActive(false);
     }
 
@@ -109,7 +110,10 @@ public class ChecklistManager : MonoBehaviour
                 gamesToExclude.Add(i + mainMenu.minSceneIndex);
             }
         }
-        mainMenu.OnExcludedGamesUpdate(gamesToExclude);
+        if (FindObjectsOfType(typeof(GameController)).Length >= 1) {
+            var controller = (GameControllerRelease)FindObjectOfType(typeof(GameControllerRelease));
+            controller.excludedGames = gamesToExclude;
+        }
     }
 
     // Update is called once per frame
