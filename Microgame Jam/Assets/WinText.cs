@@ -10,29 +10,29 @@ public class WinText : MonoBehaviour
     {
         var wins = GameController.Instance.gameWins;
         var text = "You won " + wins + " times!";
-        if (wins >= 10)
+        if (wins >= 9 && wins <= 10)
         {
             text += "\nWow!";
         }
-        else if (wins >= 20)
+        else if (wins <= 20)
         {
             text += "\nAmazing!";
         }
-        else if (wins >= 30)
+        else if (wins <= 30)
         {
             text += "\nFantastic!";
         }
-        else if (wins >= 50)
+        else if (wins <= 50)
         {
             text += "\nI don't believe it!";
         }
-        else if (wins >= 70)
+        else if (wins <= 70)
         {
             text += "\nI don't believe it! No, seriously. I don't believe it. What did you <b>do</b>?";
         }
-        else if (wins >= 100)
+        else if (wins <= 100)
         {
-            text += "\nLet's call this a win for everyone. Now get out of here!";
+            text += "\nLet's call this a win for everyone. Now go. Leave. Be free!";
         }
         GetComponent<Text>().text = text;
         transform.GetChild(0).GetComponent<Text>().text = text;
